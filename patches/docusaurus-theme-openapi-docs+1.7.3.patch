@@ -1,0 +1,439 @@
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Curl/index.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Curl/index.js
+index 6732aa9..b979e07 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Curl/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Curl/index.js
+@@ -180,6 +180,8 @@ function Curl({ postman, codeSamples }) {
+         server,
+         auth,
+       });
++      console.log('postmanRequest', postmanRequest)
++
+       codegen.convert(
+         language.language,
+         language.variant,
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
+index 1693eaa..86c9b82 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
+@@ -38,7 +38,10 @@ async function makeRequest(request, proxy, _body) {
+   if (headers) {
+     headers.forEach((header) => {
+       if (header.key && header.value) {
+-        myHeaders.append(header.key, header.value);
++        // myHeaders.append(header.key, header.value);
++        if (header.value !== "multipart/form-data") {
++          myHeaders.append(header.key, header.value);
++        }
+       }
+     });
+   }
+@@ -115,6 +118,9 @@ async function makeRequest(request, proxy, _body) {
+   // }
+ 
+   const body = request.body?.toJSON();
++  console.log('request.body', request.body);
++  console.log('body ', body);
++
+   let myBody = undefined;
+   if (body !== undefined && Object.keys(body).length > 0) {
+     switch (body.mode) {
+@@ -137,8 +143,14 @@ async function makeRequest(request, proxy, _body) {
+         myBody = new FormData();
+         if (Array.isArray(body.formdata)) {
+           for (const data of body.formdata) {
++            console.log('data', data)
+             if (data.key && data.value) {
+-              myBody.append(data.key, data.value);
++              let value = data.value
++              if (data.key === 'files') {
++                let response = await fetch(value.content.preview)
++                value = await response.blob()
++              }
++              myBody.append(data.key, value);
+             }
+           }
+         }
+@@ -165,7 +177,7 @@ async function makeRequest(request, proxy, _body) {
+     let normalizedProxy = proxy.replace(/\/$/, "") + "/";
+     finalUrl = normalizedProxy + request.url.toString();
+   }
+-  return await fetchWithtimeout(finalUrl, requestOptions).then((response) => {
++  return await fetch(finalUrl, requestOptions).then((response) => {
+     return response.text();
+   });
+ }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
+index d9ddd20..8b02b66 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
+@@ -70,18 +70,22 @@ function buildCookie(cookieParams) {
+ }
+ function setHeaders(postman, contentType, accept, cookie, headerParams, other) {
+   postman.headers.clear();
++
+   if (contentType) {
+     postman.addHeader({
+       key: "Content-Type",
+       value: contentType,
+     });
+   }
+-  if (accept) {
+-    postman.addHeader({
+-      key: "Accept",
+-      value: accept,
+-    });
+-  }
++  // if (contentType && contentType !== 'multipart/form-data') {
++  //   postman.addHeader({ key: "Content-Type", value: contentType });
++  // }
++  // if (accept) {
++  //   postman.addHeader({
++  //     key: "Accept",
++  //     value: accept,
++  //   });
++  // }
+   headerParams.forEach((param) => {
+     if (param.value && !Array.isArray(param.value)) {
+       postman.addHeader({
+@@ -139,17 +143,21 @@ function setBody(clonedPostman, body) {
+       const params = Object.entries(body.content)
+         .filter((entry) => !!entry[1])
+         .map(([key, content]) => {
+-          if (content.type === "file") {
+-            return new sdk.FormParam({
+-              key: key,
+-              ...content,
+-            });
+-          }
++          // if (content.type === "file") {
++          //   return new sdk.FormParam({
++          //     key: key,
++          //     value: content.value,
++          //     ...content,
++          //   });
++          // }
++          console.log(content);
+           return new sdk.FormParam({
+             key: key,
+             value: content.value,
++            src: content.value.src
+           });
+         });
++
+       clonedPostman.body.formdata?.assimilate(params, false);
+       return;
+     }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js
+index 25b1b0f..35c5878 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js
+@@ -27,12 +27,16 @@ export const createStoreWithState = (preloadedState, middlewares) =>
+     reducer: rootReducer,
+     preloadedState,
+     middleware: (getDefaultMiddleware) =>
+-      getDefaultMiddleware().concat(...middlewares),
++      getDefaultMiddleware({
++        serializableCheck: false
++      }).concat(...middlewares),
+   });
+ export const createStoreWithoutState = (preloadedState, middlewares) =>
+   configureStore({
+     reducer: rootReducer,
+     preloadedState,
+     middleware: (getDefaultMiddleware) =>
+-      getDefaultMiddleware().concat(...middlewares),
++      getDefaultMiddleware({
++        serializableCheck: false
++      }).concat(...middlewares),
+   });
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Curl/index.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Curl/index.js
+index 5bfb317..5e81a03 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Curl/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Curl/index.js
+@@ -180,6 +180,8 @@ function Curl({
+         server,
+         auth
+       });
++      console.log('postmanRequest', postmanRequest)
++
+       _postmanCodeGenerators.default.convert(language.language, language.variant, postmanRequest, language.options, (error, snippet) => {
+         if (error) {
+           return;
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
+index d0ea10a..033e3cb 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
+@@ -40,7 +40,10 @@ async function makeRequest(request, proxy, _body) {
+   if (headers) {
+     headers.forEach(header => {
+       if (header.key && header.value) {
+-        myHeaders.append(header.key, header.value);
++        // myHeaders.append(header.key, header.value);
++        if (header.value !== "multipart/form-data") {
++          myHeaders.append(header.key, header.value);
++        }
+       }
+     });
+   }
+@@ -117,6 +120,9 @@ async function makeRequest(request, proxy, _body) {
+   // }
+ 
+   const body = (_request$body = request.body) === null || _request$body === void 0 ? void 0 : _request$body.toJSON();
++  console.log('request.body', request.body);
++  console.log('body ', body);
++
+   let myBody = undefined;
+   if (body !== undefined && Object.keys(body).length > 0) {
+     switch (body.mode) {
+@@ -143,8 +149,14 @@ async function makeRequest(request, proxy, _body) {
+           myBody = new FormData();
+           if (Array.isArray(body.formdata)) {
+             for (const data of body.formdata) {
++              console.log('data', data)
+               if (data.key && data.value) {
+-                myBody.append(data.key, data.value);
++                let value = data.value
++                if (data.key === 'files') {
++                  let response = await fetch(value.content.preview)
++                  value = await response.blob()
++                }
++                myBody.append(data.key, value);
+               }
+             }
+           }
+@@ -173,7 +185,7 @@ async function makeRequest(request, proxy, _body) {
+     let normalizedProxy = proxy.replace(/\/$/, "") + "/";
+     finalUrl = normalizedProxy + request.url.toString();
+   }
+-  return await fetchWithtimeout(finalUrl, requestOptions).then(response => {
++  return await fetch(finalUrl, requestOptions).then(response => {
+     return response.text();
+   });
+ }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
+index dbc3679..5fef158 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
+@@ -79,12 +79,15 @@ function setHeaders(postman, contentType, accept, cookie, headerParams, other) {
+       value: contentType
+     });
+   }
+-  if (accept) {
+-    postman.addHeader({
+-      key: "Accept",
+-      value: accept
+-    });
+-  }
++  // if (contentType && contentType !== 'multipart/form-data') {
++  //   postman.addHeader({ key: "Content-Type", value: contentType });
++  // }
++  // if (accept) {
++  //   postman.addHeader({
++  //     key: "Accept",
++  //     value: accept
++  //   });
++  // }
+   headerParams.forEach(param => {
+     if (param.value && !Array.isArray(param.value)) {
+       postman.addHeader({
+@@ -146,15 +149,19 @@ function setBody(clonedPostman, body) {
+           return;
+         }
+         const params = Object.entries(body.content).filter(entry => !!entry[1]).map(([key, content]) => {
+-          if (content.type === "file") {
+-            return new _postmanCollection.default.FormParam({
+-              key: key,
+-              ...content
+-            });
+-          }
++          // if (content.type === "file") {
++            // return new _postmanCollection.default.FormParam({
++            //   key: key,
++            //   value: content.value,
++            //   ...content
++            // });
++            // return new sdk.FormParam({ key: key, ...content });
++          // }
++          console.log(content)
+           return new _postmanCollection.default.FormParam({
+             key: key,
+-            value: content.value
++            value: content.value,
++            src: content.value.src
+           });
+         });
+         (_clonedPostman$body$f2 = clonedPostman.body.formdata) === null || _clonedPostman$body$f2 === void 0 ? void 0 : _clonedPostman$body$f2.assimilate(params, false);
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js
+index 52fdc29..05556a6 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js
+@@ -32,12 +32,12 @@ const rootReducer = (0, _toolkit.combineReducers)({
+ const createStoreWithState = (preloadedState, middlewares) => (0, _toolkit.configureStore)({
+   reducer: rootReducer,
+   preloadedState,
+-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(...middlewares)
++  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(...middlewares)
+ });
+ exports.createStoreWithState = createStoreWithState;
+ const createStoreWithoutState = (preloadedState, middlewares) => (0, _toolkit.configureStore)({
+   reducer: rootReducer,
+   preloadedState,
+-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(...middlewares)
++  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }).concat(...middlewares)
+ });
+ exports.createStoreWithoutState = createStoreWithoutState;
+\ No newline at end of file
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Curl/index.tsx b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Curl/index.tsx
+index eafaa89..ad04ffa 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Curl/index.tsx
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Curl/index.tsx
+@@ -144,7 +144,6 @@ function Curl({ postman, codeSamples }: Props) {
+   // TODO: match theme for vscode.
+ 
+   const { siteConfig } = useDocusaurusContext();
+-
+   const contentType = useTypedSelector((state: any) => state.contentType.value);
+   const accept = useTypedSelector((state: any) => state.accept.value);
+   const server = useTypedSelector((state: any) => state.server.value);
+@@ -241,6 +240,8 @@ function Curl({ postman, codeSamples }: Props) {
+         auth,
+       });
+ 
++      console.log('postmanRequest', postmanRequest)
++
+       codegen.convert(
+         mergedLanguage.language,
+         mergedLanguage.variant,
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/index.tsx b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/index.tsx
+index 36bf4f0..2161716 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/index.tsx
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/index.tsx
+@@ -138,7 +138,7 @@ function Execute({ postman, proxy }: Props) {
+           Send API Request
+         </button>
+         <Modal
+-          isOpen={modalIsOpen}
++          isOpen={modalIsOpen}มิอ แจีัะเดกแหปผงใฝใม 
+           onRequestClose={closeModal}
+           style={customStyles}
+           contentLabel="Terms of Use"
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
+index ed991be..8dbc401 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
+@@ -55,7 +55,10 @@ async function makeRequest(
+   if (headers) {
+     headers.forEach((header: any) => {
+       if (header.key && header.value) {
+-        myHeaders.append(header.key, header.value);
++        // myHeaders.append(header.key, header.value);
++        if (header.value !== "multipart/form-data") {
++          myHeaders.append(header.key, header.value);
++        }
+       }
+     });
+   }
+@@ -132,6 +135,8 @@ async function makeRequest(
+   // }
+ 
+   const body = request.body?.toJSON();
++  console.log('request.body', request.body);
++  console.log('body', body)
+ 
+   let myBody: RequestInit["body"] = undefined;
+   if (body !== undefined && Object.keys(body).length > 0) {
+@@ -155,8 +160,14 @@ async function makeRequest(
+         myBody = new FormData();
+         if (Array.isArray(body.formdata)) {
+           for (const data of body.formdata) {
++            console.log('data', data)
+             if (data.key && data.value) {
+-              myBody.append(data.key, data.value);
++              let value = data.value
++              if (data.key === 'files') {
++                let response = await fetch(value.content.preview)
++                value = await response.blob()
++              }
++              myBody.append(data.key, value);
+             }
+           }
+         }
+@@ -186,7 +197,7 @@ async function makeRequest(
+     finalUrl = normalizedProxy + request.url.toString();
+   }
+ 
+-  return await fetchWithtimeout(finalUrl, requestOptions).then(
++  return await fetch(finalUrl, requestOptions).then(
+     (response: any) => {
+       return response.text();
+     }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
+index 7fda844..1a2f9dd 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
+@@ -95,12 +95,19 @@ function setHeaders(
+   other: { key: string; value: string }[]
+ ) {
+   postman.headers.clear();
++
+   if (contentType) {
+-    postman.addHeader({ key: "Content-Type", value: contentType });
+-  }
+-  if (accept) {
+-    postman.addHeader({ key: "Accept", value: accept });
++    postman.addHeader({
++      key: "Content-Type",
++      value: contentType,
++    });
+   }
++  // if (contentType && contentType !== 'multipart/form-data') {
++  //   postman.addHeader({ key: "Content-Type", value: contentType });
++  // }
++  // if (accept) {
++  //   postman.addHeader({ key: "Accept", value: accept });
++  // }
+   headerParams.forEach((param) => {
+     if (param.value && !Array.isArray(param.value)) {
+       postman.addHeader({ key: param.name, value: param.value });
+@@ -155,10 +162,11 @@ function setBody(clonedPostman: sdk.Request, body: Body) {
+       const params = Object.entries(body.content)
+         .filter((entry): entry is [string, NonNullable<Content>] => !!entry[1])
+         .map(([key, content]) => {
+-          if (content.type === "file") {
+-            return new sdk.FormParam({ key: key, ...content });
+-          }
+-          return new sdk.FormParam({ key: key, value: content.value });
++          // if (content.type === "file") {
++          //   return new sdk.FormParam({ key: key, value: content.value });
++          // }
++          console.log(content);
++          return new sdk.FormParam({ key: key, value: content.value, src: content.value.src });
+         });
+       clonedPostman.body.formdata?.assimilate(params, false);
+       return;
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts
+index a2a822c..f97c68f 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts
+@@ -34,7 +34,9 @@ export const createStoreWithState = (
+     reducer: rootReducer,
+     preloadedState,
+     middleware: (getDefaultMiddleware) =>
+-      getDefaultMiddleware().concat(...middlewares),
++      getDefaultMiddleware({
++        serializableCheck: false
++      }).concat(...middlewares),
+   });
+ 
+ export const createStoreWithoutState = (
+@@ -45,7 +47,9 @@ export const createStoreWithoutState = (
+     reducer: rootReducer,
+     preloadedState,
+     middleware: (getDefaultMiddleware) =>
+-      getDefaultMiddleware().concat(...middlewares),
++      getDefaultMiddleware({
++        serializableCheck: false
++      }).concat(...middlewares),
+   });
+ 
+ export type AppDispatch = ReturnType<typeof createStoreWithState>["dispatch"];
