@@ -6,7 +6,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
+  title: "VISAI API Documentation",
   tagline: "Dinosaurs are cool",
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/",
@@ -62,20 +62,20 @@ const config = {
           src: "img/logo.svg",
         },
         items: [
-          { to: "/blog", label: "Blog", position: "left" },
-          {
-            label: "Petstore API",
-            position: "left",
-            to: "/docs/ai-marketplace",
-          },
+          // { to: "/blog", label: "Blog", position: "left" },
           {
             label: "AI Marketplace",
             position: "left",
-            to: "/ai-marketplace",
+            to: "/docs/ai-marketplace",
           },
+          // {
+          //   label: "AI Marketplace",
+          //   position: "left",
+          //   to: "/ai-marketplace",
+          // },
           {
-            href: "https://github.com/facebook/docusaurus",
-            label: "GitHub",
+            href: "https://console.visai.ai/",
+            label: "Console",
             position: "right",
           },
         ],

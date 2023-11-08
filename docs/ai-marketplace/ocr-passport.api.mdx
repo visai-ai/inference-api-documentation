@@ -37,22 +37,46 @@ api:
                             "type": "object",
                             "properties":
                               {
-                                "image_size":
-                                  {
-                                    "type": "array",
-                                    "description": "Size of the image or document",
-                                    "items": { "type": "integer" },
-                                  },
-                                "results":
-                                  {
-                                    "type": "array",
-                                    "description": "Coordinate x, y of text box",
-                                    "items": { "type": "string" },
-                                  },
-                                "texts":
+                                "status":
                                   {
                                     "type": "string",
-                                    "description": "The extracted text in each box",
+                                    "description": "Status of request",
+                                  },
+                                "data":
+                                  {
+                                    "type": "object",
+                                    "properties":
+                                      {
+                                        "confidence":
+                                          {
+                                            "type": "number",
+                                            "description": "Confidence value",
+                                          },
+                                        "fields":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "name": { "type": "string" },
+                                                "surname": { "type": "string" },
+                                                "date_of_birth":
+                                                  { "type": "string" },
+                                                "gender": { "type": "string" },
+                                                "country_code":
+                                                  { "type": "string" },
+                                                "country_name":
+                                                  { "type": "string" },
+                                                "identification_number":
+                                                  { "type": "string" },
+                                                "passport_number":
+                                                  { "type": "string" },
+                                                "passport_type":
+                                                  { "type": "string" },
+                                                "date_of_expiry":
+                                                  { "type": "string" },
+                                              },
+                                          },
+                                      },
                                   },
                               },
                           },
@@ -106,7 +130,7 @@ api:
           },
       },
     "postman": {
-        "name": "OCR Inference",
+        "name": "OCR Passport Inference",
         # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
         "method": "POST",
         "body":

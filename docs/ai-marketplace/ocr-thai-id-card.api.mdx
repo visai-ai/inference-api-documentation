@@ -44,22 +44,357 @@ api:
                             "type": "object",
                             "properties":
                               {
-                                "image_size":
-                                  {
-                                    "type": "array",
-                                    "description": "Size of the image or document",
-                                    "items": { "type": "integer" },
-                                  },
-                                "results":
-                                  {
-                                    "type": "array",
-                                    "description": "Coordinate x, y of text box",
-                                    "items": { "type": "string" },
-                                  },
-                                "texts":
+                                "status":
                                   {
                                     "type": "string",
-                                    "description": "The extracted text in each box",
+                                    "description": "Status of request",
+                                  },
+                                "data":
+                                  {
+                                    "type": "object",
+                                    "properties":
+                                      {
+                                        "face":
+                                          {
+                                            "type": "string",
+                                            "description": "The base64 string of the extracted face on the ID Card.",
+                                          },
+                                        "rotation":
+                                          {
+                                            "type": "number",
+                                            "description": "The rotation degree required for the image in case that the image isn’t 0 degree straight.",
+                                          },
+                                        "process_time":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "det": { "type": "number" },
+                                                "postprecess":
+                                                  { "type": "number" },
+                                                "rec": { "type": "number" },
+                                              },
+                                          },
+                                        "postprocess_fields":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "address":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "district":
+                                                          { "type": "string" },
+                                                        "subdistrict":
+                                                          { "type": "string" },
+                                                        "province":
+                                                          { "type": "string" },
+                                                        "road":
+                                                          { "type": "string" },
+                                                        "soi":
+                                                          { "type": "string" },
+                                                        "moo":
+                                                          { "type": "string" },
+                                                        "homenum":
+                                                          { "type": "string" },
+                                                        "province_id":
+                                                          { "type": "string" },
+                                                        "district_id":
+                                                          { "type": "string" },
+                                                        "subdistrict_id":
+                                                          { "type": "string" },
+                                                        "province_en":
+                                                          { "type": "string" },
+                                                        "district_en":
+                                                          { "type": "string" },
+                                                        "subdistrict_en":
+                                                          { "type": "string" },
+                                                        "postal_code":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "person":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "title_th":
+                                                          { "type": "string" },
+                                                        "th_fname":
+                                                          { "type": "string" },
+                                                        "th_lname":
+                                                          { "type": "string" },
+                                                        "title_en":
+                                                          { "type": "string" },
+                                                        "en_fname":
+                                                          { "type": "string" },
+                                                        "en_lname":
+                                                          { "type": "string" },
+                                                        "gender":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                              },
+                                          },
+                                        "fields":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "serial_id":
+                                                  { "type": "string" },
+                                                "idnum":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "en_fname":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "en_lname":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "th_name":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "religion":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "address_1":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "address_2":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "dob_th":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "dob_en":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "doi_en":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "doi_th":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "doe_en":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                                "doe_th":
+                                                  {
+                                                    "type": "object",
+                                                    "properties":
+                                                      {
+                                                        "bbox":
+                                                          {
+                                                            "type": "array",
+                                                            "description": "4-pixel coordinate x, y of text box.",
+                                                          },
+                                                        "confidence":
+                                                          {
+                                                            "type": "number",
+                                                            "description": "Confidence value",
+                                                          },
+                                                        "texts":
+                                                          { "type": "string" },
+                                                      },
+                                                  },
+                                              },
+                                          },
+                                      },
                                   },
                               },
                           },
@@ -113,7 +448,7 @@ api:
           },
       },
     "postman": {
-        "name": "OCR Inference",
+        "name": "OCR Thai ID Card Inference",
         # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
         "method": "POST",
         "body":
@@ -1151,7 +1486,336 @@ import TabItem from "@theme/TabItem";
               >
                 <ResponseSamples
                   responseExample={
-                    ``
+                    `[
+  {
+    "status":"success",
+    "data":{
+      "fields":{
+        "idnum":{
+          "text":"1 1234 12345 123",
+          "bbox":[
+              [
+                  605.0,
+                  145.0
+              ],
+              [
+                  1007.0,
+                  141.0
+              ],
+              [
+                  1007.0,
+                  176.0
+              ],
+              [
+                  605.0,
+                  180.0
+              ]
+          ],
+          "confidence":0.9734817743301392
+        },
+        "en_fname":{
+          "text":"MR. VISAI",
+          "bbox":[
+              [
+                  550.0,
+                  294.0
+              ],
+              [
+                  860.0,
+                  290.0
+              ],
+              [
+                  860.0,
+                  325.0
+              ],
+              [
+                  550.0,
+                  329.0
+              ]
+          ],
+          "confidence":0.9999943375587463
+        },
+        "en_lname":{
+          "bbox":[
+              [
+                  624.0,
+                  351.0
+              ],
+              [
+                  853.0,
+                  351.0
+              ],
+              [
+                  853.0,
+                  387.0
+              ],
+              [
+                  624.0,
+                  387.0
+              ]
+          ],
+          "text":"AI",
+          "confidence":0.9999997615814209
+        },
+        "th_name":{
+          "text":"นาย วิสัย เอไอ",
+          "bbox":[
+              [
+                  399.0,
+                  207.0
+              ],
+              [
+                  963.0,
+                  201.0
+              ],
+              [
+                  963.0,
+                  286.0
+              ],
+              [
+                  399.0,
+                  291.0
+              ]
+          ],
+          "confidence":0.9995716214179993
+        },
+        "religion":{
+          "text":"พุทธ",
+          "bbox":[
+              [
+                  574.0,
+                  509.0
+              ],
+              [
+                  653.0,
+                  509.0
+              ],
+              [
+                  653.0,
+                  576.0
+              ],
+              [
+                  574.0,
+                  576.0
+              ]
+          ],
+          "confidence":0.9999948740005493
+        },
+        "address_1":{
+          "text":"สำนักงานสาขากรุงเทพฯ ชั้น 2 สำนักงานส่งเสริมเศรษฐกิจดิจิทัล เลขที่ 80 ซอย 4",
+          "bbox":[
+              [
+                  243.0,
+                  563.0
+              ],
+              [
+                  760.0,
+                  555.0
+              ],
+              [
+                  761.0,
+                  617.0
+              ],
+              [
+                  244.0,
+                  625.0
+              ]
+          ],
+          "confidence":0.9855800867080688
+        },
+        "address_2":{
+          "text":"จ.กรุงเทพมหานคร",
+          "bbox":[
+              [
+                  167.0,
+                  618.0
+              ],
+              [
+                  380.0,
+                  612.0
+              ],
+              [
+                  381.0,
+                  671.0
+              ],
+              [
+                  168.0,
+                  677.0
+              ]
+          ],
+          "confidence":0.9999896883964539
+        },
+        "dob_th":{
+          "text":"1 ม.ค. 2540",
+          "bbox":[
+              [
+                  603.0,
+                  413.0
+              ],
+              [
+                  825.0,
+                  411.0
+              ],
+              [
+                  825.0,
+                  442.0
+              ],
+              [
+                  603.0,
+                  445.0
+              ]
+          ],
+          "confidence":0.9974698424339294
+        },
+        "dob_en":{
+          "text":"1 jun 1997",
+          "bbox":[
+              [
+                  676.0,
+                  464.0
+              ],
+              [
+                  898.0,
+                  460.0
+              ],
+              [
+                  899.0,
+                  499.0
+              ],
+              [
+                  677.0,
+                  503.0
+              ]
+          ],
+          "confidence":0.9972938895225525
+        },
+        "doi_th":{
+          "text":"1 มิ.ย. 2566",
+          "bbox":[
+              [
+                  166.0,
+                  677.0
+              ],
+              [
+                  347.0,
+                  673.0
+              ],
+              [
+                  347.0,
+                  711.0
+              ],
+              [
+                  167.0,
+                  715.0
+              ]
+          ],
+          "confidence":0.9529930353164673
+        },
+        "doi_en":{
+          "text":"1 Jun 2066",
+          "bbox":[
+              [
+                  168.0,
+                  765.0
+              ],
+              [
+                  353.0,
+                  760.0
+              ],
+              [
+                  353.0,
+                  787.0
+              ],
+              [
+                  169.0,
+                  793.0
+              ]
+          ],
+          "confidence":0.9979603290557861
+        },
+        "doe_th":{
+          "text":"1 ก.ค. 2569",
+          "bbox":[
+              [
+                  748.0,
+                  680.0
+              ],
+              [
+                  910.0,
+                  680.0
+              ],
+              [
+                  910.0,
+                  707.0
+              ],
+              [
+                  748.0,
+                  707.0
+              ]
+          ],
+          "confidence":0.9901662468910217
+        },
+        "doe_en":{
+          "text":"1 Jul 2026",
+          "bbox":[
+              [
+                  748.0,
+                  757.0
+              ],
+              [
+                  909.0,
+                  755.0
+              ],
+              [
+                  909.0,
+                  781.0
+              ],
+              [
+                  748.0,
+                  784.0
+              ]
+          ],
+          "confidence":0.9957935214042664
+        },
+        "serial_id":null
+      },
+      "postprocess_fields":{
+        "address":{
+          "district":"จตุจักร",
+          "subdistrict":"จอมพล",
+          "province":"กรุงเทพมหานคร",
+          "road":"ลาดพร้าว",
+          "soi": "4",
+          "moo": null,
+          "homenum":"80",
+          "province_id":"1",
+          "district_id":"1030",
+          "subdistrict_id":"103001",
+          "province_en":"Bangkok",
+          "district_en":"Chatuchak",
+          "subdistrict_en":"Chomphon",
+          "postal_code":"10900"
+        },
+        "person":{
+          "title_th":"นาย",
+          "th_fname":"วิสัย",
+          "th_lname":"เอไอ",
+          "title_en":"MR.",
+          "en_fname":"Visai",
+          "en_lname":"AI",
+          "gender":"MALE"
+        }
+      },
+      "face":"{Base64}",
+      "rotation":0,
+      "process_time":{
+        "det":0.17454886436462402,
+        "rec":0.17695307731628418,
+        "postprocess":0.02270984649658203
+      }
+    }
+  }
+]`
                   }
                   language={"json"}
                 ></ResponseSamples>
@@ -1588,7 +2252,155 @@ import TabItem from "@theme/TabItem";
               >
                 <ResponseSamples
                   responseExample={
-                    ``
+                    `[
+  {
+    "status": "success",
+    "data": {
+      "fields": {
+        "bora": {
+            "text": "BORA-XXX",
+            "bbox": [
+                [
+                    12,
+                    12
+                ],
+                [
+                    83,
+                    11
+                ],
+                [
+                    83,
+                    19
+                ],
+                [
+                    12,
+                    20
+                ]
+            ],
+            "confidence": 0.9963048696517944
+        },
+        "card_serial": {
+            "text": "MEX-XXX",
+            "bbox": [
+                [
+                    97,
+                    108
+                ],
+                [
+                    188,
+                    106
+                ],
+                [
+                    188,
+                    117
+                ],
+                [
+                    97,
+                    119
+                ]
+            ],
+            "confidence": 0.8158378005027771
+        }
+      },
+      "items": [
+        {
+            "bbox": [
+                [
+                    12,
+                    12
+                ],
+                [
+                    83,
+                    11
+                ],
+                [
+                    83,
+                    19
+                ],
+                [
+                    12,
+                    20
+                ]
+            ],
+            "text": "BORA-XXX",
+            "confidence": 0.9963048696517944
+        },
+        {
+            "bbox": [
+                [
+                    219,
+                    58
+                ],
+                [
+                    255,
+                    58
+                ],
+                [
+                    255,
+                    67
+                ],
+                [
+                    219,
+                    66
+                ]
+            ],
+            "text": "ประเทศไทย",
+            "confidence": 0.990344762802124
+        },
+        {
+            "bbox": [
+                [
+                    221,
+                    89
+                ],
+                [
+                    255,
+                    89
+                ],
+                [
+                    255,
+                    96
+                ],
+                [
+                    221,
+                    96
+                ]
+            ],
+            "text": "THAILAND",
+            "confidence": 0.998401403427124
+        },
+        {
+            "bbox": [
+                [
+                    97,
+                    108
+                ],
+                [
+                    188,
+                    106
+                ],
+                [
+                    188,
+                    117
+                ],
+                [
+                    97,
+                    119
+                ]
+            ],
+            "text": "MEX-XXX",
+            "confidence": 0.8158378005027771
+        }
+      ],
+      "rotation": 0,
+      "process_time": {
+        "det": 0.07232975959777832,
+        "rec": 0.02337956428527832,
+        "postprocess": 0.0003590583801269531
+      }
+    }
+  }
+]`
                   }
                   language={"json"}
                 ></ResponseSamples>
