@@ -6,8 +6,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "VISAI",
-  tagline: "Inference API Documentation",
+  title: "VISAI API Documentation",
+  tagline: "AI Cloud Platform",
   url: "https://console.visai.ai/",
   baseUrl: "/",
   onBrokenLinks: "throw",
