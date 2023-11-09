@@ -8,14 +8,14 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "VISAI API Documentation",
   tagline: "AI Cloud Platform",
-  baseUrl: "/",
+  baseUrl: "/visai-inference-api-documentation/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
 
   url: "https://visai-inference-api-documentation.github.io",
   organizationName: "visai-ai", // Usually your GitHub org/user name.
-  projectName: "visai-inference-api-documentation.github.io", // Usually your repo name.
+  projectName: "visai-inference-api-documentation", // Usually your repo name.
   deploymentBranch: "main",
   presets: [
     [
