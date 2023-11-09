@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvisai_inference_api_documentation=self.webpackChunkvisai_inference_api_documentation||[]).push([[1670],{53077:e=>{e.exports=JSON.parse('{"label":"docusaurus","permalink":"/inference-api-documentation/blog/tags/docusaurus","allTagsPath":"/inference-api-documentation/blog/tags","count":4}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvisai_inference_api_documentation=self.webpackChunkvisai_inference_api_documentation||[]).push([[467],{16274:e=>{e.exports=JSON.parse('{"permalink":"/inference-api-documentation/blog/tags/hello","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
