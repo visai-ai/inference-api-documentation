@@ -6,6 +6,40 @@
 }
 
 .featureSvg {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
+}
+
+.featuresLink {
+  text-decoration-line: none !important;
+}
+
+.rowContainer {
+  justify-content: center;
+  gap: 1.50rem;
+}
+
+.cardContainer {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  /* border: 1px solid #EAECF0; */
+  padding: 1.25rem !important;
+}
+
+.cardContainer:hover {
+  background: #F9F5FF;
+}
+
+.cardDetail {
+  margin-top: 1rem;
+}
+
+.title {
+  margin-top: 1rem;
+  color: #101828 !important;
+}
+
+.paragraph {
+  margin: 0px;
+  color: #344054 !important;
 }

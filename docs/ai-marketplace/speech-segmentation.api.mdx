@@ -1,0 +1,365 @@
+---
+id: speech-segmentation
+title: "Speech Segmentation - AI Marketplace"
+description: ""
+sidebar_label: "Speech Segmentation"
+hide_title: true
+hide_table_of_contents: true
+api:
+  {
+    "tags": ["ai-marketplace"],
+    "description": "",
+    "operationId": "speechSegmentaionInfer",
+    "parameters":
+      [
+        {
+          "name": "X-API-Key",
+          "in": "header",
+          "description": "Your API key",
+          "required": true,
+          "schema": { "type": "string" },
+        },
+      ],
+    "responses":
+      {
+        "200":
+          {
+            "description": "successful operation",
+            "content":
+              {
+                "application/json":
+                  {
+                    "schema":
+                      {
+                        "type": "object",
+                        "properties":
+                          {
+                            "status":
+                              {
+                                "type": "string",
+                                "description": "Status of request",
+                              },
+                            "data":
+                              {
+                                "type": "array",
+                                "items":
+                                  {
+                                    "type": "object",
+                                    "properties":
+                                      {
+                                        "filename":
+                                          {
+                                            "type": "string",
+                                            "description": "File name",
+                                          },
+                                        "interval":
+                                          {
+                                            "type": "array",
+                                            "description": "List of interval time of speech and non-speech segments",
+                                            "items":
+                                              {
+                                                "type": "object",
+                                                "properties":
+                                                  {
+                                                    "start":
+                                                      {
+                                                        "type": "string",
+                                                        "description": "Start time in HH:mm:ss.sss format",
+                                                      },
+                                                    "end":
+                                                      {
+                                                        "type": "string",
+                                                        "description": "End time in HH:mm:ss.sss format",
+                                                      },
+                                                    "label":
+                                                      {
+                                                        "type": "string",
+                                                        "description": "speech | non-speech",
+                                                      },
+                                                  },
+                                              },
+                                          },
+                                      },
+                                  },
+                              },
+                          },
+                        "title": "ApiResponse",
+                      },
+                  },
+              },
+          },
+      },
+    "requestBody":
+      {
+        "content":
+          {
+            "multipart/form-data":
+              {
+                "schema":
+                  {
+                    "type": "object",
+                    "properties":
+                      {
+                        "files":
+                          {
+                            "type": "string",
+                            "format": "binary",
+                            "description": "Audio file ('.wav', '.mp3', '.ogg', and etc.)",
+                          },
+                      },
+                    "required": ["files"],
+                  },
+              },
+          },
+      },
+    "method": "post",
+    "path": "/predict",
+    "servers":
+      [
+        {
+          "url": "https://speechsegmentation.infer.visai.ai/predict",
+          "description": "Default server",
+        },
+      ],
+    "securitySchemes":
+      {
+        "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
+      },
+    "postman": {
+        "name": "Speech to Text Inference",
+        # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
+        "method": "POST",
+        "body":
+          {
+            "mode": "formdata",
+            "formdata": [{ "key": "files", "value": "file", "type": "file" }],
+          },
+      },
+  }
+sidebar_class_name: "post api-method"
+# info_path: docs/petstore/swagger-petstore-yaml
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import TabItem from "@theme/TabItem";
+
+## Speech Segmentation API
+
+<details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
+  <summary style={{}}>
+    <strong>Header</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "X-API-Key",
+          in: "header",
+          description: "Your API key",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+    </ul>
+  </div>
+</details>
+<MimeTabs>
+  <TabItem label={"multipart/form-data"} value={"multipart/form-data-schema"}>
+    <details style={{}} data-collapsed={false} open={true}>
+      <summary style={{ textAlign: "left" }}>
+        <strong>Request Body</strong><br/>
+      </summary>
+      <div style={{ textAlign: "left", marginLeft: "1rem" }}></div>
+      <ul style={{ marginLeft: "1rem" }}>
+        <li>
+          <div>
+            <strong>files</strong>
+            <span style={{ opacity: "0.6" }}> File</span>
+            <span
+              style={{
+                color: "#FA383E",
+                marginLeft: "0.25rem",
+                fontWeight: "700",
+              }}
+            >
+              required
+            </span>
+          </div>
+        </li>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs>
+<div>
+  <ApiTabs>
+    <TabItem label={"200"} value={"200"}>
+      {/* <div>successful operation</div> */}
+      <div>
+        <MimeTabs schemaType={"response"}>
+          <TabItem label={"application/json"} value={"application/json"}>
+            <SchemaTabs>
+              <TabItem label={"Schema"} value={"Schema"}>
+                 <details style={{}} data-collapsed={false} open={true}>
+                  <summary style={{}}>
+                    <span style={{ opacity: "0.6" }}> object</span>
+                  </summary>
+                  <div style={{ marginLeft: "1rem" }}>
+                    <SchemaItem
+                      collapsible={false}
+                      name={"status"}
+                      required={false}
+                      schemaName={"string"}
+                      qualifierMessage={
+                        "`success` | `failed`"
+                      }
+                      schema={{
+                        description: "Status of request",
+                        title: "status",
+                      }}
+                    ></SchemaItem>
+                    <SchemaItem
+                      collapsible={false}
+                      className={"schemaItem"}
+                    >
+                      <details style={{}} data-collapsed={false} open={true}>
+                        <summary style={{}}>
+                          <strong>data</strong>
+                          <span style={{ opacity: "0.6" }}> Array [</span>
+                        </summary>
+                        <div style={{ marginLeft: "1rem" }}>
+                          <SchemaItem
+                            collapsible={false}
+                            name={"filename"}
+                            required={false}
+                            schemaName={"string"}
+                            schema={{
+                              description: "File name",
+                              title: "filename",
+                            }}
+                          ></SchemaItem>
+                           <SchemaItem
+                            collapsible={false}
+                            className={"schemaItem"}
+                          >
+                            <details style={{}} data-collapsed={false} open={true}>
+                              <summary style={{}}>
+                                <strong>interval</strong>
+                                <span style={{ opacity: "0.6" }}> object</span>
+                              </summary>
+                              <div style={{ marginLeft: "1rem" }}>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"start"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "Start time in `HH:mm:ss.sss` format",
+                                    title: "start",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"end"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "End time in `HH:mm:ss.sss` format",
+                                    title: "end",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"label"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "`non-speech` | `speech`",
+                                    title: "label",
+                                  }}
+                                ></SchemaItem>
+                              </div>
+                            </details>
+                          </SchemaItem>
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "var(--ifm-code-font-size)",
+                            opacity: "0.6",
+                            marginLeft: "-.5rem",
+                          }}
+                        >
+                          ]
+                        </div>
+                      </details>
+                    </SchemaItem>
+                  </div>
+                </details>
+              </TabItem>
+              <TabItem
+                label={"Example (from schema)"}
+                value={"Example (from schema)"}
+              >
+                <ResponseSamples
+                  responseExample={
+                    `{
+  "status": "success",
+  "data": {
+    "results": [
+      {
+        "filename": "Record.wav",
+        "predictions": [
+          {
+            "speaker": "SPEAKER_00",
+            "transcript": "วิสัย",
+            "start_time": "00:00:01.322",
+            "end_time": "00:00:02.158"
+          },
+          {
+            "speaker": "SPEAKER_00",
+            "transcript": "บริษัทผู้พัฒนาแพลตฟอร์ม",
+            "start_time": "00:00:02.721",
+            "end_time": "00:00:05.145"
+          },
+          {
+            "speaker": "SPEAKER_00",
+            "transcript": "มีเป้าหมายหลักในการเป็นศูนย์กลางการให้บริการ",
+            "start_time": "00:00:05.930",
+            "end_time": "00:00:09.274"
+          },
+          {
+            "speaker": "SPEAKER_00",
+            "transcript": "การทดลองวิจัย",
+            "start_time": "00:00:09.803",
+            "end_time": "00:00:11.203"
+          },
+          {
+            "speaker": "SPEAKER_00",
+            "transcript": "และแลกเปลี่ยนความรู้ด้านปัญญาประดิษฐ์",
+            "start_time": "00:00:12.056",
+            "end_time": "00:00:14.360"
+          }
+        ]
+      }
+    ]
+  }
+}`
+                  }
+                  language={"json"}
+                ></ResponseSamples>
+              </TabItem>
+            </SchemaTabs>
+          </TabItem>
+        </MimeTabs>
+      </div>
+    </TabItem>
+
+  </ApiTabs>
+</div>

@@ -37,11 +37,25 @@ const sidebars = {
       link: {
         type: "generated-index",
         title: "AI Marketplace API",
-        description: "This is a sample server AI Marketplace",
+        description: "Inference API Documentation",
         slug: "/ai-marketplace",
       },
       // @ts-ignore
       items: require("./docs/ai-marketplace/sidebar.js"),
+    },
+  ],
+  customizedAISidebar: [
+    {
+      type: "category",
+      label: "Customized AI",
+      link: {
+        type: "generated-index",
+        title: "Customized AI",
+        description: "Customized Inference API Documentation",
+        slug: "/customized-ai",
+      },
+      // @ts-ignore
+      items: require("./docs/customized-ai/sidebar.js"),
     },
   ],
 

@@ -10,7 +10,8 @@ api:
     "tags": ["ai-marketplace"],
     "description": "",
     "operationId": "ocrIDCardInfer",
-    "parameters": [
+    "parameters":
+      [
         {
           "name": "X-API-Key",
           "in": "header",
@@ -22,7 +23,6 @@ api:
           "name": "side",
           "in": "query",
           "description": "Side of ID card",
-          # "required": undefined,
           "style": "form",
           "schema": { "type": "string", "default": "front" },
         },
@@ -439,13 +439,6 @@ api:
     "securitySchemes":
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
-        "api_key":
-          {
-            "description": "For this sample, you can use the api key `special-key` to test the authorization filters.\n",
-            "type": "apiKey",
-            "name": "api_key",
-            "in": "header",
-          },
       },
     "postman": {
         "name": "OCR Thai ID Card Inference",
@@ -1858,7 +1851,7 @@ import TabItem from "@theme/TabItem";
                           }
                           schema={{
                             description: "Status of request",
-                            title: "image_size",
+                            title: "status",
                           }}
                         ></SchemaItem>
                         <SchemaItem

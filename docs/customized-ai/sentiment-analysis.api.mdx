@@ -1,15 +1,16 @@
 ---
 id: sentiment-analysis
-title: "Sentiment Analysis: Product Review - AI Marketplace"
+title: "Sentiment Analysis - Customized AI"
 description: ""
 sidebar_label: "Sentiment Analysis"
 hide_title: true
 hide_table_of_contents: true
+hide_send_button: true
 api:
   {
-    "tags": ["ai-marketplace"],
+    "tags": ["customized-ai"],
     "description": "",
-    "operationId": "sentimentInfer",
+    "operationId": "sentimentCustomizedInfer",
     "parameters":
       [
         {
@@ -102,7 +103,7 @@ api:
     "servers":
       [
         {
-          "url": "https://sentiment.infer.visai.ai/predict",
+          "url": "https://{api_name}-{api_id}.infer.visai.ai/predict",
           "description": "Default server",
         },
       ],
@@ -137,7 +138,7 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## Sentiment Analysis: Product Review API
+## Sentiment Analysis API
 
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -155,6 +156,36 @@ import TabItem from "@theme/TabItem";
           schema: { type: "string" },
         }}
       ></ParamsItem>
+    </ul>
+  </div>
+</details>
+<details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
+  <summary style={{}}>
+    <strong>Domain Name</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "api_name",
+          in: "header",
+          description: "Deployed API Name",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "api_id",
+          in: "header",
+          description: "Deployed API ID",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+      <div>Get your deployed api in <a href={`https://console.visai.ai/library?tabActive=customized-ai`} target={`_blank`}>Library | Console</a>.</div>
     </ul>
   </div>
 </details>

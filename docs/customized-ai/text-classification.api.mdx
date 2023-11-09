@@ -1,15 +1,16 @@
 ---
 id: text-classification
-title: "Text Classification: Product Review - AI Marketplace"
+title: "Text Classification - AI Marketplace"
 description: ""
 sidebar_label: "Text Classification"
 hide_title: true
 hide_table_of_contents: true
+hide_send_button: true
 api:
   {
-    "tags": ["ai-marketplace"],
+    "tags": ["customized-ai"],
     "description": "",
-    "operationId": "textClassificationInfer",
+    "operationId": "textClassificationCustomizedInfer",
     "parameters":
       [
         {
@@ -60,7 +61,7 @@ api:
                                                     "class_name":
                                                       {
                                                         "type": "string",
-                                                        "description": "Class name about product review (เกี่ยวกับการบริการ, เกี่ยวกับการขนส่ง, เกี่ยวกับราคา, เกี่ยวกับคุณภาพสินค้า)",
+                                                        "description": "Class name from dataset",
                                                       },
                                                     "confidence":
                                                       {
@@ -109,7 +110,7 @@ api:
     "servers":
       [
         {
-          "url": "https://textclass.infer.visai.ai/predict",
+          "url": "https://{api_name}-{api_id}.infer.visai.ai/predict",
           "description": "Default server",
         },
       ],
@@ -144,7 +145,7 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## Text Classification: Product Review API
+## Text Classification API
 
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -162,6 +163,36 @@ import TabItem from "@theme/TabItem";
           schema: { type: "string" },
         }}
       ></ParamsItem>
+    </ul>
+  </div>
+</details>
+<details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
+  <summary style={{}}>
+    <strong>Domain Name</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "api_name",
+          in: "header",
+          description: "Deployed API Name",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "api_id",
+          in: "header",
+          description: "Deployed API ID",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+      <div>Get your deployed api in <a href={`https://console.visai.ai/library?tabActive=customized-ai`} target={`_blank`}>Library | Console</a>.</div>
     </ul>
   </div>
 </details>
@@ -274,7 +305,7 @@ import TabItem from "@theme/TabItem";
                                       qualifierMessage={undefined}
                                       schema={{
                                         type: "string",
-                                        description: "`เกี่ยวกับการบริการ`",
+                                        description: "Class name from dataset",
                                       }}
                                     ></SchemaItem>
                                     <SchemaItem
@@ -285,109 +316,7 @@ import TabItem from "@theme/TabItem";
                                       qualifierMessage={undefined}
                                       schema={{
                                         type: "float",
-                                        description: "Probability `เกี่ยวกับการบริการ` of sentence",
-                                      }}
-                                    ></SchemaItem>
-                                  </div>
-                                </details>
-                              </SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                className={"schemaItem"}
-                              >
-                                <details style={{}} data-collapsed={false} open={true}>
-                                  <summary style={{}}>
-                                    <span style={{ opacity: "0.6" }}> object</span>
-                                  </summary>
-                                  <div style={{ marginLeft: "1rem" }}>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      name={"class_name"}
-                                      required={false}
-                                      schemaName={"string"}
-                                      qualifierMessage={undefined}
-                                      schema={{
-                                        type: "string",
-                                        description: "`เกี่ยวกับการขนส่ง`",
-                                      }}
-                                    ></SchemaItem>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      name={"confidence"}
-                                      required={false}
-                                      schemaName={"float"}
-                                      qualifierMessage={undefined}
-                                      schema={{
-                                        type: "float",
-                                        description: "Probability `เกี่ยวกับการขนส่ง` of sentence",
-                                      }}
-                                    ></SchemaItem>
-                                  </div>
-                                </details>
-                              </SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                className={"schemaItem"}
-                              >
-                                <details style={{}} data-collapsed={false} open={true}>
-                                  <summary style={{}}>
-                                    <span style={{ opacity: "0.6" }}> object</span>
-                                  </summary>
-                                  <div style={{ marginLeft: "1rem" }}>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      name={"class_name"}
-                                      required={false}
-                                      schemaName={"string"}
-                                      qualifierMessage={undefined}
-                                      schema={{
-                                        type: "string",
-                                        description: "`เกี่ยวกับราคา`",
-                                      }}
-                                    ></SchemaItem>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      name={"confidence"}
-                                      required={false}
-                                      schemaName={"float"}
-                                      qualifierMessage={undefined}
-                                      schema={{
-                                        type: "float",
-                                        description: "Probability `เกี่ยวกับราคา` of sentence",
-                                      }}
-                                    ></SchemaItem>
-                                  </div>
-                                </details>
-                              </SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                className={"schemaItem"}
-                              >
-                                <details style={{}} data-collapsed={false} open={true}>
-                                  <summary style={{}}>
-                                    <span style={{ opacity: "0.6" }}> object</span>
-                                  </summary>
-                                  <div style={{ marginLeft: "1rem" }}>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      name={"class_name"}
-                                      required={false}
-                                      schemaName={"string"}
-                                      qualifierMessage={undefined}
-                                      schema={{
-                                        type: "string",
-                                        description: "`เกี่ยวกับคุณภาพสินค้า`",
-                                      }}
-                                    ></SchemaItem>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      name={"confidence"}
-                                      required={false}
-                                      schemaName={"float"}
-                                      qualifierMessage={undefined}
-                                      schema={{
-                                        type: "float",
-                                        description: "Probability `เกี่ยวกับคุณภาพสินค้า` of sentence",
+                                        description: "Probability class of sentence",
                                       }}
                                     ></SchemaItem>
                                   </div>

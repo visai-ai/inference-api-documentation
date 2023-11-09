@@ -1,15 +1,15 @@
 ---
-id: word-tokenization
-title: "Word Tokenization - AI Marketplace"
+id: machine-translation
+title: "Machine Translation - AI Marketplace"
 description: ""
-sidebar_label: "Word Tokenization"
+sidebar_label: "Machine Translation"
 hide_title: true
 hide_table_of_contents: true
 api:
   {
     "tags": ["ai-marketplace"],
     "description": "",
-    "operationId": "wordTokenizationInfer",
+    "operationId": "mtInfer",
     "parameters":
       [
         {
@@ -18,6 +18,22 @@ api:
           "description": "Your API key",
           "required": true,
           "schema": { "type": "string" },
+        },
+        {
+          "name": "sl",
+          "in": "query",
+          "description": "Start langauge (th, en)",
+          "style": "form",
+          "required": true,
+          "schema": { "type": "string", "default": "th" },
+        },
+        {
+          "name": "tl",
+          "in": "query",
+          "description": "Target langauge (en, th)",
+          "style": "form",
+          "required": true,
+          "schema": { "type": "string", "default": "en" },
         },
       ],
     "responses":
@@ -31,14 +47,40 @@ api:
                   {
                     "schema":
                       {
-                        "type": "object",
-                        "properties":
+                        "type": "array",
+                        "items":
                           {
-                            "items": { "type": "string" },
-                            "tokens":
+                            "type": "object",
+                            "properties":
                               {
-                                "type": "array",
-                                "description": "List of words splitted from the sentence",
+                                "inputs":
+                                  {
+                                    "type": "string",
+                                    "description": "Input sentence",
+                                  },
+                                "results":
+                                  {
+                                    "type": "object",
+                                    "description": "Results of predicted probability of each class",
+                                    "properties":
+                                      {
+                                        "Positive":
+                                          {
+                                            "type": "number",
+                                            "description": "Positive predicted probability",
+                                          },
+                                        "Neutral":
+                                          {
+                                            "type": "number",
+                                            "description": "Neutral predicted probability",
+                                          },
+                                        "Negative":
+                                          {
+                                            "type": "number",
+                                            "description": "Neutral predicted probability",
+                                          },
+                                      },
+                                  },
                               },
                           },
                         "title": "ApiResponse",
@@ -70,17 +112,13 @@ api:
           },
         "required": true,
       },
-    "jsonRequestBodyExample":
-      {
-        "inputs":
-          ["วิสัยบริษัทผู้พัฒนาแพลตฟอร์ม", "ก่อตั้งเมื่อกุมภาพันธ์ 2022"],
-      },
+    "jsonRequestBodyExample": { "inputs": ["สวัสดีตอนเช้า"] },
     "method": "post",
     "path": "/predict",
     "servers":
       [
         {
-          "url": "https://wordtokenization.infer.visai.ai/predict",
+          "url": "https://mt.infer.visai.ai/predict",
           "description": "Default server",
         },
       ],
@@ -90,7 +128,7 @@ api:
       },
     "postman":
       {
-        "name": "Word Tokenization Inference",
+        "name": "Machine Translation Inference",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "method": "POST",
         "body":
@@ -115,7 +153,7 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## Word Tokenization API
+## Machine Translation API
 
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -131,6 +169,47 @@ import TabItem from "@theme/TabItem";
           description: "Your API key",
           required: true,
           schema: { type: "string" },
+        }}
+      ></ParamsItem>
+    </ul>
+  </div>
+</details>
+<details
+  style={{ marginBottom: "1rem" }}
+  data-collapsed={false}
+  open={true}
+>
+  <summary style={{}}>
+    <strong>Query Parameters</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "sl",
+          in: "query",
+          description: "Start langauge (th or en)",
+          required: false,
+          style: "form",
+          schema: {
+            type: "string",
+            default: "th",
+          },
+        }}
+      ></ParamsItem>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "tl",
+          in: "query",
+          description: "Target langauge (en or th)",
+          required: false,
+          style: "form",
+          schema: {
+            type: "string",
+            default: "en",
+          },
         }}
       ></ParamsItem>
     </ul>
@@ -202,7 +281,7 @@ import TabItem from "@theme/TabItem";
                     >
                       <details style={{}} data-collapsed={false} open={true}>
                         <summary style={{}}>
-                          <strong>tokens</strong>
+                          <strong>translation</strong>
                           <span style={{ opacity: "0.6" }}> Array [</span>
                         </summary>
                         <div style={{ marginLeft: "1rem" }}>
@@ -214,7 +293,7 @@ import TabItem from "@theme/TabItem";
                             qualifierMessage={undefined}
                             schema={{
                               type: "array",
-                              description: "List of words splitted from the sentence"
+                              description: "List of translated sentence"
                             }}
                           ></SchemaItem>
                         </div>
@@ -239,31 +318,19 @@ import TabItem from "@theme/TabItem";
                 <ResponseSamples
                   responseExample={
                     `{
-  "tokens": [
-    [
-      "วิสัย",
-      "บริษัท",
-      "ผู้พัฒนา",
-      "แพลตฟอร์ม"
-    ],
-    [
-      "ก่อตั้ง",
-      "เมื่อ",
-      "กุมภาพันธ์",
-      " ",
-      "2022"
+    "translation": [
+        "Good morning."
     ]
-  ]
 }`
-}
-language={"json"} ></ResponseSamples>
-
-</TabItem>
-</SchemaTabs>
-</TabItem>
-</MimeTabs>
-</div>
-</TabItem>
+                  }
+                  language={"json"}
+                ></ResponseSamples>
+              </TabItem>
+            </SchemaTabs>
+          </TabItem>
+        </MimeTabs>
+      </div>
+    </TabItem>
 
   </ApiTabs>
 </div>

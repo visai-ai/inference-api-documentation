@@ -8,16 +8,35 @@ module.exports = [
   },
   {
     type: "doc",
+    id: "ai-marketplace/text-classification",
+    label: "Text Classification",
+    className: "api-method post",
+  },
+  {
+    type: "doc",
     id: "ai-marketplace/word-tokenization",
     label: "Word Tokenization",
     className: "api-method post",
   },
   {
     type: "doc",
-    id: "ai-marketplace/text-classification",
-    label: "Text Classification",
+    id: "ai-marketplace/machine-translation",
+    label: "Machine Translation",
     className: "api-method post",
   },
+  {
+    type: "doc",
+    id: "ai-marketplace/speech-segmentation",
+    label: "Speech Segmentation",
+    className: "api-method post",
+  },
+  {
+    type: "doc",
+    id: "ai-marketplace/speech-to-text",
+    label: "Speech to Text",
+    className: "api-method post",
+  },
+
   {
     type: "doc",
     id: "ai-marketplace/ocr-documentation",
@@ -26,14 +45,14 @@ module.exports = [
   },
   {
     type: "doc",
-    id: "ai-marketplace/ocr-passport",
-    label: "OCR Passport",
+    id: "ai-marketplace/ocr-thai-id-card",
+    label: "OCR Thai ID Card",
     className: "api-method post",
   },
   {
     type: "doc",
-    id: "ai-marketplace/ocr-thai-id-card",
-    label: "OCR Thai ID Card",
+    id: "ai-marketplace/ocr-passport",
+    label: "OCR Passport",
     className: "api-method post",
   },
   // {

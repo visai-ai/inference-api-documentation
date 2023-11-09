@@ -6,9 +6,9 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "VISAI API Documentation",
-  tagline: "Dinosaurs are cool",
-  url: "https://your-docusaurus-test-site.com",
+  title: "VISAI",
+  tagline: "Inference API Documentation",
+  url: "https://console.visai.ai/",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -29,16 +29,9 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-          docLayoutComponent: "@theme/DocPage",
-          docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/visai-ai/visai-inference-api-documentation",
+          docLayoutComponent: "@site/src/components/InferenceFeatures",
+          docItemComponent: "@theme/ApiItem",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -56,10 +49,10 @@ const config = {
         },
       },
       navbar: {
-        title: "My Site",
+        title: "API Documentation",
         logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg",
+          alt: "VISAI logo",
+          src: "img/visai_logo.png",
         },
         items: [
           // { to: "/blog", label: "Blog", position: "left" },
@@ -68,11 +61,11 @@ const config = {
             position: "left",
             to: "/docs/ai-marketplace",
           },
-          // {
-          //   label: "AI Marketplace",
-          //   position: "left",
-          //   to: "/ai-marketplace",
-          // },
+          {
+            label: "Customized AI",
+            position: "left",
+            to: "/docs/customized-ai",
+          },
           {
             href: "https://console.visai.ai/",
             label: "Console",
@@ -84,46 +77,50 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "Doc",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: "AI Marketplace Doc",
+                to: "/docs/ai-marketplace",
+              },
+              {
+                label: "Customized AI Doc",
+                to: "/docs/customized-ai",
               },
             ],
           },
           {
-            title: "Community",
+            title: "VISAI",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                label: "VISAI AI",
+                href: "https://visai.ai",
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                label: "AI Cloud Platform",
+                href: "https://acp.visai.ai",
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                label: "ACP Console",
+                href: "https://console.visai.ai",
               },
             ],
           },
           {
-            title: "More",
+            title: "Browse Product",
             items: [
               {
-                label: "Blog",
-                to: "/blog",
+                label: "AI Marketplace",
+                href: "https://console.visai.ai/ai-marketplace",
               },
               {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: "Customized AI",
+                href: "https://console.visai.ai/customized-ai",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} AI Cloud Platform. All rights reserved.`,
       },
       prism: {
         theme: lightCodeTheme,
