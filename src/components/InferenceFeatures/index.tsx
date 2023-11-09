@@ -62,7 +62,8 @@ export default function DocPage(props: Props): JSX.Element {
   }
   const { docElement, sidebarName, sidebarItems } = currentDocRouteMetadata;
   const product =
-    pathName === "/docs/customized-ai" || pathName === "/api/docs/customized-ai"
+    pathName === "/docs/customized-ai" ||
+    pathName === "/inference-api-documentation/docs/customized-ai"
       ? "Customized AI"
       : "AI Marketplace";
 
@@ -144,7 +145,8 @@ export default function DocPage(props: Props): JSX.Element {
                       <p>Inference API Documentation</p>
                     </header>
                     {pathName === "/docs/customized-ai" ||
-                    pathName === "/api/docs/customized-ai" ? (
+                    pathName ===
+                      "/inference-api-documentation/docs/customized-ai" ? (
                       <CustomizedFeatures />
                     ) : (
                       <AIMarketplaceFeatures />

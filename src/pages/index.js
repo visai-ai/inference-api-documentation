@@ -31,7 +31,7 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`${siteConfig.title} API Documentation`}
+      title={`${siteConfig.title}`}
       description="VISAI Inference API Documentation"
     >
       <HomepageHeader />
