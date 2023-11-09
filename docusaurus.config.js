@@ -8,7 +8,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "VISAI API Documentation",
   tagline: "AI Cloud Platform",
-  baseUrl: "/api/",
+  baseUrl: "/inference-api-documentation/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -26,8 +26,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/visai-ai/visai-inference-api-documentation",
+          editUrl: "https://github.com/visai-ai/inference-api-documentation",
           docLayoutComponent: "@site/src/components/InferenceFeatures",
           docItemComponent: "@theme/ApiItem",
         },
