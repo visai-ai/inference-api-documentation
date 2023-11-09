@@ -62,7 +62,10 @@ export default function DocPage(props: Props): JSX.Element {
   }
   const { docElement, sidebarName, sidebarItems } = currentDocRouteMetadata;
   const product =
-    pathName === "/docs/customized-ai" ? "Customized AI" : "AI Marketplace";
+    pathName === "/docs/customized-ai" ||
+    pathName === "/visai-inference-api-documentation/docs/customized-ai"
+      ? "Customized AI"
+      : "AI Marketplace";
 
   return (
     <>
@@ -78,7 +81,11 @@ export default function DocPage(props: Props): JSX.Element {
           <DocsSidebarProvider name={sidebarName} items={sidebarItems}>
             <DocPageLayout>
               {pathName === "/docs/ai-marketplace" ||
-              pathName === "/docs/customized-ai" ? (
+              pathName === "/docs/customized-ai" ||
+              pathName ===
+                "/visai-inference-api-documentation/docs/ai-marketplace" ||
+              pathName ===
+                "/visai-inference-api-documentation/docs/customized-ai" ? (
                 <>
                   <Helmet>
                     <title>{product} API Documentation | VISAI</title>
@@ -139,10 +146,11 @@ export default function DocPage(props: Props): JSX.Element {
                       </h1>
                       <p>Inference API Documentation</p>
                     </header>
-                    {pathName === "/docs/customized-ai" && (
+                    {pathName === "/docs/customized-ai" ||
+                    pathName ===
+                      "/visai-inference-api-documentation/docs/customized-ai" ? (
                       <CustomizedFeatures />
-                    )}
-                    {pathName === "/docs/ai-marketplace" && (
+                    ) : (
                       <AIMarketplaceFeatures />
                     )}
                   </>
