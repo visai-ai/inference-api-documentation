@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkvisai_inference_api_documentation=self.webpackChunkvisai_inference_api_documentation||[]).push([[1488],{50263:e=>{e.exports=JSON.parse('{"label":"docusaurus","permalink":"/visai-inference-api-documentation/blog/tags/docusaurus","allTagsPath":"/visai-inference-api-documentation/blog/tags","count":4}')}}]);
