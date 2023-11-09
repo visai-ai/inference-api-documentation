@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvisai_inference_api_documentation=self.webpackChunkvisai_inference_api_documentation||[]).push([[4121],{88070:e=>{e.exports=JSON.parse('[{"label":"test","permalink":"/visai-inference-api-documentation/docs/tags/test","count":1}]')}}]);
