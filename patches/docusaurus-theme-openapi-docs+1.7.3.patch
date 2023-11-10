@@ -11,7 +11,7 @@ index 6732aa9..f81ba56 100644
          language.language,
          language.variant,
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
-index 1693eaa..86c9b82 100644
+index 1693eaa..f83cda9 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
 @@ -38,7 +38,10 @@ async function makeRequest(request, proxy, _body) {
@@ -26,33 +26,36 @@ index 1693eaa..86c9b82 100644
        }
      });
    }
-@@ -115,6 +118,9 @@ async function makeRequest(request, proxy, _body) {
+@@ -115,6 +118,7 @@ async function makeRequest(request, proxy, _body) {
    // }
  
    const body = request.body?.toJSON();
-+  console.log('request.body', request.body);
-+  console.log('body ', body);
 +
    let myBody = undefined;
    if (body !== undefined && Object.keys(body).length > 0) {
      switch (body.mode) {
-@@ -137,8 +143,14 @@ async function makeRequest(request, proxy, _body) {
+@@ -137,8 +141,18 @@ async function makeRequest(request, proxy, _body) {
          myBody = new FormData();
          if (Array.isArray(body.formdata)) {
            for (const data of body.formdata) {
-+            console.log('data', data)
-             if (data.key && data.value) {
+-            if (data.key && data.value) {
 -              myBody.append(data.key, data.value);
-+              let value = data.value
-+              if (data.key === 'files') {
-+                let response = await fetch(value.content.preview)
-+                value = await response.blob()
++            if (data.key === "files") {
++              const filePreview = _body?.content?.files?.value?.content?.preview
++              if (filePreview) {
++                let responseFilePreview = await fetch(filePreview)
++                const filePreviewBlob = await responseFilePreview.blob()
++                myBody.append("files", filePreviewBlob);
 +              }
-+              myBody.append(data.key, value);
++            } else {
++              if (data.key && data.value) {
++                let value = data.value
++                myBody.append(data.key, value);
++              }
              }
            }
          }
-@@ -165,7 +177,7 @@ async function makeRequest(request, proxy, _body) {
+@@ -165,7 +179,7 @@ async function makeRequest(request, proxy, _body) {
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
      finalUrl = normalizedProxy + request.url.toString();
    }
@@ -62,7 +65,7 @@ index 1693eaa..86c9b82 100644
    });
  }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
-index d9ddd20..8b02b66 100644
+index d9ddd20..33e8002 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 @@ -70,18 +70,22 @@ function buildCookie(cookieParams) {
@@ -94,28 +97,20 @@ index d9ddd20..8b02b66 100644
    headerParams.forEach((param) => {
      if (param.value && !Array.isArray(param.value)) {
        postman.addHeader({
-@@ -139,17 +143,21 @@ function setBody(clonedPostman, body) {
-       const params = Object.entries(body.content)
-         .filter((entry) => !!entry[1])
-         .map(([key, content]) => {
--          if (content.type === "file") {
--            return new sdk.FormParam({
--              key: key,
+@@ -142,14 +146,18 @@ function setBody(clonedPostman, body) {
+           if (content.type === "file") {
+             return new sdk.FormParam({
+               key: key,
 -              ...content,
--            });
--          }
-+          // if (content.type === "file") {
-+          //   return new sdk.FormParam({
-+          //     key: key,
-+          //     value: content.value,
-+          //     ...content,
-+          //   });
-+          // }
-+          console.log(content);
++              value: content.value,
++              src: content.value.src,
++              type: "file"
+             });
+           }
++
            return new sdk.FormParam({
              key: key,
              value: content.value,
-+            src: content.value.src
            });
          });
 +
@@ -158,7 +153,7 @@ index 5bfb317..2da8049 100644
          if (error) {
            return;
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
-index d0ea10a..033e3cb 100644
+index d0ea10a..18dcf80 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
 @@ -40,7 +40,10 @@ async function makeRequest(request, proxy, _body) {
@@ -173,33 +168,39 @@ index d0ea10a..033e3cb 100644
        }
      });
    }
-@@ -117,6 +120,9 @@ async function makeRequest(request, proxy, _body) {
+@@ -117,6 +120,8 @@ async function makeRequest(request, proxy, _body) {
    // }
  
    const body = (_request$body = request.body) === null || _request$body === void 0 ? void 0 : _request$body.toJSON();
-+  console.log('request.body', request.body);
-+  console.log('body ', body);
++
 +
    let myBody = undefined;
    if (body !== undefined && Object.keys(body).length > 0) {
      switch (body.mode) {
-@@ -143,8 +149,14 @@ async function makeRequest(request, proxy, _body) {
+@@ -143,11 +148,21 @@ async function makeRequest(request, proxy, _body) {
            myBody = new FormData();
            if (Array.isArray(body.formdata)) {
              for (const data of body.formdata) {
-+              console.log('data', data)
++            if (data.key === "files") {
++              const filePreview = _body?.content?.files?.value?.content?.preview
++              if (filePreview) {
++                let responseFilePreview = await fetch(filePreview)
++                const filePreviewBlob = await responseFilePreview.blob()
++                myBody.append("files", filePreviewBlob);
++              }
++            } else {
                if (data.key && data.value) {
 -                myBody.append(data.key, data.value);
 +                let value = data.value
-+                if (data.key === 'files') {
-+                  let response = await fetch(value.content.preview)
-+                  value = await response.blob()
-+                }
 +                myBody.append(data.key, value);
                }
              }
            }
-@@ -173,7 +185,7 @@ async function makeRequest(request, proxy, _body) {
++          }
+           break;
+         }
+       case "file":
+@@ -173,7 +188,7 @@ async function makeRequest(request, proxy, _body) {
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
      finalUrl = normalizedProxy + request.url.toString();
    }
@@ -209,7 +210,7 @@ index d0ea10a..033e3cb 100644
    });
  }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
-index dbc3679..5fef158 100644
+index dbc3679..34e816e 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
 @@ -79,12 +79,15 @@ function setHeaders(postman, contentType, accept, cookie, headerParams, other) {
@@ -234,30 +235,20 @@ index dbc3679..5fef158 100644
    headerParams.forEach(param => {
      if (param.value && !Array.isArray(param.value)) {
        postman.addHeader({
-@@ -146,15 +149,19 @@ function setBody(clonedPostman, body) {
-           return;
-         }
-         const params = Object.entries(body.content).filter(entry => !!entry[1]).map(([key, content]) => {
--          if (content.type === "file") {
--            return new _postmanCollection.default.FormParam({
--              key: key,
+@@ -149,12 +152,14 @@ function setBody(clonedPostman, body) {
+           if (content.type === "file") {
+             return new _postmanCollection.default.FormParam({
+               key: key,
 -              ...content
--            });
--          }
-+          // if (content.type === "file") {
-+            // return new _postmanCollection.default.FormParam({
-+            //   key: key,
-+            //   value: content.value,
-+            //   ...content
-+            // });
-+            // return new sdk.FormParam({ key: key, ...content });
-+          // }
-+          console.log(content)
++              value: content.value,
++              src: content.value.src,
++              type: "file"
+             });
+           }
            return new _postmanCollection.default.FormParam({
              key: key,
 -            value: content.value
 +            value: content.value,
-+            src: content.value.src
            });
          });
          (_clonedPostman$body$f2 = clonedPostman.body.formdata) === null || _clonedPostman$body$f2 === void 0 ? void 0 : _clonedPostman$body$f2.assimilate(params, false);
@@ -307,7 +298,7 @@ index 36bf4f0..7283bcc 100644
            style={customStyles}
            contentLabel="Terms of Use"
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
-index ed991be..8dbc401 100644
+index ed991be..c2357e4 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
 +++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
 @@ -55,7 +55,10 @@ async function makeRequest(
@@ -322,32 +313,28 @@ index ed991be..8dbc401 100644
        }
      });
    }
-@@ -132,6 +135,8 @@ async function makeRequest(
-   // }
- 
-   const body = request.body?.toJSON();
-+  console.log('request.body', request.body);
-+  console.log('body', body)
- 
-   let myBody: RequestInit["body"] = undefined;
-   if (body !== undefined && Object.keys(body).length > 0) {
-@@ -155,8 +160,14 @@ async function makeRequest(
+@@ -155,8 +158,18 @@ async function makeRequest(
          myBody = new FormData();
          if (Array.isArray(body.formdata)) {
            for (const data of body.formdata) {
-+            console.log('data', data)
-             if (data.key && data.value) {
+-            if (data.key && data.value) {
 -              myBody.append(data.key, data.value);
-+              let value = data.value
-+              if (data.key === 'files') {
-+                let response = await fetch(value.content.preview)
-+                value = await response.blob()
++            if (data.key === "files") {
++              const filePreview = _body?.content?.files?.value?.content?.preview
++              if (filePreview) {
++                let responseFilePreview = await fetch(filePreview)
++                const filePreviewBlob = await responseFilePreview.blob()
++                myBody.append("files", filePreviewBlob);
 +              }
-+              myBody.append(data.key, value);
++            } else {
++              if (data.key && data.value) {
++                let value = data.value
++                myBody.append(data.key, value);
++              }
              }
            }
          }
-@@ -186,7 +197,7 @@ async function makeRequest(
+@@ -186,7 +199,7 @@ async function makeRequest(
      finalUrl = normalizedProxy + request.url.toString();
    }
  
@@ -357,7 +344,7 @@ index ed991be..8dbc401 100644
        return response.text();
      }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
-index 7fda844..1a2f9dd 100644
+index 7fda844..564d0b5 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 +++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 @@ -95,12 +95,19 @@ function setHeaders(
@@ -384,22 +371,23 @@ index 7fda844..1a2f9dd 100644
    headerParams.forEach((param) => {
      if (param.value && !Array.isArray(param.value)) {
        postman.addHeader({ key: param.name, value: param.value });
-@@ -155,10 +162,11 @@ function setBody(clonedPostman: sdk.Request, body: Body) {
-       const params = Object.entries(body.content)
+@@ -156,13 +163,15 @@ function setBody(clonedPostman: sdk.Request, body: Body) {
          .filter((entry): entry is [string, NonNullable<Content>] => !!entry[1])
          .map(([key, content]) => {
--          if (content.type === "file") {
+           if (content.type === "file") {
 -            return new sdk.FormParam({ key: key, ...content });
--          }
--          return new sdk.FormParam({ key: key, value: content.value });
-+          // if (content.type === "file") {
-+          //   return new sdk.FormParam({ key: key, value: content.value });
-+          // }
-+          console.log(content);
-+          return new sdk.FormParam({ key: key, value: content.value, src: content.value.src });
++            return new sdk.FormParam({ key: key, value: content.value, src: content.value.src, type: "file" });
+           }
++
+           return new sdk.FormParam({ key: key, value: content.value });
          });
        clonedPostman.body.formdata?.assimilate(params, false);
        return;
+     }
++
+     case "urlencoded": {
+       clonedPostman.body.urlencoded?.clear();
+       if (body.type !== "form") {
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts
 index a2a822c..f97c68f 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts

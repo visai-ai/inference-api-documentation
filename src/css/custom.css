@@ -78,15 +78,15 @@
   background-color: var(--openapi-code-orange);
 }
 
-.dropzone_Y7D0 {
+.dropzone_Y7D0, .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module {
   border: 1px solid #3F13A6 !important;
   background: #F9F5FF !important;
 }
-.dropzone_Y7D0:hover {
+.dropzone_Y7D0:hover, .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module:hover {
   background: #F4EBFF !important;
 }
 
-.input_Ru3N {
+.input_Ru3N, .input_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormTextInput-styles-module {
   border: 1px solid #EAECF0 !important;
   background: #ffffff !important;
 }
@@ -101,4 +101,26 @@
 
 .footer__link-item:hover {
   color: #c5b8e2 !important;
+}
+
+.dropzoneContent_CEnm {
+  color: #344054 !important;
+}
+
+.button--secondary {
+  background: #3F13A6 !important;
+  color: #ffffff !important;
+}
+
+.button--secondary:hover {
+  background: #330e8a !important;
+}
+
+.button--secondary:disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed;
+}
+
+.button--secondary:disabled:hover {
+  background: #3F13A6 !important;
 }
