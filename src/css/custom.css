@@ -107,20 +107,36 @@
   color: #344054 !important;
 }
 
-.button--secondary {
+.button--secondary:not(.button--outline) {
   background: #3F13A6 !important;
   color: #ffffff !important;
 }
 
-.button--secondary:hover {
+.button--secondary:not(.button--outline):hover {
   background: #330e8a !important;
 }
 
-.button--secondary:disabled {
+.button--secondary:not(.button--outline):disabled {
   opacity: 0.3 !important;
   cursor: not-allowed;
 }
 
-.button--secondary:disabled:hover {
+.button--secondary:not(.button--outline):disabled:hover {
   background: #3F13A6 !important;
+}
+
+.breadcrumbs__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.breadcrumbs__item, .breadcrumbs {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbHomeIcon_OVgt {
+  width: 16px;
+  height: 16px;
 }
