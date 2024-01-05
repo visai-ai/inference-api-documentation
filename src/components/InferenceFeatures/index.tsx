@@ -82,12 +82,12 @@ export default function DocPage(props: Props): JSX.Element {
             <DocPageLayout>
               {pathName === "/docs/ai-marketplace" ||
               pathName === "/docs/customized-ai" ||
-              pathName.startsWith(
-                "/inference-api-documentation/docs/ai-marketplace"
-              ) ||
-              pathName.startsWith(
-                "/inference-api-documentation/docs/customized-ai"
-              ) ? (
+              pathName === "/inference-api-documentation/docs/ai-marketplace" ||
+              pathName === "/inference-api-documentation/docs/customized-ai" ||
+              pathName ===
+                "/inference-api-documentation/docs/ai-marketplace/" ||
+              pathName ===
+                "/inference-api-documentation/docs/customized-ai/" ? (
                 <>
                   <Helmet>
                     <title>{product} API Documentation | VISAI</title>
