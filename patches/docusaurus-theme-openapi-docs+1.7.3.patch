@@ -65,29 +65,34 @@ index 1693eaa..f83cda9 100644
    });
  }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
-index d9ddd20..33e8002 100644
+index d9ddd20..941a84b 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 @@ -70,18 +70,22 @@ function buildCookie(cookieParams) {
  }
  function setHeaders(postman, contentType, accept, cookie, headerParams, other) {
    postman.headers.clear();
-+
-   if (contentType) {
-     postman.addHeader({
-       key: "Content-Type",
-       value: contentType,
-     });
-   }
+-  if (contentType) {
+-    postman.addHeader({
+-      key: "Content-Type",
+-      value: contentType,
+-    });
+-  }
 -  if (accept) {
 -    postman.addHeader({
 -      key: "Accept",
 -      value: accept,
 -    });
--  }
-+  // if (contentType && contentType !== 'multipart/form-data') {
-+  //   postman.addHeader({ key: "Content-Type", value: contentType });
++
++  // if (contentType) {
++  //   postman.addHeader({
++  //     key: "Content-Type",
++  //     value: contentType,
++  //   });
 +  // }
++  if (contentType && contentType !== 'multipart/form-data') {
++    postman.addHeader({ key: "Content-Type", value: contentType });
+   }
 +  // if (accept) {
 +  //   postman.addHeader({
 +  //     key: "Accept",
@@ -210,22 +215,33 @@ index d0ea10a..18dcf80 100644
    });
  }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
-index dbc3679..34e816e 100644
+index dbc3679..81c9975 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
-@@ -79,12 +79,15 @@ function setHeaders(postman, contentType, accept, cookie, headerParams, other) {
-       value: contentType
-     });
-   }
+@@ -73,18 +73,21 @@ function buildCookie(cookieParams) {
+ }
+ function setHeaders(postman, contentType, accept, cookie, headerParams, other) {
+   postman.headers.clear();
+-  if (contentType) {
+-    postman.addHeader({
+-      key: "Content-Type",
+-      value: contentType
+-    });
+-  }
 -  if (accept) {
 -    postman.addHeader({
 -      key: "Accept",
 -      value: accept
 -    });
--  }
-+  // if (contentType && contentType !== 'multipart/form-data') {
-+  //   postman.addHeader({ key: "Content-Type", value: contentType });
++  // if (contentType) {
++  //   postman.addHeader({
++  //     key: "Content-Type",
++  //     value: contentType
++  //   });
 +  // }
++  if (contentType && contentType !== 'multipart/form-data') {
++    postman.addHeader({ key: "Content-Type", value: contentType });
+   }
 +  // if (accept) {
 +  //   postman.addHeader({
 +  //     key: "Accept",
@@ -344,27 +360,27 @@ index ed991be..c2357e4 100644
        return response.text();
      }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
-index 7fda844..564d0b5 100644
+index 7fda844..f83f88f 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 +++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 @@ -95,12 +95,19 @@ function setHeaders(
    other: { key: string; value: string }[]
  ) {
    postman.headers.clear();
+-  if (contentType) {
 +
-   if (contentType) {
--    postman.addHeader({ key: "Content-Type", value: contentType });
--  }
++  // if (contentType) {
++  //   postman.addHeader({
++  //     key: "Content-Type",
++  //     value: contentType,
++  //   });
++  // }
++  if (contentType && contentType !== 'multipart/form-data') {
+     postman.addHeader({ key: "Content-Type", value: contentType });
+   }
 -  if (accept) {
 -    postman.addHeader({ key: "Accept", value: accept });
-+    postman.addHeader({
-+      key: "Content-Type",
-+      value: contentType,
-+    });
-   }
-+  // if (contentType && contentType !== 'multipart/form-data') {
-+  //   postman.addHeader({ key: "Content-Type", value: contentType });
-+  // }
+-  }
 +  // if (accept) {
 +  //   postman.addHeader({ key: "Accept", value: accept });
 +  // }
