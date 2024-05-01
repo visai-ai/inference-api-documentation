@@ -27,6 +27,7 @@
 .heroBannerContainer {
   position: relative;
   z-index: 1;
+  padding: 0px !important;
 }
 
 .heroBannerTitle {
@@ -69,7 +70,7 @@
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 1rem;
   }
 }
 
