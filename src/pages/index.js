@@ -5,14 +5,22 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
 import HomepageFeatures from "@site/src/components/HomepageFeatures";
+import VISAILogo from "/img/full_visai_logo.webp";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx("hero", styles.heroBanner)}>
       {/* <div className={clsx(styles.halfBannerBG)}></div> */}
+
       <div className={clsx("container", styles.heroBannerContainer)}>
-        <h1 className={styles.heroBannerTitle}>{siteConfig.title}</h1>
+        <div className={styles.providedSection}>
+          Provided by{" "}
+          <a href="https://visai.ai" target={`_blank`}>
+            <img src={VISAILogo} alt="VISAI logo" width={76} height={17} />
+          </a>
+        </div>
+        <h1 className={styles.heroBannerTitle}>API Documentation</h1>
         <p className={styles.heroBannerSubtitle}>{siteConfig.tagline}</p>
         {/* <div className={styles.buttons}>
           <a

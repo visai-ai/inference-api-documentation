@@ -87,10 +87,10 @@ const config = {
             ],
           },
           {
-            title: "VISAI",
+            title: "Our Platform",
             items: [
               {
-                label: "VISAI AI",
+                label: "VISAI.AI",
                 href: "https://visai.ai",
               },
               {

@@ -55,6 +55,11 @@
   color: #ffffff
 }
 
+[data-theme='light'] .footer {
+  background-color: #260B64;
+  /* border-top: 1px solid #D0D5DD; */
+}
+
 [data-theme='dark'] .footer {
   background-color: #161933 !important;
   /* border-top: 1px solid #8b8e98; */
@@ -155,6 +160,32 @@
 
 .footer__link-item:hover {
   color: #c5b8e2 !important;
+}
+
+.footer {
+  padding: 0 !important;
+}
+
+footer > .container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+footer > .container > .row {
+  padding: 2rem 2rem 1.5rem 2rem;
+}
+
+footer > .container > .footer__bottom {
+  padding: 2rem 2rem 1.5rem 2rem;
+  color: #ffffff;
+}
+
+[data-theme='light'] footer > .container > .footer__bottom {
+  background-color: #190842;
+}
+
+[data-theme='dark'] footer>.container>.footer__bottom {
+  background-color: #0e1025;
 }
 
 .dropzoneContent_CEnm {
