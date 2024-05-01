@@ -11,8 +11,6 @@ function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx("hero", styles.heroBanner)}>
-      {/* <div className={clsx(styles.halfBannerBG)}></div> */}
-
       <div className={clsx("container", styles.heroBannerContainer)}>
         <div className={styles.providedSection}>
           Provided by{" "}
@@ -22,15 +20,6 @@ function HomepageHeader() {
         </div>
         <h1 className={styles.heroBannerTitle}>API Documentation</h1>
         <p className={styles.heroBannerSubtitle}>{siteConfig.tagline}</p>
-        {/* <div className={styles.buttons}>
-          <a
-            className="button button--secondary button--lg"
-            href="https://console.visai.ai/"
-            target={`_blank`}
-          >
-            ACP Console
-          </a>
-        </div> */}
       </div>
     </header>
   );
