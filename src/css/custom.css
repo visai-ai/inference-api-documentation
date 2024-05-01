@@ -15,20 +15,49 @@
   --ifm-color-primary-lightest: #FCFAFF;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --openapi-code-green: #039855 !important;
-  --ifm-color-success: #039855 !important;
+  --openapi-code-green: #320F85 !important;
+  --ifm-color-success: #320F85 !important;
+  --ifm-background-color: #ffffff;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #c5b8e2;
-  --ifm-color-primary-dark: #8C71CA;
-  --ifm-color-primary-darker: #795AC1;
-  --ifm-color-primary-darkest: #522BAF;
+  --ifm-color-primary: #ffffff;
+  --ifm-color-primary-dark: #3e4352;
+  --ifm-color-primary-darker: #262d3c;
+  --ifm-color-primary-darkest: #101828;
   --ifm-color-primary-light: #F9F5FF;
   --ifm-color-primary-lighter: #F4EBFF;
   --ifm-color-primary-lightest: #B2A1DB;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-background-color: #101828 !important;
+}
+
+
+[data-theme='dark'] .navbar {
+  background-color: #161933 !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .navbar__brand {
+  color: #ffffff
+}
+
+[data-theme='dark'] .navbar__link {
+  color: #ffffffB3
+}
+
+[data-theme='dark'] .navbar__link:hover {
+  color: #ffffff
+}
+
+[data-theme='dark'] .navbar__link--active {
+  color: #ffffff
+}
+
+[data-theme='dark'] .footer {
+  background-color: #161933 !important;
+  /* border-top: 1px solid #8b8e98; */
 }
 
 /* Sidebar Method labels */
@@ -78,17 +107,41 @@
   background-color: var(--openapi-code-orange);
 }
 
-.dropzone_Y7D0, .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module {
-  border: 1px solid #3F13A6 !important;
+[data-theme='light'] .dropzone_Y7D0, [data-theme='light'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module {
+  border: 1px dashed #3F13A6 !important;
   background: #F9F5FF !important;
 }
-.dropzone_Y7D0:hover, .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module:hover {
+ [data-theme='light'] .dropzone_Y7D0:hover, [data-theme='light'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module:hover {
   background: #F4EBFF !important;
 }
 
-.input_Ru3N, .input_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormTextInput-styles-module {
+[data-theme='dark'] .dropzone_Y7D0,
+[data-theme='dark'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module {
+  border: 1px dashed #8b8e98 !important;
+  background: #3e4352 !important;
+}
+
+[data-theme='dark'] .dropzone_Y7D0:hover,
+[data-theme='dark'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module:hover {
+  background: #384051 !important;
+}
+
+[data-theme='light'] .input_Ru3N, [data-theme='light'] .input_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormTextInput-styles-module {
   border: 1px solid #EAECF0 !important;
   background: #ffffff !important;
+}
+
+[data-theme='dark'] .input_Ru3N,
+[data-theme='dark'] .input_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormTextInput-styles-module {
+  color: #e3e3e3;
+  background: #282A36;
+  border: 1px solid #282A36 !important;
+}
+[data-theme='dark'] .input_Ru3N:focus,
+[data-theme='dark'] .input_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormTextInput-styles-module:focus {
+  color: #e3e3e3;
+  background: #282A36;
+  border: 1px solid #282A36 !important;
 }
 
 .discriminatorTabsContainer_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-DiscriminatorTabs-styles-module {
@@ -98,6 +151,7 @@
 .paramsItem_PKlE {
   padding-top: 0.4rem !important;
 }
+
 
 .footer__link-item:hover {
   color: #c5b8e2 !important;
@@ -140,3 +194,12 @@
   width: 16px;
   height: 16px;
 }
+
+.thin-scrollbar {
+  padding: 0.5rem !important
+}
+
+[data-theme='light'] .prism-code {
+  background-color: #ffffff !important;
+}
+

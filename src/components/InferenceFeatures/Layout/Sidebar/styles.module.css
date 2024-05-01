@@ -25,6 +25,10 @@
     clip-path: inset(0);
   }
 
+  [data-theme='dark'] .docSidebarContainer {
+    background-color: #3e4352 !important;
+  }
+
   .docSidebarContainerHidden {
     width: var(--doc-sidebar-hidden-width);
     cursor: pointer;

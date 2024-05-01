@@ -3,12 +3,60 @@
  * and scoped locally.
  */
 
+ .homepageContainer {
+  background-color: #ffffff;
+ }
+
 .heroBanner {
-  padding: 4rem 0;
+  padding: 3rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: #F9F5FF;
 }
+
+.halfBannerBG {
+  position: absolute;
+  background: #F9F5FF;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 0;
+}
+
+.heroBannerContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.heroBannerTitle {
+  font-size: 3rem;
+  color: #101828;
+}
+
+.heroBannerSubtitle {
+  font-size: 1.5rem;
+  color: #475467;
+  font-weight: 500;
+
+}
+
+[data-theme='dark'] .homepageContainer {
+  background: #101828;
+}
+
+[data-theme='dark'] .heroBannerTitle {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .heroBannerSubtitle {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .heroBanner {
+  background: #101828;
+}
+
 
 @media screen and (max-width: 996px) {
   .heroBanner {

@@ -107,9 +107,9 @@ const docFeatureList = [
 
 function Feature({ src, title, href, description }) {
   return (
-    <div className={clsx("col col--4", styles.cardContainer)}>
+    <div className={clsx("", styles.cardContainer)}>
       <Link to={href} className={clsx(styles.featuresLink)}>
-        <div className="text--center">
+        <div className={clsx(`text--center`, styles.cardIcon)}>
           <img src={src} className={styles.featureSvg} alt={title} />
         </div>
         <div className={clsx("text--center", styles.textCard)}>
@@ -126,7 +126,7 @@ export default function AIMarketplaceFeatures() {
     <section className={styles.features}>
       <div className={clsx("container")}>
         <h2>Text</h2>
-        <div className={clsx("row", styles.rowsContainer)}>
+        <div className={clsx("", styles.rowsContainer)}>
           {textFeatureList.map((props, idx) => (
             <Feature key={idx} {...props}></Feature>
           ))}
@@ -134,7 +134,7 @@ export default function AIMarketplaceFeatures() {
       </div>
       <div className="container">
         <h2>Voice/Speech</h2>
-        <div className={clsx("row", styles.rowsContainer)}>
+        <div className={clsx("", styles.rowsContainer)}>
           {speechFeatureList.map((props, idx) => (
             <Feature key={idx} {...props}></Feature>
           ))}
@@ -142,7 +142,7 @@ export default function AIMarketplaceFeatures() {
       </div>
       <div className="container">
         <h2>Image/Vision</h2>
-        <div className={clsx("row", styles.rowsContainer)}>
+        <div className={clsx("", styles.rowsContainer)}>
           {docFeatureList.map((props, idx) => (
             <Feature key={idx} {...props}></Feature>
           ))}

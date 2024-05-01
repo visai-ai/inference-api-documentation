@@ -74,14 +74,14 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Doc",
+            title: "Documentation",
             items: [
               {
-                label: "AI Marketplace Doc",
+                label: "AI Marketplace API",
                 to: "/docs/ai-marketplace",
               },
               {
-                label: "Customized AI Doc",
+                label: "Customized AI API",
                 to: "/docs/customized-ai",
               },
             ],

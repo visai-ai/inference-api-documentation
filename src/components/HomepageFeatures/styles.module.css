@@ -1,13 +1,24 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 2rem 24px 3rem 24px;
   width: 100%;
 }
 
 .featureSvg {
-  height: 150px;
-  width: 150px;
+  height: 50px;
+  width: 50px;
+}
+
+.cardIcon {
+  height: 80px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F9F5FF;
+  border-radius: 100%;
+  margin: auto;
 }
 
 .featuresLink {
@@ -22,12 +33,32 @@
 .cardContainer {
   background: #ffffff;
   border-radius: 0.75rem;
-  /* border: 1px solid #EAECF0; */
+  border: 1px solid #EAECF0;
   padding: 1.25rem !important;
+  /* box-shadow: 0px 20px 24px -4px #10182814; */
+  transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
 }
 
 .cardContainer:hover {
-  background: #F9F5FF;
+  background: #F9FAFB;
+  scale: 1.05;
+}
+
+[data-theme='dark'] .cardContainer {
+  background: #262d3c;
+  border: 1px solid #262d3c;
+}
+
+[data-theme='dark'] .cardIcon {
+  background-color: #757587;
+}
+
+[data-theme='dark'] .title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .paragraph {
+  color: #8b8e98;
 }
 
 .cardDetail {
@@ -36,10 +67,10 @@
 
 .title {
   margin-top: 1rem;
-  color: #101828 !important;
+  color: #101828;
 }
 
 .paragraph {
   margin: 0px;
-  color: #344054 !important;
+  color: #344054;
 }

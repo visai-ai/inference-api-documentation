@@ -8,10 +8,21 @@
 }
 
 .featureSvg {
-  height: 100px;
-  width: auto;
+  height: 60px;
+  width: 60px;
   object-position: center;
   margin: auto;
+}
+
+.cardIcon {
+  height: 70px;
+  width: 70px;
+  margin: auto;
+  background-color: #F9F5FF;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
@@ -25,11 +36,30 @@
 }
 
 .cardContainer:hover {
-  background: #F9F5FF;
+  background: #F9FAFB;
+}
+
+[data-theme='dark'] .cardContainer {
+  background: #262d3c;
+  border: 1px solid #262d3c;
+}
+
+[data-theme='dark'] .cardIcon {
+  background-color: #757587;
+}
+
+[data-theme='dark'] .title {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .paragraph {
+  color: #8b8e98;
 }
 
 .rowsContainer {
+  display: grid;
   gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
 .textCard {
@@ -37,13 +67,16 @@
 }
 
 .cardContainer {
-  border: 1px solid #EAECF0 !important;
+  border: 1px solid #EAECF0;
   border-radius: 0.5rem;
   padding: 1rem;
   background: #ffffff;
-  max-width: 320px !important;
+  width: 100%;
+  /* max-width: 320px !important; */
 }
 
 .paragraph {
   margin: 0px;
+  font-size: 14px;
+  line-height: 1.25rem;
 }

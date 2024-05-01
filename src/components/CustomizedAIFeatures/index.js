@@ -41,9 +41,9 @@ const featureList = [
 
 function Feature({ src, title, href, description }) {
   return (
-    <div className={clsx("col col--4", styles.cardContainer)}>
+    <div className={clsx("", styles.cardContainer)}>
       <Link to={href} className={clsx(styles.featuresLink)}>
-        <div className="text--center">
+        <div className={clsx(`text--center`, styles.cardIcon)}>
           <img src={src} className={styles.featureSvg} alt={title} />
         </div>
         <div className={clsx("text--center", styles.textCard)}>
@@ -59,7 +59,7 @@ export default function CustomizedAIFeatures() {
   return (
     <section className={styles.features}>
       <div className={clsx("container")}>
-        <div className={clsx("row", styles.rowsContainer)}>
+        <div className={clsx("", styles.rowsContainer)}>
           {featureList.map((props, idx) => (
             <Feature key={idx} {...props}></Feature>
           ))}

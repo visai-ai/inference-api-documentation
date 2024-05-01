@@ -311,45 +311,43 @@ import TabItem from "@theme/TabItem";
                   responseExample={
                     `{
   "status": "success",
-  "data": {
-    "results": [
-      {
-        "filename": "Record.wav",
-        "predictions": [
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "วิสัย",
-            "start_time": "00:00:01.322",
-            "end_time": "00:00:02.158"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "บริษัทผู้พัฒนาแพลตฟอร์ม",
-            "start_time": "00:00:02.721",
-            "end_time": "00:00:05.145"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "มีเป้าหมายหลักในการเป็นศูนย์กลางการให้บริการ",
-            "start_time": "00:00:05.930",
-            "end_time": "00:00:09.274"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "การทดลองวิจัย",
-            "start_time": "00:00:09.803",
-            "end_time": "00:00:11.203"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "และแลกเปลี่ยนความรู้ด้านปัญญาประดิษฐ์",
-            "start_time": "00:00:12.056",
-            "end_time": "00:00:14.360"
-          }
-        ]
-      }
-    ]
-  }
+  "data": [
+    {
+      "filename": "Record.wav",
+      "interval": [
+        {
+          "speaker": "SPEAKER_00",
+          "transcript": "วิสัย",
+          "start_time": "00:00:01.322",
+          "end_time": "00:00:02.158"
+        },
+        {
+          "speaker": "SPEAKER_00",
+          "transcript": "บริษัทผู้พัฒนาแพลตฟอร์ม",
+          "start_time": "00:00:02.721",
+          "end_time": "00:00:05.145"
+        },
+        {
+          "speaker": "SPEAKER_00",
+          "transcript": "มีเป้าหมายหลักในการเป็นศูนย์กลางการให้บริการ",
+          "start_time": "00:00:05.930",
+          "end_time": "00:00:09.274"
+        },
+        {
+          "speaker": "SPEAKER_00",
+          "transcript": "การทดลองวิจัย",
+          "start_time": "00:00:09.803",
+          "end_time": "00:00:11.203"
+        },
+        {
+          "speaker": "SPEAKER_00",
+          "transcript": "และแลกเปลี่ยนความรู้ด้านปัญญาประดิษฐ์",
+          "start_time": "00:00:12.056",
+          "end_time": "00:00:14.360"
+        }
+      ]
+    }
+  ]
 }`
                   }
                   language={"json"}
