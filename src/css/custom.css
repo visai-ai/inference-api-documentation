@@ -178,10 +178,10 @@ footer > .container > .row {
   margin: auto;
 }
 
-.navbar__inner {
+/* .navbar__inner {
   max-width: 1240px;
   margin: auto;
-}
+} */
 
 footer > .container > .footer__bottom {
   padding: 2rem 2rem 1.5rem 2rem;
