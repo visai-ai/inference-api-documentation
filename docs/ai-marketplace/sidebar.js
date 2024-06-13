@@ -55,17 +55,4 @@ module.exports = [
     label: "OCR Passport",
     className: "api-method post",
   },
-  // {
-  //   type: "category",
-  //   label: "OCR Documentation",
-  //   link: { type: "doc", id: "ai-marketplace/ocr-documentation-info" },
-  //   items: [
-  // {
-  //   type: "doc",
-  //   id: "petstore/add-pet",
-  //   label: "Add a new pet to the store",
-  //   className: "api-method post",
-  // },
-  // ],
-  // },
 ];

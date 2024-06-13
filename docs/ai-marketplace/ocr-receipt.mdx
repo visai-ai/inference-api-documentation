@@ -1,15 +1,15 @@
 ---
-id: ocr-documentation
-title: "OCR Documentation - AI Marketplace"
+id: ocr-receipt
+title: "OCR Receipt - AI Marketplace"
 description: ""
-sidebar_label: "OCR Documentaion"
+sidebar_label: "OCR Receipt"
 hide_title: true
 hide_table_of_contents: true
 api:
   {
     "tags": ["ai-marketplace"],
     "description": "",
-    "operationId": "ocrInfer",
+    "operationId": "ocrReceiptInfer",
     "parameters":
       [
         {
@@ -37,22 +37,41 @@ api:
                             "type": "object",
                             "properties":
                               {
-                                "image_size":
-                                  {
-                                    "type": "array",
-                                    "description": "Size of the image or document",
-                                    "items": { "type": "integer" },
-                                  },
-                                "results":
-                                  {
-                                    "type": "array",
-                                    "description": "Coordinate x, y of text box",
-                                    "items": { "type": "string" },
-                                  },
-                                "texts":
+                                "status":
                                   {
                                     "type": "string",
-                                    "description": "The extracted text in each box",
+                                    "description": "Status of request",
+                                  },
+                                "data":
+                                  {
+                                    "type": "object",
+                                    "properties":
+                                      {
+                                        "confidence":
+                                          {
+                                            "type": "number",
+                                            "description": "Confidence value",
+                                          },
+                                        "fields":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "shop_tax_id":
+                                                  { "type": "string" },
+                                                "grand_total":
+                                                  { "type": "string" },
+                                                "receipt_id":
+                                                  { "type": "string" },
+                                                "receipt_date":
+                                                  { "type": "string" },
+                                                "receipt_time":
+                                                  { "type": "string" },
+                                                "receipt_timestamp":
+                                                  { "type": "string" },
+                                              },
+                                          },
+                                      },
                                   },
                               },
                           },
@@ -77,7 +96,7 @@ api:
                           {
                             "type": "string",
                             "format": "binary",
-                            "description": "Image or document file ('.docx', '.pptx', '.pdf', '.jpeg', and '.png')",
+                            "description": "Receipt image file ('.jpg', '.jpeg', and '.png')",
                           },
                       },
                     "required": ["files"],
@@ -90,7 +109,7 @@ api:
     "servers":
       [
         {
-          "url": "https://ocrdoc.infer.visai.ai/predict",
+          "url": "https://ocrreceipt.infer.visai.ai/predict",
           "description": "Default server",
         },
       ],
@@ -98,9 +117,9 @@ api:
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
       },
-    "fullURL": "https://ocrdoc.infer.visai.ai/predict",
+    "fullURL": "https://ocrreceipt.infer.visai.ai/predict",
     "postman": {
-        "name": "OCR Inference",
+        "name": "OCR Receipt Inference",
         # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
         "method": "POST",
         "body":
@@ -124,11 +143,11 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## OCR Inference API
+## OCR Receipt API
 
 <div class="custom-url-container">
   <span class="custom-method">POST</span>
-  <span class="custom-url">https://ocrdoc.infer.visai.ai/predict</span>
+  <span class="custom-url">https://ocrreceipt.infer.visai.ai/predict</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -173,7 +192,7 @@ import TabItem from "@theme/TabItem";
                 required
               </span>
             </div>
-            <p>Image or document raw files in a form of multi-part form data using the key name <b>files</b>.</p>
+            <p>Receipt image files in a form of multi-part form data using the key name <b>files</b>.</p>
           </div>
         </li>
       </ul>
@@ -214,12 +233,14 @@ import TabItem from "@theme/TabItem";
                       <div style={{ marginLeft: "1rem" }}>
                         <SchemaItem
                           collapsible={false}
-                          name={"image_size"}
+                          name={"status"}
                           required={false}
-                          schemaName={"integer[]"}
-                          qualifierMessage={undefined}
+                          schemaName={"string"}
+                          qualifierMessage={
+                            "`success` | `failed`"
+                          }
                           schema={{
-                            description: "Size of image or document.",
+                            description: "Status of request",
                             title: "image_size",
                           }}
                         ></SchemaItem>
@@ -229,55 +250,86 @@ import TabItem from "@theme/TabItem";
                         >
                           <details style={{}} data-collapsed={false} open={true}>
                             <summary style={{}}>
-                              <strong>results</strong>
-                              <span style={{ opacity: "0.6" }}> Array [</span>
+                              <strong>data</strong>
+                              <span style={{ opacity: "0.6" }}> object</span>
                             </summary>
                             <div style={{ marginLeft: "1rem" }}>
                               <SchemaItem
                                 collapsible={false}
-                                name={"0:"}
+                                name={"confidence"}
                                 required={false}
-                                schemaName={"[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"}
-                                qualifierMessage={undefined}
+                                schemaName={"float"}
                                 schema={{
-                                  type: "array",
-                                  description: "4-pixel coordinate x, y of text box.",
+                                  description: "The level of confidence",
+                                  type: "float",
+                                  minLength: 1,
                                 }}
                               ></SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                name={"1:"}
-                                required={false}
-                                schemaName={"string"}
-                                qualifierMessage={undefined}
-                                schema={{
-                                  type: "array",
-                                  description: "The extracted text in each box.",
-                                }}
-                              ></SchemaItem>
-                            </div>
-                            <div
-                              style={{
-                                fontSize: "var(--ifm-code-font-size)",
-                                opacity: "0.6",
-                                marginLeft: "-.5rem",
-                              }}
-                            >
-                              ]
+                              <details style={{}} data-collapsed={false} open={true}>
+                                <summary style={{}}>
+                                  <strong>fields</strong>
+                                  <span style={{ opacity: "0.6" }}> object</span>
+                                </summary>
+                                <div style={{ marginLeft: "1rem" }}>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"shop_tax_id"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={
+                                      "The extracted shop tax ID from the receipt. Return null if not found."
+                                    }
+                                  ></SchemaItem>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"grand_total"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={
+                                      "The grand total of the receipt purchase with VAT included."
+                                    }
+                                  ></SchemaItem>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"receipt_id"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={
+                                      "A unique identifier of the receipt."
+                                    }
+                                  ></SchemaItem>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"receipt_date"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={
+                                      "A raw extracted date string representation from the receipt."
+                                    }
+                                  ></SchemaItem>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"receipt_time"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={
+                                      "A raw extracted time string representation from the receipt."
+                                    }
+                                  ></SchemaItem>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    name={"receipt_timestamp"}
+                                    required={false}
+                                    schemaName={"string"}
+                                    qualifierMessage={
+                                      "A formatted date time in ISO format."
+                                    }
+                                  ></SchemaItem>
+                                </div>
+                              </details>
                             </div>
                           </details>
                         </SchemaItem>
-                        <SchemaItem
-                          collapsible={false}
-                          name={"texts"}
-                          required={false}
-                          schemaName={"string"}
-                          schema={{
-                            description: "Text result of an image or document page.",
-                            type: "string",
-                            minLength: 1,
-                          }}
-                        ></SchemaItem>
                       </div>
                     </details>
                     <li>
@@ -302,56 +354,22 @@ import TabItem from "@theme/TabItem";
                   responseExample={
                     `[
   {
-    "image_size": [
-      95,
-      554,
-      3
-    ],
-    "results": [
-      [
-        [
-          [
-            32,
-            14
-          ],
-          [
-            196,
-            14
-          ],
-          [
-            196,
-            48
-          ],
-          [
-            32,
-            48
-          ]
-        ],
-        "นกกำลังบินออก"
-      ],
-      [
-        [
-          [
-            80,
-            46
-          ],
-          [
-            150,
-            46
-          ],
-          [
-            150,
-            78
-          ],
-          [
-            80,
-            78
-          ]
-        ],
-        "จากรัง"
-      ]
-    ],
-    "texts": "นกกำลังบินออก จากรัง"
+      "status": "success",
+      "data": {
+          "fields": {
+              "name": "VISAI",
+              "surname": "AI",
+              "date_of_birth": "01 JUN 1997",
+              "gender": "M",
+              "country_code": "THA",
+              "country_name": "Thailand",
+              "identification_number": "1234567890123",
+              "passport_number": "R123456",
+              "passport_type": "P",
+              "date_of_expiry": "31 DEC 2025"
+          },
+          "confidence": 0.9566428661346436
+      }
   }
 ]`
                   }
