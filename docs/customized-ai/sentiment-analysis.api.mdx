@@ -111,6 +111,7 @@ api:
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
       },
+    "fullURL": "https://{api_name}-{api_id}.infer.visai.ai/predict",
     "postman":
       {
         "name": "Sentiment Analysis Inference",
@@ -140,6 +141,10 @@ import TabItem from "@theme/TabItem";
 
 ## Sentiment Analysis API
 
+<div class="custom-url-container">
+  <span class="custom-method">POST</span>
+  <span class="custom-url">https://[api_name]-[api_id].infer.visai.ai/predict</span>
+</div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
     <strong>Header</strong>
@@ -204,11 +209,6 @@ import TabItem from "@theme/TabItem";
           required
         </strong>
       </summary>
-      <div style={{ textAlign: "left", marginLeft: "1rem" }}>
-        <div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-          List of sentences
-        </div>
-      </div>
       <ul style={{ marginLeft: "1rem" }}>
         <SchemaItem collapsible={true} className={"schemaItem"}>
           <details style={{}} data-collapsed={false} open={true}>

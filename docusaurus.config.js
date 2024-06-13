@@ -52,7 +52,6 @@ const config = {
           src: "img/visai_logo.png",
         },
         items: [
-          // { to: "/blog", label: "Blog", position: "left" },
           {
             label: "AI Marketplace",
             position: "left",

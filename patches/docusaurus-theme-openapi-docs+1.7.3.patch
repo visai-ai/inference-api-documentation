@@ -64,6 +64,28 @@ index 1693eaa..f83cda9 100644
      return response.text();
    });
  }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/MethodEndpoint/index.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/MethodEndpoint/index.js
+index 758e870..f652d93 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/MethodEndpoint/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/MethodEndpoint/index.js
+@@ -29,7 +29,7 @@ function colorForMethod(method) {
+       return undefined;
+   }
+ }
+-function MethodEndpoint({ method, path }) {
++function MethodEndpoint({ method, path, fullURL }) {
+   return (
+     <pre
+       className="openapi-method-endpoint"
+@@ -45,7 +45,7 @@ function MethodEndpoint({ method, path }) {
+         {method.toUpperCase()}
+       </span>{" "}
+       <span className="openapi-method-endpoint__path">
+-        {path.replace(/{([a-z0-9-_]+)}/gi, ":$1")}
++        {fullURL || path.replace(/{([a-z0-9-_]+)}/gi, ":$1")}
+       </span>
+     </pre>
+   );
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 index d9ddd20..941a84b 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
@@ -122,6 +144,22 @@ index d9ddd20..941a84b 100644
        clonedPostman.body.formdata?.assimilate(params, false);
        return;
      }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js
+index eb13289..6e51775 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js
+@@ -15,9 +15,10 @@ import SecuritySchemes from "@theme/ApiDemoPanel/SecuritySchemes";
+ function ApiDemoPanel({ item, infoPath }) {
+   const postman = new sdk.Request(item.postman);
+   const { path, method } = item;
++  const fullURL = item?.fullURL ? item.fullURL : ""
+   return (
+     <div>
+-      <MethodEndpoint method={method} path={path} />
++      <MethodEndpoint method={method} path={path} fullURL={fullURL} />
+       <SecuritySchemes infoPath={infoPath} />
+       <Request item={item} />
+       <Response />
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js
 index 25b1b0f..35c5878 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiItem/store.js
@@ -214,6 +252,29 @@ index d0ea10a..18dcf80 100644
      return response.text();
    });
  }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/MethodEndpoint/index.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/MethodEndpoint/index.js
+index 13bf3e3..baddc84 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/MethodEndpoint/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/MethodEndpoint/index.js
+@@ -38,7 +38,8 @@ function colorForMethod(method) {
+ }
+ function MethodEndpoint({
+   method,
+-  path
++  path,
++  fullURL
+ }) {
+   return <pre className="openapi-method-endpoint" style={{
+     background: "var(--openapi-card-background-color)",
+@@ -48,7 +49,7 @@ function MethodEndpoint({
+         {method.toUpperCase()}
+       </span>{" "}
+       <span className="openapi-method-endpoint__path">
+-        {path.replace(/{([a-z0-9-_]+)}/gi, ":$1")}
++        {fullURL || path.replace(/{([a-z0-9-_]+)}/gi, ":$1")}
+       </span>
+     </pre>;
+ }
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
 index dbc3679..81c9975 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
@@ -268,6 +329,24 @@ index dbc3679..81c9975 100644
            });
          });
          (_clonedPostman$body$f2 = clonedPostman.body.formdata) === null || _clonedPostman$body$f2 === void 0 ? void 0 : _clonedPostman$body$f2.assimilate(params, false);
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js
+index 929b946..b43f4c7 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js
+@@ -27,10 +27,11 @@ function ApiDemoPanel({
+   const postman = new _postmanCollection.default.Request(item.postman);
+   const {
+     path,
+-    method
++    method,
++    fullURL
+   } = item;
+   return <div>
+-      <_MethodEndpoint.default method={method} path={path} />
++      <_MethodEndpoint.default method={method} path={path} fullURL={fullURL} />
+       <_SecuritySchemes.default infoPath={infoPath} />
+       <_Request.default item={item} />
+       <_Response.default />
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js
 index 52fdc29..05556a6 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiItem/store.js
@@ -359,6 +438,31 @@ index ed991be..c2357e4 100644
      (response: any) => {
        return response.text();
      }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/MethodEndpoint/index.tsx b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/MethodEndpoint/index.tsx
+index fb14cc2..42f72f5 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/MethodEndpoint/index.tsx
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/MethodEndpoint/index.tsx
+@@ -35,9 +35,10 @@ function colorForMethod(method: string) {
+ export interface Props {
+   method: string;
+   path: string;
++  fullURL?: string;
+ }
+ 
+-function MethodEndpoint({ method, path }: Props) {
++function MethodEndpoint({ method, path, fullURL }: Props) {
+   return (
+     <pre
+       className="openapi-method-endpoint"
+@@ -53,7 +54,7 @@ function MethodEndpoint({ method, path }: Props) {
+         {method.toUpperCase()}
+       </span>{" "}
+       <span className="openapi-method-endpoint__path">
+-        {path.replace(/{([a-z0-9-_]+)}/gi, ":$1")}
++        {fullURL || path.replace(/{([a-z0-9-_]+)}/gi, ":$1")}
+       </span>
+     </pre>
+   );
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 index 7fda844..f83f88f 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
@@ -404,6 +508,23 @@ index 7fda844..f83f88f 100644
      case "urlencoded": {
        clonedPostman.body.urlencoded?.clear();
        if (body.type !== "form") {
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx
+index aa45da3..f15835c 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx
+@@ -24,10 +24,11 @@ function ApiDemoPanel({
+ }) {
+   const postman = new sdk.Request(item.postman);
+   const { path, method } = item;
++  const fullURL = item?.fullURL ? item.fullURL : ""
+ 
+   return (
+     <div>
+-      <MethodEndpoint method={method} path={path} />
++      <MethodEndpoint method={method} path={path} fullURL={fullURL} />
+       <SecuritySchemes infoPath={infoPath} />
+       <Request item={item} />
+       <Response />
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts
 index a2a822c..f97c68f 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiItem/store.ts
