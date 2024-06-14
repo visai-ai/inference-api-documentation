@@ -188,7 +188,141 @@ import TabItem from "@theme/TabItem";
         <MimeTabs schemaType={"response"}>
           <TabItem label={"application/json"} value={"application/json"}>
             <SchemaTabs>
-              <TabItem label={"Schema"} value={"Schema"}>
+              <TabItem label={"Schema - Document file"} value={"Schema - Document file"}>
+                <details style={{}} data-collapsed={false} open={true}>
+                  <summary style={{ textAlign: "left" }}>
+                    <strong>Schema</strong>
+                  </summary>
+                  <div style={{ textAlign: "left", marginLeft: "1rem" }}></div>
+                  <ul style={{ marginLeft: "1rem" }}>
+                    <li>
+                      <div
+                        style={{
+                          fontSize: "var(--ifm-code-font-size)",
+                          opacity: "0.6",
+                          marginLeft: "-.5rem",
+                          paddingBottom: ".5rem",
+                        }}
+                      >
+                        Array [
+                      </div>
+                    </li>
+                     <li style={{ paddingBottom: ".5rem" }}>
+                      <div
+                        style={{
+                          fontSize: "var(--ifm-code-font-size)",
+                          opacity: "0.6",
+                          marginLeft: "1rem"
+                        }}
+                      >
+                        Array [
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "var(--ifm-code-font-size)",
+                          marginLeft: "1rem",
+                        }}
+                      >Result from each page</div>
+                    </li>
+                    <details style={{ marginLeft: "1rem" }} data-collapsed={false} open={true}>
+                      <summary style={{}}>
+                        <span style={{ opacity: "0.6" }}> object</span>
+                      </summary>
+                      <div style={{ marginLeft: "1rem" }}>
+                        <SchemaItem
+                          collapsible={false}
+                          name={"image_size"}
+                          required={false}
+                          schemaName={"integer[]"}
+                          qualifierMessage={undefined}
+                          schema={{
+                            description: "Size of image or document.",
+                            title: "image_size",
+                          }}
+                        ></SchemaItem>
+                        <SchemaItem
+                          collapsible={false}
+                          className={"schemaItem"}
+                        >
+                          <details style={{}} data-collapsed={false} open={true}>
+                            <summary style={{}}>
+                              <strong>results</strong>
+                              <span style={{ opacity: "0.6" }}> Array [</span>
+                            </summary>
+                            <div style={{ marginLeft: "1rem" }}>
+                              <SchemaItem
+                                collapsible={false}
+                                name={"0:"}
+                                required={false}
+                                schemaName={"[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"}
+                                qualifierMessage={undefined}
+                                schema={{
+                                  type: "array",
+                                  description: "4-pixel coordinate x, y of text box.",
+                                }}
+                              ></SchemaItem>
+                              <SchemaItem
+                                collapsible={false}
+                                name={"1:"}
+                                required={false}
+                                schemaName={"string"}
+                                qualifierMessage={undefined}
+                                schema={{
+                                  type: "array",
+                                  description: "The extracted text in each box.",
+                                }}
+                              ></SchemaItem>
+                            </div>
+                            <div
+                              style={{
+                                fontSize: "var(--ifm-code-font-size)",
+                                opacity: "0.6",
+                                marginLeft: "-.5rem",
+                              }}
+                            >
+                              ]
+                            </div>
+                          </details>
+                        </SchemaItem>
+                        <SchemaItem
+                          collapsible={false}
+                          name={"texts"}
+                          required={false}
+                          schemaName={"string"}
+                          schema={{
+                            description: "Text result of an image or document page.",
+                            type: "string",
+                            minLength: 1,
+                          }}
+                        ></SchemaItem>
+                      </div>
+                    </details>
+                    <li>
+                      <div
+                        style={{
+                          fontSize: "var(--ifm-code-font-size)",
+                          opacity: "0.6",
+                          marginLeft: "1rem",
+                        }}
+                      >
+                        ]
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        style={{
+                          fontSize: "var(--ifm-code-font-size)",
+                          opacity: "0.6",
+                          marginLeft: "-.5rem",
+                        }}
+                      >
+                        ]
+                      </div>
+                    </li>
+                  </ul>
+                </details>
+              </TabItem>
+              <TabItem label={"Schema - Image file"} value={"Schema - Image file"}>
                 <details style={{}} data-collapsed={false} open={true}>
                   <summary style={{ textAlign: "left" }}>
                     <strong>Schema</strong>
@@ -295,8 +429,71 @@ import TabItem from "@theme/TabItem";
                 </details>
               </TabItem>
               <TabItem
-                label={"Example (from schema)"}
-                value={"Example (from schema)"}
+                label={"Example (from schema) - Document file"}
+                value={"Example (from schema) - Document file"}
+              >
+                <ResponseSamples
+                  responseExample={
+                    `[
+  [
+    {
+      "image_size": [95, 554, 3],
+      "results": [
+        [
+          [
+            [32, 14],
+            [196, 14],
+            [196, 48],
+            [32, 48]
+          ],
+          "เอกสาร"
+        ],
+        [
+          [
+            [80, 46],
+            [150, 46],
+            [150, 78],
+            [80, 78]
+          ],
+          "หน้าที่ 1"
+        ]
+      ],
+      "texts": "เอกสาร หน้าที่ 1"
+    },
+    {
+      "image_size": [95, 554, 3],
+      "results": [
+        [
+          [
+            [32, 14],
+            [196, 14],
+            [196, 48],
+            [32, 48]
+          ],
+          "เอกสาร"
+        ],
+        [
+          [
+            [80, 46],
+            [150, 46],
+            [150, 78],
+            [80, 78]
+          ],
+          "หน้าที่ 2"
+        ]
+      ],
+      "texts": "เอกสาร หน้าที่ 2"
+    }
+  ]
+]
+`
+                  }
+                  language={"json"}
+                ></ResponseSamples>
+              </TabItem>
+               <TabItem
+                label={"Example (from schema) - Image file"}
+                value={"Example (from schema) - Image file"}
               >
                 <ResponseSamples
                   responseExample={
