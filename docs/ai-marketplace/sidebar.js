@@ -55,4 +55,16 @@ module.exports = [
     label: "OCR Passport",
     className: "api-method post",
   },
+  {
+    type: "doc",
+    id: "ai-marketplace/ocr-receipt",
+    label: "OCR Receipt",
+    className: "api-method post",
+  },
+  {
+    type: "doc",
+    id: "ai-marketplace/ocr-lpr",
+    label: "OCR LPR",
+    className: "api-method post",
+  },
 ];

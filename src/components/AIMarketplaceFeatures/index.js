@@ -103,6 +103,20 @@ const docFeatureList = [
       </>
     ),
   },
+  {
+    title: "OCR Receipt",
+    src: require("/img/products/ocr-receipt.webp").default,
+    href: "/docs/ai-marketplace/ocr-receipt",
+    description: <>AI reads images of receipts and converts them into text.</>,
+  },
+  {
+    title: "OCR LPR",
+    src: require("/img/products/ocr-lpr.webp").default,
+    href: "/docs/ai-marketplace/ocr-lpr",
+    description: (
+      <>AI reads images of license plate and converts them into text. </>
+    ),
+  },
 ];
 
 function Feature({ src, title, href, description }) {
