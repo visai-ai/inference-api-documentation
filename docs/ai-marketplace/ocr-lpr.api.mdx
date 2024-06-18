@@ -59,7 +59,7 @@ api:
                                             "description": "The bounding box of the license plate in the original image.",
                                             "items": { "type": "string" },
                                           },
-                                        "ID":
+                                        "id":
                                           {
                                             "type": "object",
                                             "properties":
@@ -70,7 +70,7 @@ api:
                                                   { "type": "numbr" },
                                               },
                                           },
-                                        "Province":
+                                        "province":
                                           {
                                             "type": "object",
                                             "properties":
@@ -260,7 +260,7 @@ import TabItem from "@theme/TabItem";
                             "`success` | `failed`"
                           }
                           schema={{
-                            description: "Status of inference",
+                            description: "Status of request",
                             title: "image_size",
                           }}
                         ></SchemaItem>
@@ -280,7 +280,7 @@ import TabItem from "@theme/TabItem";
                               >
                                 <details style={{}} data-collapsed={false} open={true}>
                                   <summary style={{}}>
-                                    <strong>ID</strong>
+                                    <strong>id</strong>
                                     <span style={{ opacity: "0.6" }}> object</span>
                                   </summary>
                                   <div style={{ marginLeft: "1rem" }}>
@@ -313,7 +313,7 @@ import TabItem from "@theme/TabItem";
                               >
                                 <details style={{}} data-collapsed={false} open={true}>
                                   <summary style={{}}>
-                                    <strong>Province</strong>
+                                    <strong>province</strong>
                                     <span style={{ opacity: "0.6" }}> object</span>
                                   </summary>
                                   <div style={{ marginLeft: "1rem" }}>
@@ -400,11 +400,11 @@ import TabItem from "@theme/TabItem";
                         120
                     ]
                 ],
-                "ID": {
+                "id": {
                     "transcription": "กข5555",
                     "confidence": 0.9968664050102234
                 },
-                "Province": {
+                "province": {
                     "transcription": "กรุงเทพมหานคร",
                     "confidence": 0.9998765587806702
                 }
