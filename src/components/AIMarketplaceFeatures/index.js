@@ -110,9 +110,9 @@ const docFeatureList = [
     description: <>AI reads images of receipts and converts them into text.</>,
   },
   {
-    title: "OCR LPR",
-    src: require("/img/products/ocr-lpr.webp").default,
-    href: "/docs/ai-marketplace/ocr-lpr",
+    title: "OCR License Plate",
+    src: require("/img/products/ocr-license-plate.webp").default,
+    href: "/docs/ai-marketplace/ocr-license-plate",
     description: (
       <>AI reads images of license plate and converts them into text. </>
     ),

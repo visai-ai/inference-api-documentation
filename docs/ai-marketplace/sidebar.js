@@ -63,8 +63,8 @@ module.exports = [
   },
   {
     type: "doc",
-    id: "ai-marketplace/ocr-lpr",
-    label: "OCR LPR",
+    id: "ai-marketplace/ocr-license-plate",
+    label: "OCR License Plate",
     className: "api-method post",
   },
 ];
