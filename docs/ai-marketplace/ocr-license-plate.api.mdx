@@ -1,15 +1,15 @@
 ---
-id: ocr-receipt
-title: "OCR Receipt - AI Marketplace"
+id: ocr-license-plate
+title: "OCR License Plate - AI Marketplace"
 description: ""
-sidebar_label: "OCR Receipt"
+sidebar_label: "OCR License Plate"
 hide_title: true
 hide_table_of_contents: true
 api:
   {
     "tags": ["ai-marketplace"],
     "description": "",
-    "operationId": "ocrReceiptInfer",
+    "operationId": "ocrLicensePlateInfer",
     "parameters":
       [
         {
@@ -48,18 +48,39 @@ api:
                                     "type": "string",
                                     "description": "Status of request",
                                   },
-                                "fields":
+                                "result":
                                   {
                                     "type": "object",
                                     "properties":
                                       {
-                                        "shop_tax_id": { "type": "string" },
-                                        "grand_total": { "type": "string" },
-                                        "receipt_id": { "type": "string" },
-                                        "receipt_date": { "type": "string" },
-                                        "receipt_time": { "type": "string" },
-                                        "receipt_timestamp":
-                                          { "type": "string" },
+                                        "coord":
+                                          {
+                                            "type": "array",
+                                            "description": "The bounding box of the license plate in the original image.",
+                                            "items": { "type": "string" },
+                                          },
+                                        "plate_id":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "transcription":
+                                                  { "type": "string" },
+                                                "confidence":
+                                                  { "type": "numbr" },
+                                              },
+                                          },
+                                        "province":
+                                          {
+                                            "type": "object",
+                                            "properties":
+                                              {
+                                                "transcription":
+                                                  { "type": "string" },
+                                                "confidence":
+                                                  { "type": "numbr" },
+                                              },
+                                          },
                                       },
                                   },
                               },
@@ -85,7 +106,7 @@ api:
                           {
                             "type": "string",
                             "format": "binary",
-                            "description": "Receipt image file ('.jpg', '.jpeg', and '.png')",
+                            "description": "Licence plate image file ('.jpg', '.jpeg', and '.png')",
                           },
                       },
                     "required": ["files"],
@@ -98,7 +119,7 @@ api:
     "servers":
       [
         {
-          "url": "https://ocrreceipt.infer.visai.ai/predict",
+          "url": "https://ocrlicenseplate.infer.visai.ai/predict",
           "description": "Default server",
         },
       ],
@@ -106,9 +127,9 @@ api:
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
       },
-    "fullURL": "https://ocrreceipt.infer.visai.ai/predict",
+    "fullURL": "https://ocrlicenseplate.infer.visai.ai/predict",
     "postman": {
-        "name": "OCR Receipt Inference",
+        "name": "OCR License Plate Inference",
         # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
         "method": "POST",
         "body":
@@ -132,11 +153,11 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## OCR Receipt API
+## OCR License Plate API
 
 <div class="custom-url-container">
   <span class="custom-method">POST</span>
-  <span class="custom-url">https://ocrreceipt.infer.visai.ai/predict</span>
+  <span class="custom-url">https://ocrlicenseplate.infer.visai.ai/predict</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -181,7 +202,7 @@ import TabItem from "@theme/TabItem";
                 required
               </span>
             </div>
-            <p>Receipt image files in a form of multi-part form data using the key name <b>files</b>.</p>
+            <p>Licence plate image files in a form of multi-part form data using the key name <b>files</b>.</p>
           </div>
         </li>
       </ul>
@@ -255,57 +276,80 @@ import TabItem from "@theme/TabItem";
                             <div style={{ marginLeft: "1rem" }}>
                               <SchemaItem
                                 collapsible={false}
-                                name={"shop_tax_id"}
-                                required={false}
-                                schemaName={"string"}
-                                qualifierMessage={
-                                  "The extracted shop tax ID from the receipt. Return null if not found."
-                                }
-                              ></SchemaItem>
+                                className={"schemaItem"}
+                              >
+                                <details style={{}} data-collapsed={false} open={true}>
+                                  <summary style={{}}>
+                                    <strong>plate_id</strong>
+                                    <span style={{ opacity: "0.6" }}> object</span>
+                                  </summary>
+                                  <div style={{ marginLeft: "1rem" }}>
+                                    <SchemaItem
+                                      collapsible={false}
+                                      name={"transcription"}
+                                      required={false}
+                                      schemaName={"string"}
+                                      qualifierMessage={
+                                        "The plate number of the license plate"
+                                      }
+                                    >
+                                    </SchemaItem>
+                                    <SchemaItem
+                                      collapsible={false}
+                                      name={"confidence"}
+                                      required={false}
+                                      schemaName={"number"}
+                                      qualifierMessage={
+                                        "The model's confidence in `plate_id` prediction, expressed as a value between 0 and 1."
+                                      }
+                                    >
+                                    </SchemaItem>
+                                  </div>
+                              </details>
+                              </SchemaItem>
                               <SchemaItem
                                 collapsible={false}
-                                name={"grand_total"}
-                                required={false}
-                                schemaName={"string"}
-                                qualifierMessage={
-                                  "The grand total of the receipt purchase with VAT included."
-                                }
-                              ></SchemaItem>
+                                className={"schemaItem"}
+                              >
+                                <details style={{}} data-collapsed={false} open={true}>
+                                  <summary style={{}}>
+                                    <strong>province</strong>
+                                    <span style={{ opacity: "0.6" }}> object</span>
+                                  </summary>
+                                  <div style={{ marginLeft: "1rem" }}>
+                                    <SchemaItem
+                                      collapsible={false}
+                                      name={"transcription"}
+                                      required={false}
+                                      schemaName={"string"}
+                                      qualifierMessage={
+                                        "The province of the license plate (If there is no province, this will be an empty string)"
+                                      }
+                                    >
+                                    </SchemaItem>
+                                    <SchemaItem
+                                      collapsible={false}
+                                      name={"confidence"}
+                                      required={false}
+                                      schemaName={"number"}
+                                      qualifierMessage={
+                                        "The model's confidence in `province` prediction, expressed as a value between 0 and 1."
+                                      }
+                                    >
+                                    </SchemaItem>
+                                  </div>
+                              </details>
+                              </SchemaItem>
                               <SchemaItem
                                 collapsible={false}
-                                name={"receipt_id"}
+                                name={"coord"}
                                 required={false}
-                                schemaName={"string"}
-                                qualifierMessage={
-                                  "A unique identifier of the receipt."
-                                }
-                              ></SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                name={"receipt_date"}
-                                required={false}
-                                schemaName={"string"}
-                                qualifierMessage={
-                                  "A raw extracted date string representation from the receipt."
-                                }
-                              ></SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                name={"receipt_time"}
-                                required={false}
-                                schemaName={"string"}
-                                qualifierMessage={
-                                  "A raw extracted time string representation from the receipt."
-                                }
-                              ></SchemaItem>
-                              <SchemaItem
-                                collapsible={false}
-                                name={"receipt_timestamp"}
-                                required={false}
-                                schemaName={"string"}
-                                qualifierMessage={
-                                  "A formatted date time in ISO format."
-                                }
+                                schemaName={"Array [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"}
+                                qualifierMessage={undefined}
+                                schema={{
+                                  type: "array",
+                                  description: "The bounding box of the license plate in the original image.",
+                                }}
                               ></SchemaItem>
                             </div>
                           </details>
@@ -334,16 +378,38 @@ import TabItem from "@theme/TabItem";
                   responseExample={
                     `[
     {
-        "filename": "filename.jpg",
+        "filename": "images.jpeg",
         "status": "success",
-        "result": {
-            "shop_tax_id": "0101111000111",
-            "grand_total": "1234.0",
-            "receipt_id": "E000000000A1234",
-            "receipt_date": "31-12-2566",
-            "receipt_time": "19:00",
-            "receipt_timestamp": "2023-12-31T19:00:00+00:00"
-        }
+        "result": [
+            {
+                "coord": [
+                    [
+                        79,
+                        77
+                    ],
+                    [
+                        172,
+                        83
+                    ],
+                    [
+                        173,
+                        127
+                    ],
+                    [
+                        82,
+                        120
+                    ]
+                ],
+                "plate_id": {
+                    "transcription": "กข5555",
+                    "confidence": 0.9968664050102234
+                },
+                "province": {
+                    "transcription": "กรุงเทพมหานคร",
+                    "confidence": 0.9998765587806702
+                }
+            }
+        ]
     }
 ]`
                   }
