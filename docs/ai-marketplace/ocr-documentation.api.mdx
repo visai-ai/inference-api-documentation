@@ -185,10 +185,26 @@ import TabItem from "@theme/TabItem";
     <TabItem label={"200"} value={"200"}>
       {/* <div>successful operation</div> */}
       <div>
+        <div
+          style={{
+            padding: "0.3rem var(--ifm-tabs-padding-horizontal)",
+            fontSize: "12px",
+            fontWeight: "var(--ifm-font-weight-normal)",
+            backgroundColor: "var(--ifm-color-emphasis-100)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "fit-content",
+            borderRadius: "var(--ifm-global-radius) var(--ifm-global-radius) 0px 0px",
+            marginBottom: "0.5rem",
+            borderBottom: "3px solid var(--ifm-tabs-color-active)",
+            color: "var(--ifm-tabs-color-active)"
+          }}
+        >application/json</div>
         <MimeTabs schemaType={"response"}>
-          <TabItem label={"application/json"} value={"application/json"}>
+          <TabItem label={"Document file"} value={"application/json"}>
             <SchemaTabs>
-              <TabItem label={"Schema - Document file"} value={"Schema - Document file"}>
+              <TabItem label={"Schema"} value={"Schema"}>
                 <details style={{}} data-collapsed={false} open={true}>
                   <summary style={{ textAlign: "left" }}>
                     <strong>Schema</strong>
@@ -322,7 +338,73 @@ import TabItem from "@theme/TabItem";
                   </ul>
                 </details>
               </TabItem>
-              <TabItem label={"Schema - Image file"} value={"Schema - Image file"}>
+              <TabItem
+                label={"Example (from schema)"}
+                value={"Example (from schema)"}
+              >
+                <ResponseSamples
+                  responseExample={
+                    `[
+  [
+    {
+      "image_size": [95, 554, 3],
+      "results": [
+        [
+          [
+            [32, 14],
+            [196, 14],
+            [196, 48],
+            [32, 48]
+          ],
+          "เอกสาร"
+        ],
+        [
+          [
+            [80, 46],
+            [150, 46],
+            [150, 78],
+            [80, 78]
+          ],
+          "หน้าที่ 1"
+        ]
+      ],
+      "texts": "เอกสาร หน้าที่ 1"
+    },
+    {
+      "image_size": [95, 554, 3],
+      "results": [
+        [
+          [
+            [32, 14],
+            [196, 14],
+            [196, 48],
+            [32, 48]
+          ],
+          "เอกสาร"
+        ],
+        [
+          [
+            [80, 46],
+            [150, 46],
+            [150, 78],
+            [80, 78]
+          ],
+          "หน้าที่ 2"
+        ]
+      ],
+      "texts": "เอกสาร หน้าที่ 2"
+    }
+  ]
+]`
+                  }
+                  language={"json"}
+                ></ResponseSamples>
+              </TabItem>
+            </SchemaTabs>
+          </TabItem>
+           <TabItem label={"Image file"} value={"back-side"}>
+            <SchemaTabs>
+              <TabItem label={"Schema"} value={"Schema"}>
                 <details style={{}} data-collapsed={false} open={true}>
                   <summary style={{ textAlign: "left" }}>
                     <strong>Schema</strong>
@@ -429,121 +511,30 @@ import TabItem from "@theme/TabItem";
                 </details>
               </TabItem>
               <TabItem
-                label={"Example (from schema) - Document file"}
-                value={"Example (from schema) - Document file"}
-              >
-                <ResponseSamples
-                  responseExample={
-                    `[
-  [
-    {
-      "image_size": [95, 554, 3],
-      "results": [
-        [
-          [
-            [32, 14],
-            [196, 14],
-            [196, 48],
-            [32, 48]
-          ],
-          "เอกสาร"
-        ],
-        [
-          [
-            [80, 46],
-            [150, 46],
-            [150, 78],
-            [80, 78]
-          ],
-          "หน้าที่ 1"
-        ]
-      ],
-      "texts": "เอกสาร หน้าที่ 1"
-    },
-    {
-      "image_size": [95, 554, 3],
-      "results": [
-        [
-          [
-            [32, 14],
-            [196, 14],
-            [196, 48],
-            [32, 48]
-          ],
-          "เอกสาร"
-        ],
-        [
-          [
-            [80, 46],
-            [150, 46],
-            [150, 78],
-            [80, 78]
-          ],
-          "หน้าที่ 2"
-        ]
-      ],
-      "texts": "เอกสาร หน้าที่ 2"
-    }
-  ]
-]
-`
-                  }
-                  language={"json"}
-                ></ResponseSamples>
-              </TabItem>
-               <TabItem
-                label={"Example (from schema) - Image file"}
-                value={"Example (from schema) - Image file"}
+                label={"Example (from schema)"}
+                value={"Example (from schema)"}
               >
                 <ResponseSamples
                   responseExample={
                     `[
   {
-    "image_size": [
-      95,
-      554,
-      3
-    ],
+    "image_size": [95, 554, 3],
     "results": [
       [
         [
-          [
-            32,
-            14
-          ],
-          [
-            196,
-            14
-          ],
-          [
-            196,
-            48
-          ],
-          [
-            32,
-            48
-          ]
+          [32, 14],
+          [196, 14],
+          [196, 48],
+          [32, 48]
         ],
         "นกกำลังบินออก"
       ],
       [
         [
-          [
-            80,
-            46
-          ],
-          [
-            150,
-            46
-          ],
-          [
-            150,
-            78
-          ],
-          [
-            80,
-            78
-          ]
+          [80, 46],
+          [150, 46],
+          [150, 78],
+          [80, 78]
         ],
         "จากรัง"
       ]
