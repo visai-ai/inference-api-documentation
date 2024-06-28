@@ -1996,19 +1996,19 @@ import TabItem from "@theme/TabItem";
                                     >
                                       <details style={{}} data-collapsed={false} open={false}>
                                         <summary style={{}}>
-                                          <strong>th_name</strong>
+                                          <strong>card_serial</strong>
                                           <span style={{ opacity: "0.6" }}> object</span>
                                         </summary>
                                         <div style={{ marginLeft: "1rem" }}>
                                           <SchemaItem
                                             collapsible={false}
-                                            name={"card_serial"}
+                                            name={"bbox"}
                                             required={false}
                                             schemaName={"[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"}
                                             qualifierMessage={undefined}
                                             schema={{
                                               type: "array",
-                                              description: "4-pixel coordinate x, y of text box.",
+                                              description: "4-pixel coordinate x, y of text box",
                                             }}
                                           ></SchemaItem>
                                           <SchemaItem
@@ -2029,7 +2029,7 @@ import TabItem from "@theme/TabItem";
                                             schemaName={"string"}
                                             qualifierMessage={undefined}
                                             schema={{
-                                              type: "float",
+                                              type: "string",
                                               description: "The serial number on the back side of the card.",
                                             }}
                                           ></SchemaItem>
