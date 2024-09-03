@@ -262,3 +262,7 @@ footer > .container > .footer__bottom {
 .custom-url {
   font-weight: 400;
 }
+
+p {
+  white-space: pre-line;
+}

@@ -19,6 +19,13 @@ api:
           "required": true,
           "schema": { "type": "string" },
         },
+        {
+          "name": "box_threshold",
+          "in": "query",
+          "description": "Ranged between 0 to 1",
+          "style": "form",
+          "schema": { "type": "float", "default": "front" },
+        },
       ],
     "responses":
       {
@@ -150,6 +157,34 @@ import TabItem from "@theme/TabItem";
         }}
       ></ParamsItem>
     </ul>
+  </div>
+</details>
+<details
+  style={{ marginBottom: "1rem" }}
+  data-collapsed={false}
+  open={true}
+>
+  <summary style={{}}>
+    <strong>Query Parameters (Optional)</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "box_threshold",
+          in: "query",
+          description: `Adjusting the box_threshold value, ranged between 0 to 1, affects the detection of text in documents.\nA lower value allows the model to detect more bounding boxes, while a higher value reduces detection sensitivity.\nIt is recommended to start with the default value of 0.4 and gradually increment the value by 0.1 until achieving the desired result for the document being used.\n(Number between 0 - 1)`,
+          required: false,
+          style: "form",
+          schema: {
+            type: "float",
+            default: "0.4",
+          },
+        }}
+      ></ParamsItem>
+    </ul>
+
   </div>
 </details>
 <MimeTabs>
