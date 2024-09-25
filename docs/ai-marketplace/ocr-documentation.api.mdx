@@ -242,27 +242,8 @@ import TabItem from "@theme/TabItem";
     <TabItem label={"200"} value={"200"}>
       {/* <div>successful operation</div> */}
       <div>
-        <div
-          style={{
-            padding: "0.3rem var(--ifm-tabs-padding-horizontal)",
-            fontSize: "12px",
-            fontWeight: "var(--ifm-font-weight-normal)",
-            backgroundColor: "var(--ifm-color-emphasis-100)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "fit-content",
-            borderRadius:
-              "var(--ifm-global-radius) var(--ifm-global-radius) 0px 0px",
-            marginBottom: "0.5rem",
-            borderBottom: "3px solid var(--ifm-tabs-color-active)",
-            color: "var(--ifm-tabs-color-active)",
-          }}
-        >
-          application/json
-        </div>
         <MimeTabs schemaType={"response"}>
-          <TabItem label={"Image file"} value={"application/json"}>
+          <TabItem label={"application/json"} value={"application/json"}>
             <SchemaTabs>
               <TabItem label={"Schema"} value={"Schema"}>
                 <details style={{}} data-collapsed={false} open={true}>
@@ -342,30 +323,96 @@ import TabItem from "@theme/TabItem";
                                   <div style={{ marginLeft: "1rem" }}>
                                     <SchemaItem
                                       collapsible={false}
-                                      name={"bbox:"}
+                                      name={"page"}
                                       required={false}
-                                      schemaName={
-                                        "[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"
-                                      }
+                                      schemaName={"number"}
                                       qualifierMessage={undefined}
                                       schema={{
-                                        type: "array",
+                                        type: "number",
                                         description:
-                                          "4-pixel coordinate x, y of text box.",
+                                          "The page number corresponding to the retrieved text.",
                                       }}
                                     ></SchemaItem>
                                     <SchemaItem
                                       collapsible={false}
-                                      name={"filename"}
+                                      name={"fullText"}
                                       required={false}
-                                      schemaName={"text"}
+                                      schemaName={"string"}
+                                      qualifierMessage={undefined}
                                       schema={{
-                                        description:
-                                          "The extracted text in each box.",
                                         type: "string",
-                                        minLength: 1,
+                                        description:
+                                          "The full text content of the specified page.\nThis includes all text present on the page, with newline characters (\\n) representing line breaks.",
                                       }}
                                     ></SchemaItem>
+                                    <SchemaItem
+                                      collapsible={false}
+                                      className={"schemaItem"}
+                                    >
+                                      <details
+                                        style={{}}
+                                        data-collapsed={false}
+                                        open={true}
+                                      >
+                                        <summary style={{}}>
+                                          <strong>data</strong>
+                                          <span style={{ opacity: "0.6" }}>
+                                            {" "}
+                                            Array [
+                                          </span>
+                                        </summary>
+                                        <div style={{ marginLeft: "1rem" }}>
+                                          <SchemaItem
+                                            collapsible={false}
+                                            className={"schemaItem"}
+                                          >
+                                            <details
+                                              style={{}}
+                                              data-collapsed={false}
+                                              open={true}
+                                            >
+                                              <summary style={{}}>
+                                                <span
+                                                  style={{ opacity: "0.6" }}
+                                                >
+                                                  object
+                                                </span>
+                                              </summary>
+                                              <div
+                                                style={{ marginLeft: "1rem" }}
+                                              >
+                                                <SchemaItem
+                                                  collapsible={false}
+                                                  name={"bbox:"}
+                                                  required={false}
+                                                  schemaName={
+                                                    "[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"
+                                                  }
+                                                  qualifierMessage={undefined}
+                                                  schema={{
+                                                    type: "array",
+                                                    description:
+                                                      "4-pixel coordinate x, y of text box.",
+                                                  }}
+                                                ></SchemaItem>
+                                                <SchemaItem
+                                                  collapsible={false}
+                                                  name={"text"}
+                                                  required={false}
+                                                  schemaName={"string"}
+                                                  schema={{
+                                                    description:
+                                                      "The extracted text in each box.",
+                                                    type: "string",
+                                                    minLength: 1,
+                                                  }}
+                                                ></SchemaItem>
+                                              </div>
+                                            </details>
+                                          </SchemaItem>
+                                        </div>
+                                      </details>
+                                    </SchemaItem>
                                   </div>
                                 </details>
                               </SchemaItem>
@@ -448,256 +495,6 @@ import TabItem from "@theme/TabItem";
                     ]
                 ],
                 "text": "จากรัง"
-            }
-        ]
-    }
-]`}
-                  language={"json"}
-                ></ResponseSamples>
-              </TabItem>
-            </SchemaTabs>
-          </TabItem>
-          <TabItem label={"Document file"} value={"Document file"}>
-            <SchemaTabs>
-              <TabItem label={"Schema"} value={"Schema"}>
-                <details style={{}} data-collapsed={false} open={true}>
-                  <summary style={{ textAlign: "left" }}>
-                    <strong>Schema</strong>
-                  </summary>
-                  <div style={{ textAlign: "left", marginLeft: "1rem" }}></div>
-                  <ul style={{ marginLeft: "1rem" }}>
-                    <li>
-                      <div
-                        style={{
-                          fontSize: "var(--ifm-code-font-size)",
-                          opacity: "0.6",
-                          marginLeft: "-.5rem",
-                          paddingBottom: ".5rem",
-                        }}
-                      >
-                        Array [
-                      </div>
-                    </li>
-                    <details style={{}} data-collapsed={false} open={true}>
-                      <summary style={{}}>
-                        <span style={{ opacity: "0.6" }}> object</span>
-                      </summary>
-                      <div style={{ marginLeft: "1rem" }}>
-                        <SchemaItem
-                          collapsible={false}
-                          name={"filename"}
-                          required={false}
-                          schemaName={"string"}
-                          schema={{
-                            description: "File name",
-                            type: "string",
-                            minLength: 1,
-                          }}
-                        ></SchemaItem>
-                        <SchemaItem
-                          collapsible={false}
-                          name={"status"}
-                          required={false}
-                          schemaName={"string"}
-                          qualifierMessage={"`success` | `failed`"}
-                          schema={{
-                            description: "Status of request",
-                            title: "status",
-                          }}
-                        ></SchemaItem>
-                        <SchemaItem
-                          collapsible={false}
-                          className={"schemaItem"}
-                        >
-                          <details
-                            style={{}}
-                            data-collapsed={false}
-                            open={true}
-                          >
-                            <summary style={{}}>
-                              <strong>result</strong>
-                              <span style={{ opacity: "0.6" }}> Array [</span>
-                            </summary>
-                            <div style={{ marginLeft: "1rem" }}>
-                              <SchemaItem
-                                collapsible={false}
-                                className={"schemaItem"}
-                              >
-                                <details
-                                  style={{}}
-                                  data-collapsed={false}
-                                  open={true}
-                                >
-                                  <summary style={{}}>
-                                    <strong></strong>
-                                    <span style={{ opacity: "0.6" }}>
-                                      object
-                                    </span>
-                                  </summary>
-                                  <div style={{ marginLeft: "1rem" }}>
-                                    <SchemaItem
-                                      collapsible={false}
-                                      className={"schemaItem"}
-                                    >
-                                      <details
-                                        style={{}}
-                                        data-collapsed={false}
-                                        open={true}
-                                      >
-                                        <summary style={{}}>
-                                          <strong>"1"</strong>
-                                          <span style={{ opacity: "0.6" }}>
-                                            {" "}
-                                            Array [
-                                          </span>
-                                        </summary>
-                                        <div style={{ marginLeft: "1rem" }}>
-                                          <div>
-                                            The results inside page by page
-                                            number
-                                          </div>
-                                          <SchemaItem
-                                            collapsible={false}
-                                            className={"schemaItem"}
-                                          >
-                                            <details
-                                              style={{}}
-                                              data-collapsed={false}
-                                              open={true}
-                                            >
-                                              <summary style={{}}>
-                                                <span
-                                                  style={{ opacity: "0.6" }}
-                                                >
-                                                  {" "}
-                                                  object
-                                                </span>
-                                              </summary>
-                                              <div
-                                                style={{ marginLeft: "1rem" }}
-                                              >
-                                                <SchemaItem
-                                                  collapsible={false}
-                                                  name={"bbox:"}
-                                                  required={false}
-                                                  schemaName={
-                                                    "[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]"
-                                                  }
-                                                  qualifierMessage={undefined}
-                                                  schema={{
-                                                    type: "array",
-                                                    description:
-                                                      "4-pixel coordinate x, y of text box.",
-                                                  }}
-                                                ></SchemaItem>
-                                                <SchemaItem
-                                                  collapsible={false}
-                                                  name={"filename"}
-                                                  required={false}
-                                                  schemaName={"text"}
-                                                  schema={{
-                                                    description:
-                                                      "The extracted text in each box.",
-                                                    type: "string",
-                                                    minLength: 1,
-                                                  }}
-                                                ></SchemaItem>
-                                              </div>
-                                            </details>
-                                          </SchemaItem>
-                                        </div>
-                                      </details>
-                                    </SchemaItem>
-                                  </div>
-                                </details>
-                              </SchemaItem>
-                            </div>
-                            <div
-                              style={{
-                                fontSize: "var(--ifm-code-font-size)",
-                                opacity: "0.6",
-                                marginLeft: "-.5rem",
-                              }}
-                            >
-                              ]
-                            </div>
-                          </details>
-                        </SchemaItem>
-                      </div>
-                    </details>
-                    <li>
-                      <div
-                        style={{
-                          fontSize: "var(--ifm-code-font-size)",
-                          opacity: "0.6",
-                          marginLeft: "-.5rem",
-                        }}
-                      >
-                        ]
-                      </div>
-                    </li>
-                  </ul>
-                </details>
-              </TabItem>
-              <TabItem
-                label={"Example (from schema)"}
-                value={"Example (from schema)"}
-              >
-                <ResponseSamples
-                  responseExample={`[
-    {
-        "filename": "document.pdf",
-        "status": "success",
-        "result": [
-            {
-              "1": [
-                  {
-                    "bbox": [
-                        [
-                            32,
-                            14
-                        ],
-                        [
-                            196,
-                            14
-                        ],
-                        [
-                            196,
-                            48
-                        ],
-                        [
-                            32,
-                            48
-                        ]
-                    ],
-                    "text": "นกกำลังบินออก"
-                },
-              ]
-            },
-            {
-              "2": [
-                {
-                    "bbox": [
-                        [
-                            80,
-                            46
-                        ],
-                        [
-                            150,
-                            46
-                        ],
-                        [
-                            150,
-                            78
-                        ],
-                        [
-                            80,
-                            78
-                        ]
-                    ],
-                    "text": "จากรัง"
-                }
-              ]
             }
         ]
     }
