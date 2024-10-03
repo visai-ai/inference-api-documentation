@@ -115,6 +115,7 @@
 [data-theme='light'] .dropzone_Y7D0, [data-theme='light'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module {
   border: 1px dashed #3F13A6 !important;
   background: #F9F5FF !important;
+  text-align: center !important;
 }
  [data-theme='light'] .dropzone_Y7D0:hover, [data-theme='light'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module:hover {
   background: #F4EBFF !important;
@@ -124,6 +125,7 @@
 [data-theme='dark'] .dropzone_node_modules-docusaurus-theme-openapi-docs-lib-next-theme-ApiDemoPanel-FormFileUpload-styles-module {
   border: 1px dashed #8b8e98 !important;
   background: #3e4352 !important;
+  text-align: center !important;
 }
 
 [data-theme='dark'] .dropzone_Y7D0:hover,
