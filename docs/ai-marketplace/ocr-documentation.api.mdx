@@ -7,7 +7,7 @@ hide_title: true
 hide_table_of_contents: true
 api:
   {
-    "tags": ["ai-marketplace"],
+    "tags": ["ai-models"],
     "description": "",
     "operationId": "ocrInfer",
     "parameters":
@@ -97,11 +97,11 @@ api:
                     "type": "object",
                     "properties":
                       {
-                        "file":
+                        "files":
                           {
                             "type": "string",
                             "format": "binary",
-                            "description": "Image or document file ('.jpg', '.jpeg', '.png', '.pdf', '.docx', and '.pptx')",
+                            "description": "Image or document file ('.docx', '.pptx', '.pdf', '.jpeg', and '.png')",
                           },
                         "box_threshold":
                           {
@@ -109,7 +109,7 @@ api:
                             "description": "Number between 0 to 1",
                           },
                       },
-                    "required": ["file"],
+                    "required": ["files"],
                   },
               },
           },
@@ -135,7 +135,7 @@ api:
         "body":
           {
             "mode": "formdata",
-            "formdata": [{ "key": "file", "value": "file", "type": "file" }],
+            "formdata": [{ "key": "files", "value": "file", "type": "file" }],
           },
       },
   }
@@ -153,7 +153,7 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## OCR Documentation Inference API
+## OCR Inference API
 
 <div class="custom-url-container">
   <span class="custom-method">POST</span>
@@ -180,16 +180,7 @@ import TabItem from "@theme/TabItem";
 </details>
 <MimeTabs>
   <TabItem label={"multipart/form-data"} value={"multipart/form-data-schema"}>
-    <p
-      style={{
-        marginLeft: "1rem",
-        marginBottom: "0px",
-        fontWeight: 500,
-        fontSize: "12px",
-      }}
-    >
-      form-data body
-    </p>
+    <p style={{ marginLeft: "1rem", marginBottom: "0px", fontWeight: 500, fontSize: "12px" }}>form-data body</p>
     <details style={{}} data-collapsed={false} open={true}>
       <summary style={{ textAlign: "left" }}>
         <strong>Request Body</strong>
@@ -198,24 +189,19 @@ import TabItem from "@theme/TabItem";
       <ul style={{ marginLeft: "1rem" }}>
         <li>
           <div>
-            <div>
-              <strong>file</strong>
-              <span style={{ opacity: "0.6" }}> File</span>
-              <span
-                style={{
-                  color: "#FA383E",
-                  marginLeft: "0.25rem",
-                  fontWeight: "700",
-                }}
-              >
-                required
-              </span>
-            </div>
-            <p>
-              Image raw file in a form of multi-part form data using the key
-              name <b>file</b>.
-            </p>
+            <strong>files</strong>
+            <span style={{ opacity: "0.6" }}> File</span>
+            <span
+              style={{
+                color: "#FA383E",
+                marginLeft: "0.25rem",
+                fontWeight: "700",
+              }}
+            >
+              required
+            </span>
           </div>
+          <p style={{ marginTop: 0 }}>Image or document raw files in a form of multi-part form data using the key name <b>files</b>.</p>
         </li>
       </ul>
     </details>
