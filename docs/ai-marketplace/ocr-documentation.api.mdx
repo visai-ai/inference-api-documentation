@@ -7,7 +7,7 @@ hide_title: true
 hide_table_of_contents: true
 api:
   {
-    "tags": ["ai-models"],
+    "tags": ["ai-marketplace"],
     "description": "",
     "operationId": "ocrInfer",
     "parameters":
@@ -101,7 +101,7 @@ api:
                           {
                             "type": "string",
                             "format": "binary",
-                            "description": "Image or document file ('.docx', '.pptx', '.pdf', '.jpeg', and '.png')",
+                            "description": "Image or document file ('.jpg', '.jpeg', '.png', '.pdf', '.docx', and '.pptx')",
                           },
                         "box_threshold":
                           {
@@ -153,7 +153,7 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## OCR Inference API
+## OCR Documentation Inference API
 
 <div class="custom-url-container">
   <span class="custom-method">POST</span>
@@ -180,7 +180,16 @@ import TabItem from "@theme/TabItem";
 </details>
 <MimeTabs>
   <TabItem label={"multipart/form-data"} value={"multipart/form-data-schema"}>
-    <p style={{ marginLeft: "1rem", marginBottom: "0px", fontWeight: 500, fontSize: "12px" }}>form-data body</p>
+    <p
+      style={{
+        marginLeft: "1rem",
+        marginBottom: "0px",
+        fontWeight: 500,
+        fontSize: "12px",
+      }}
+    >
+      form-data body
+    </p>
     <details style={{}} data-collapsed={false} open={true}>
       <summary style={{ textAlign: "left" }}>
         <strong>Request Body</strong>
@@ -201,7 +210,10 @@ import TabItem from "@theme/TabItem";
               required
             </span>
           </div>
-          <p style={{ marginTop: 0 }}>Image or document raw files in a form of multi-part form data using the key name <b>files</b>.</p>
+          <p style={{ marginTop: 0 }}>
+            Image or document raw files in a form of multi-part form data using
+            the key name <b>files</b>.
+          </p>
         </li>
       </ul>
     </details>
