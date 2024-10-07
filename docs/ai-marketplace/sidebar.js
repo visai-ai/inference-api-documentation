@@ -32,16 +32,27 @@ module.exports = [
   },
   {
     type: "doc",
-    id: "ai-marketplace/speech-to-text",
-    label: "Speech to Text",
-    className: "api-method post",
-  },
-
-  {
-    type: "doc",
     id: "ai-marketplace/ocr-documentation",
     label: "OCR Documentation",
     className: "api-method post",
+  },
+  {
+    type: "category",
+    label: "Speech to Text",
+    link: {
+      type: "generated-index",
+      title: "Speech to Text",
+      description: "Speech to Text Inference API",
+      slug: "/ai-marketplace/speech-to-text",
+    },
+    items: [
+      {
+        type: "doc",
+        id: "ai-marketplace/speech-to-text/synchronous-api",
+        label: "Synchronous API",
+        className: "api-method post",
+      },
+    ],
   },
   {
     type: "doc",
