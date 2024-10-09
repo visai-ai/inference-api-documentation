@@ -52,6 +52,24 @@ module.exports = [
         label: "Synchronous API",
         className: "api-method post",
       },
+      {
+        type: "category",
+        label: "Asynchronous API",
+        link: {
+          type: "generated-index",
+          title: "Asynchronous API",
+          description: "Asynchronous - Speech to Text Inference API",
+          slug: "/ai-marketplace/speech-to-text/asynchronous",
+        },
+        items: [
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/uploading-file",
+            label: "Synchronous API",
+            className: "api-method post",
+          },
+        ],
+      },
     ],
   },
   {
