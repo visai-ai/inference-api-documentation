@@ -65,8 +65,14 @@ module.exports = [
           {
             type: "doc",
             id: "ai-marketplace/speech-to-text/asynchronous-api/uploading-file",
-            label: "Synchronous API",
+            label: "Create inference by uploading file",
             className: "api-method post",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/get-job-status",
+            label: "Get job status",
+            className: "api-method get",
           },
         ],
       },
