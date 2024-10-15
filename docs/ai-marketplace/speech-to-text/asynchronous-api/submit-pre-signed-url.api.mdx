@@ -1,0 +1,409 @@
+---
+id: pre-singed-url
+title: "Asynchronous API - Speech to Text"
+description: ""
+sidebar_label: "Submit Pre-signed URLs"
+hide_title: true
+hide_table_of_contents: true
+api:
+  {
+    "tags": ["asynchronous"],
+    "description": "",
+    "operationId": "asynSTTPreSignedURLInfer",
+    "parameters":
+      [
+        {
+          "name": "X-API-Key",
+          "in": "header",
+          "description": "Your API key",
+          "required": true,
+          "schema": { "type": "string" },
+        },
+      ],
+    "responses":
+      {
+        "200":
+          {
+            "description": "successful operation",
+            "content":
+              {
+                "application/json":
+                  {
+                    "schema":
+                      {
+                        "type": "object",
+                        "properties":
+                          {
+                            "job_id":
+                              {
+                                "type": "string",
+                                "description": "Job ID of the inference",
+                              },
+                          },
+                        "title": "ApiResponse",
+                      },
+                  },
+              },
+          },
+      },
+    "requestBody":
+      {
+        "content":
+          {
+            "application/json":
+              {
+                "schema":
+                  {
+                    "type": "object",
+                    "properties":
+                      {
+                        "pre_signed_url":
+                          {
+                            "type": "array",
+                            "description": "List of pre-signed urls",
+                            "items":
+                              {
+                                "type": "object",
+                                "properties":
+                                  {
+                                    "filename": { "type": "string" },
+                                    "url": { "type": "string" },
+                                  },
+                              },
+                          },
+                      },
+                  },
+              },
+          },
+        "required": true,
+      },
+    "jsonRequestBodyExample":
+      {
+        "pre_signed_url":
+          [{ "file_name": "visai", "url": "https://<pre-signed-url>" }],
+        "word_timestamps": "false",
+        "speaking_rate": "false",
+        "decoder_type": "LMBeamSearch",
+        "num_speakers": "1",
+      },
+    "method": "post",
+    "path": "/predict",
+    "servers":
+      [
+        {
+          "url": "https://longrun-api.visai.ai/v1/job/stt/predict/presigned",
+          "description": "Default server",
+        },
+      ],
+    "securitySchemes":
+      {
+        "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
+      },
+    "fullURL": "https://longrun-api.visai.ai/v1/job/stt/predict/presigned",
+    "postman":
+      {
+        "name": "Speech to Text Inference",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "method": "POST",
+        "body":
+          {
+            "mode": "raw",
+            "raw": '""',
+            "options": { "raw": { "language": "json" } },
+          },
+      },
+  }
+sidebar_class_name: "post api-method"
+# info_path: docs/petstore/swagger-petstore-yaml
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import TabItem from "@theme/TabItem";
+
+## Asynchronous - Speech to Text API
+
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    marginBottom: "1rem",
+  }}
+>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4 16.2422C2.79401 15.435 2 14.0602 2 12.5C2 10.1564 3.79151 8.23129 6.07974 8.01937C6.54781 5.17213 9.02024 3 12 3C14.9798 3 17.4522 5.17213 17.9203 8.01937C20.2085 8.23129 22 10.1564 22 12.5C22 14.0602 21.206 15.435 20 16.2422M8 16L12 12M12 12L16 16M12 12V21"
+      stroke="#475467"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+  <h2 style={{ marginBottom: "0" }}>Create inference by presigned url</h2>
+</div>
+
+<div className="custom-url-container">
+  <span className="custom-method">POST</span>
+  <span className="custom-url">https://longrun-api.visai.ai/v1/job/stt/predict/presigned</span>
+</div>
+<details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
+  <summary style={{}}>
+    <strong>Header</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "X-API-Key",
+          in: "header",
+          description: "Your API key",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+    </ul>
+  </div>
+</details>
+<MimeTabs>
+  <TabItem label={"application/json"} value={"application/json"}>
+    <p style={{ marginLeft: "1rem", marginBottom: "0px", fontWeight: 500, fontSize: "12px" }}>Raw JSON body</p>
+    <details style={{}} data-collapsed={false} open={true}>
+      <summary style={{ textAlign: "left" }}>
+        <strong>Request Body</strong>
+        <strong
+          style={{
+            fontSize: "var(--ifm-code-font-size)",
+            color: "var(--openapi-required)",
+          }}
+        >
+          {" "}
+          required
+        </strong>
+      </summary>
+      <ul style={{ marginLeft: "1rem" }}>
+        <SchemaItem collapsible={true} className={"schemaItem"}>
+          <details style={{}} data-collapsed={false} open={true}>
+            <summary style={{}}>
+              <span style={{ opacity: "0.6" }}> object</span>
+            </summary>
+            <div style={{ marginLeft: "1rem" }}>
+              <details
+                style={{}}
+                data-collapsed={false}
+                open={true}
+              >
+                <summary style={{}}>
+                  <strong>pre_signed_url</strong>
+                  <span style={{ opacity: "0.6" }}> Array [</span>
+                </summary>
+                <div style={{ marginLeft: "1rem" }}>
+                  <SchemaItem
+                    collapsible={false}
+                    className={"schemaItem"}
+                  >
+                    <details
+                      style={{}}
+                      data-collapsed={false}
+                      open={true}
+                    >
+                      <summary style={{}}>
+                        <strong></strong>
+                        <span style={{ opacity: "0.6" }}>
+                          object
+                        </span>
+                      </summary>
+                      <div style={{ marginLeft: "1rem" }}>
+                        <SchemaItem
+                          collapsible={false}
+                          name={"file_name"}
+                          required={false}
+                          schemaName={"string"}
+                          qualifierMessage={undefined}
+                          schema={{
+                            type: "number",
+                            description:
+                              "File name",
+                          }}
+                        ></SchemaItem>
+                        <SchemaItem
+                          collapsible={false}
+                          name={"url"}
+                          required={false}
+                          schemaName={"string"}
+                          qualifierMessage={undefined}
+                          schema={{
+                            type: "number",
+                            description:
+                              "Pre-signed URL",
+                          }}
+                        ></SchemaItem>
+                      </div>
+                    </details>
+                  </SchemaItem>
+                </div>
+              </details>
+              <details
+                style={{ marginBottom: "1rem" }}
+                data-collapsed={false}
+                open={true}
+              >
+                <summary style={{}}>
+                  <span style={{ opacity: "0.6" }}>optional</span>
+                </summary>
+                <div>
+                  <ul>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "num_speakers",
+                        in: "query",
+                        description: "Number of speakers diarization in 1-4 speakers.",
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "number",
+                          default: `1`,
+                        },
+                      }}
+                    ></ParamsItem>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "speaking_rate",
+                        in: "query",
+                        description: "Get the speaking rate of each transcription for speech fluency analysis in the audio.",
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "boolean",
+                          default: `false`,
+                        },
+                      }}
+                    ></ParamsItem>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "word_timestamps",
+                        in: "query",
+                        description: "Get time offsets of each word that is recognized in the audio.",
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "boolean",
+                          default: `false`,
+                        },
+                      }}
+                    ></ParamsItem>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "word_list",
+                        in: "query",
+                        description: "List of terminology ['word_1', 'word_2', ...]",
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "string[]",
+                          default: `[]`,
+                        },
+                      }}
+                    ></ParamsItem>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "decoder_type",
+                        in: "query",
+                        description: "Decoding methods including `Greedy`, `BeamSearch`, and `LMBeamSearch`",
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "string",
+                          default: `LMBeamSearch`,
+                        },
+                      }}
+                    ></ParamsItem>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "webhook_url",
+                        in: "query",
+                        description: "Webhook endpoint for calling once job status is completed",
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "string",
+                        },
+                      }}
+                    ></ParamsItem>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </details>
+        </SchemaItem>
+      </ul>
+    </details>
+  </TabItem>
+</MimeTabs>
+<div>
+  <ApiTabs>
+    <TabItem label={"200"} value={"200"}>
+      {/* <div>successful operation</div> */}
+      <div>
+        <MimeTabs schemaType={"response"}>
+          <TabItem label={"application/json"} value={"application/json"}>
+            <SchemaTabs>
+              <TabItem label={"Schema"} value={"Schema"}>
+                 <details style={{}} data-collapsed={false} open={true}>
+                  <summary style={{}}>
+                    <span style={{ opacity: "0.6" }}> object</span>
+                  </summary>
+                  <div style={{ marginLeft: "1rem" }}>
+                   <SchemaItem
+                      collapsible={false}
+                      name={"job_id"}
+                      required={false}
+                      schemaName={"string"}
+                      schema={{
+                        description: "Job ID of the inference",
+                        title: "job_id",
+                      }}
+                    ></SchemaItem>
+                  </div>
+                </details>
+              </TabItem>
+              <TabItem
+                label={"Example (from schema)"}
+                value={"Example (from schema)"}
+              >
+                <ResponseSamples
+                  responseExample={
+                    `{
+    "job_id": "<job-id>"
+}`
+                  }
+                  language={"json"}
+                ></ResponseSamples>
+              </TabItem>
+            </SchemaTabs>
+          </TabItem>
+        </MimeTabs>
+      </div>
+    </TabItem>
+
+  </ApiTabs>
+</div>

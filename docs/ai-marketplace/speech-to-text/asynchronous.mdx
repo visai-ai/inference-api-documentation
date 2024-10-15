@@ -2,7 +2,40 @@
 id: asynchronous
 title: Asynchronous API
 custom_edit_url: null
-hide_table_of_contents: true
 ---
 
-# Speech To Text
+# Asynchronous - Speech To Text
+
+## Asynchronous Methods
+
+Our Asynchronous Inference API allows you to create inference jobs using two methods: by uploading a file or by providing a pre-signed URL. After creating a job, you will receive a job_id to track its status and retrieve the result.
+
+```mdx-code-block
+import AsynchronousCard from '../../../src/components/AsynchronousCard';
+import LinkCard from '../../../src/components/LinkCard';
+
+<section style={{ display: "grid", gap: "1rem", gridTemplateColumns: "repeat(auto-fill,minmax(320px, 1fr))" }}>
+  <AsynchronousCard
+    Svg={require("@site/static/img/upload.svg").default}
+    title={"Upload files"}
+    description="Upload files directly to start an inference job. Once the file is processed, you'll receive a job_id to track the job."
+    href={"/docs/ai-marketplace/speech-to-text/asynchronous-api/uploading-file"}
+  />
+  <AsynchronousCard
+    Svg={require("@site/static/img/upload-cloud.svg").default}
+    title={"Submit Pre-signed URLs"}
+    description={"Provide pre-signed URLs from a file upload service like AWS S3. The API will fetch and process the file, returning a job_id to track the job."}
+    href={"/docs/ai-marketplace/speech-to-text/asynchronous-api/pre-singed-url"}
+  />
+</section>
+```
+
+---
+
+## Job API
+
+Use the Job API to check the status of your inference jobs and retrieve the results once processing is complete.
+
+```mdx-code-block
+<LinkCard title={"Get Job Status API"}  href={"/docs/ai-marketplace/speech-to-text/asynchronous-api/get-job-status"} />
+```

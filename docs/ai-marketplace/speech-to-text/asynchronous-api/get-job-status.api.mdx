@@ -41,10 +41,83 @@ api:
                         "type": "object",
                         "properties":
                           {
-                            "job_id":
+                            "id":
                               {
                                 "type": "string",
                                 "description": "Job ID of the inference",
+                              },
+                            "status":
+                              {
+                                "type": "string",
+                                "description": "Status of request",
+                              },
+                            "error":
+                              {
+                                "type": "string",
+                                "description": "Cause of error",
+                              },
+                            "webhook_url":
+                              {
+                                "type": "string",
+                                "description": "The webhook URL provided by the user in the request.",
+                              },
+                            "result":
+                              {
+                                "type": "array",
+                                "items":
+                                  {
+                                    "type": "object",
+                                    "properties":
+                                      {
+                                        "filename": { "type": "string" },
+                                        "duration": { "type": "string" },
+                                        "status": { "type": "string" },
+                                        "result":
+                                          {
+                                            "type": "array",
+                                            "itmes":
+                                              {
+                                                "type": "object",
+                                                "properties":
+                                                  {
+                                                    "speaker":
+                                                      { "type": "string" },
+                                                    "transcript":
+                                                      { "type": "string" },
+                                                    "start_time":
+                                                      { "type": "string" },
+                                                    "end_time":
+                                                      { "type": "string" },
+                                                    "speaker_rate":
+                                                      { "type": "string" },
+                                                    "word_timestamps":
+                                                      {
+                                                        "type": "array",
+                                                        "items":
+                                                          {
+                                                            "type": "object",
+                                                            "properties":
+                                                              {
+                                                                "end_time":
+                                                                  {
+                                                                    "type": "string",
+                                                                  },
+                                                                "start_time":
+                                                                  {
+                                                                    "type": "string",
+                                                                  },
+                                                                "word":
+                                                                  {
+                                                                    "type": "string",
+                                                                  },
+                                                              },
+                                                          },
+                                                      },
+                                                  },
+                                              },
+                                          },
+                                      },
+                                  },
                               },
                           },
                         "title": "ApiResponse",
@@ -53,61 +126,9 @@ api:
               },
           },
       },
-    "requestBody":
-      {
-        "content":
-          {
-            "multipart/form-data":
-              {
-                "schema":
-                  {
-                    "type": "object",
-                    "properties":
-                      {
-                        "files":
-                          {
-                            "type": "string",
-                            "format": "binary",
-                            "description": "Audio file ('.wav', '.mp3', '.ogg', and etc.)",
-                          },
-                        "num_speakers":
-                          {
-                            "type": "number",
-                            "description": "Number of speakers diarization in 1-4 speakers. (default: 1)",
-                          },
-                        "speaking_rate":
-                          {
-                            "type": "string",
-                            "description": "Get the speaking rate of each transcription by settings true (default: false)",
-                          },
-                        "word_timestamps":
-                          {
-                            "type": "string",
-                            "description": "Get time offsets of each word by settings true (default: false)",
-                          },
-                        "word_list":
-                          {
-                            "type": "string",
-                            "description": "List of terminology in ['word_1', 'word_2', ...] format",
-                          },
-                        "decoder_type":
-                          {
-                            "type": "string",
-                            "description": "Decoding methods including Greedy, BeamSearch, and LMBeamSearch (default: LMBeamSearch)",
-                          },
-                        "webhook_url":
-                          {
-                            "type": "string",
-                            "description": "Webhook endpoint for calling once job status is completed",
-                          },
-                      },
-                    "required": ["files"],
-                  },
-              },
-          },
-      },
     "method": "get",
-    "path": "/predict",
+    "mode": "no-cors",
+    "path": "/{job_id}",
     "servers":
       [
         {
@@ -121,14 +142,16 @@ api:
       },
     "fullURL": "https://longrun-api.dev.visai.ai/v1/job/{job_id}",
     "postman": {
-        "name": "Speech to Text Inference",
-        # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
-        "method": "POST",
-        "body":
-          {
-            "mode": "formdata",
-            "formdata": [{ "key": "files", "value": "file", "type": "file" }],
-          },
+        "name": "Get Job Status - Asynchronous: Speech to Text API",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "method": "GET",
+        "mode": "no-cors",
+        # "body":
+        #   {
+        #     "mode": "raw",
+        #     "raw": '""',
+        #     "options": { "raw": { "language": "json" } },
+        #   },
       },
   }
 sidebar_class_name: "post api-method"
@@ -163,19 +186,19 @@ import TabItem from "@theme/TabItem";
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M4 16.2422C2.79401 15.435 2 14.0602 2 12.5C2 10.1564 3.79151 8.23129 6.07974 8.01937C6.54781 5.17213 9.02024 3 12 3C14.9798 3 17.4522 5.17213 17.9203 8.01937C20.2085 8.23129 22 10.1564 22 12.5C22 14.0602 21.206 15.435 20 16.2422M8 16L12 12M12 12L16 16M12 12V21"
-      stroke="black"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      d="M22 11.0857V12.0057C21.9988 14.1621 21.3005 16.2604 20.0093 17.9875C18.7182 19.7147 16.9033 20.9782 14.8354 21.5896C12.7674 22.201 10.5573 22.1276 8.53447 21.3803C6.51168 20.633 4.78465 19.2518 3.61096 17.4428C2.43727 15.6338 1.87979 13.4938 2.02168 11.342C2.16356 9.19029 2.99721 7.14205 4.39828 5.5028C5.79935 3.86354 7.69279 2.72111 9.79619 2.24587C11.8996 1.77063 14.1003 1.98806 16.07 2.86572M22 4L12 14.01L9 11.01"
+      stroke="#475467"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
-  <h2 style={{ marginBottom: "0" }}>Create inference by uploading file</h2>
+  <h2 style={{ marginBottom: "0" }}>Get job status</h2>
 </div>
 
 <div className="custom-url-container">
   <span className="custom-method">POST</span>
-  <span className="custom-url">https://longrun-api.visai.ai/v1/job/stt/predict/files</span>
+  <span className="custom-url">https://longrun-api.dev.visai.ai/v1/job/&#123;job-id&#125;</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -245,7 +268,7 @@ import TabItem from "@theme/TabItem";
                       required={false}
                       schemaName={"string"}
                       qualifierMessage={
-                        "`COMPLETED` | `FAILED`"
+                        "`COMPLETED` | `FAILED` | `QUEUE` | `PROCESS`"
                       }
                       schema={{
                         description: "Status of request",
@@ -258,7 +281,7 @@ import TabItem from "@theme/TabItem";
                       required={false}
                       schemaName={"string"}
                       qualifierMessage={
-                        "`null` | `Timeout`"
+                        "`null` | `Timeout` | `Bad Inference`"
                       }
                       schema={{
                         description: "Reason of error",

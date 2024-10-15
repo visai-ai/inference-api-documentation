@@ -18,10 +18,10 @@ export default function LongRunCard({ title, href }) {
           <path
             id="Icon"
             d="M4.16699 10.0001H15.8337M15.8337 10.0001L10.0003 4.16675M15.8337 10.0001L10.0003 15.8334"
-            stroke="#344054"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            stroke="currentColor"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </g>
       </svg>

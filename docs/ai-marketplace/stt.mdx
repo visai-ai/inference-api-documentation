@@ -2,7 +2,6 @@
 id: speech-to-text
 title: Speech To Text
 custom_edit_url: null
-hide_table_of_contents: true
 ---
 
 # Speech To Text
@@ -13,13 +12,13 @@ The API is highly scalable and supports a range of audio formats. Developers can
 
 Synchronous API returns the recognized text for short audio **(less than 5 minutes)**.
 
-```mdx-code-block
-import LongRunCard from '../../src/components/LongRunCard';
-
-<LongRunCard title={"Synchronous API"}  href={"/docs/ai-marketplace/speech-to-text/synchronous-api"} />
-```
-
 To process a speech recognition request for audio longer than 5 minutes, use Asynchronous API.
+
+```mdx-code-block
+import LinkCard from '../../src/components/LinkCard';
+
+<LinkCard title={"Synchronous API"}  href={"/docs/ai-marketplace/speech-to-text/synchronous-api"} />
+```
 
 <hr />
 
@@ -27,8 +26,8 @@ To process a speech recognition request for audio longer than 5 minutes, use Asy
 
 Asynchronous API starts a long running audio processing operation. Use asynchronous API to transcribe audio that is **longer than 5 minutes**. The upper limit for asynchronous API is **300 minutes**.
 
-```mdx-code-block
-<LongRunCard title={"Asynchronous API"}  href={"/docs/ai-marketplace/speech-to-text/synchronous-api"} />
-```
-
 For shorter audio, synchronous API is faster and simpler. The upper limit for asynchronous API is 300 minutes.
+
+```mdx-code-block
+<LinkCard title={"Asynchronous API"}  href={"/docs/ai-marketplace/speech-to-text/asynchronous"} />
+```

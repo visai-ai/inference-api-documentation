@@ -11,7 +11,7 @@ index 6732aa9..f81ba56 100644
          language.language,
          language.variant,
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
-index 1693eaa..f83cda9 100644
+index 1693eaa..ceafc66 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
 @@ -38,7 +38,10 @@ async function makeRequest(request, proxy, _body) {
@@ -55,7 +55,18 @@ index 1693eaa..f83cda9 100644
              }
            }
          }
-@@ -165,7 +179,7 @@ async function makeRequest(request, proxy, _body) {
+@@ -158,14 +172,18 @@ async function makeRequest(request, proxy, _body) {
+     method: request.method,
+     headers: myHeaders,
+     body: myBody,
++    // mode: "no-cors"
+   };
+   let finalUrl = request.url.toString();
++
++  console.log('requestOptions', requestOptions)
++
+   if (proxy) {
+     // Ensure the proxy ends with a slash.
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
      finalUrl = normalizedProxy + request.url.toString();
    }
@@ -86,8 +97,36 @@ index 758e870..f652d93 100644
        </span>
      </pre>
    );
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Server/index.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Server/index.js
+index 762d74c..4364958 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Server/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Server/index.js
+@@ -17,7 +17,9 @@ function Server() {
+   const [isEditing, setIsEditing] = useState(false);
+   const value = useTypedSelector((state) => state.server.value);
+   const options = useTypedSelector((state) => state.server.options);
++  const pathParams = useTypedSelector((state) => state.params.path);
+   const dispatch = useTypedDispatch();
++
+   if (options.length <= 0) {
+     return null;
+   }
+@@ -50,6 +52,13 @@ function Server() {
+         });
+       }
+     }
++    if (pathParams && pathParams?.length > 0) {
++      pathParams.forEach(pathParam => {
++        if (pathParam?.value !== undefined && pathParam?.value !== null) {
++          url = url.replace(`{${pathParam.name}}`, String(pathParam.value));
++        }
++      })
++    }
+     return (
+       <FloatingButton onClick={() => setIsEditing(true)} label="Edit">
+         <FormItem label="Base URL">
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
-index d9ddd20..941a84b 100644
+index d9ddd20..955de64 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/buildPostmanRequest.js
 @@ -70,18 +70,22 @@ function buildCookie(cookieParams) {
@@ -144,6 +183,23 @@ index d9ddd20..941a84b 100644
        clonedPostman.body.formdata?.assimilate(params, false);
        return;
      }
+@@ -206,8 +214,16 @@ function buildPostmanRequest(
+     if (variables) {
+       Object.keys(variables).forEach((variable) => {
+         url = url.replace(`{${variable}}`, variables[variable].default);
++
+       });
+     }
++    if (pathParams && pathParams?.length > 0) {
++      pathParams.forEach(pathParam => {
++        if (pathParam?.value !== undefined && pathParam?.value !== null) {
++          url = url.replace(`{${pathParam.name}}`, String(pathParam.value));
++        }
++      })
++    }
+     clonedPostman.url.host = [url];
+   }
+   setQueryParams(clonedPostman, queryParams);
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js
 index eb13289..6e51775 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/index.js
@@ -196,7 +252,7 @@ index 5bfb317..2da8049 100644
          if (error) {
            return;
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
-index d0ea10a..18dcf80 100644
+index d0ea10a..a382e64 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
 @@ -40,7 +40,10 @@ async function makeRequest(request, proxy, _body) {
@@ -243,7 +299,20 @@ index d0ea10a..18dcf80 100644
            break;
          }
        case "file":
-@@ -173,7 +188,7 @@ async function makeRequest(request, proxy, _body) {
+@@ -165,15 +180,19 @@ async function makeRequest(request, proxy, _body) {
+   const requestOptions = {
+     method: request.method,
+     headers: myHeaders,
+-    body: myBody
++    body: myBody,
++    // mode: "no-cors"
+   };
+   let finalUrl = request.url.toString();
++
++  console.log('requestOptions', requestOptions)
++
+   if (proxy) {
+     // Ensure the proxy ends with a slash.
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
      finalUrl = normalizedProxy + request.url.toString();
    }
@@ -275,8 +344,36 @@ index 13bf3e3..baddc84 100644
        </span>
      </pre>;
  }
+diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Server/index.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Server/index.js
+index 00bf027..51e3c86 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Server/index.js
++++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Server/index.js
+@@ -26,7 +26,9 @@ function Server() {
+   const [isEditing, setIsEditing] = (0, _react.useState)(false);
+   const value = (0, _hooks.useTypedSelector)(state => state.server.value);
+   const options = (0, _hooks.useTypedSelector)(state => state.server.options);
++  const pathParams = (0, _hooks.useTypedSelector)(state => state.params.path);
+   const dispatch = (0, _hooks.useTypedDispatch)();
++
+   if (options.length <= 0) {
+     return null;
+   }
+@@ -57,6 +59,13 @@ function Server() {
+         });
+       }
+     }
++    if (pathParams && pathParams?.length > 0) {
++      pathParams.forEach(pathParam => {
++        if (pathParam?.value !== undefined && pathParam?.value !== null) {
++          url = url.replace(`{${pathParam.name}}`, String(pathParam.value));
++        }
++      })
++    }
+     return <_FloatingButton.default onClick={() => setIsEditing(true)} label="Edit">
+         <_FormItem.default label="Base URL">
+           <pre style={{
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
-index dbc3679..81c9975 100644
+index dbc3679..fd42bf9 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/buildPostmanRequest.js
 @@ -73,18 +73,21 @@ function buildCookie(cookieParams) {
@@ -329,6 +426,20 @@ index dbc3679..81c9975 100644
            });
          });
          (_clonedPostman$body$f2 = clonedPostman.body.formdata) === null || _clonedPostman$body$f2 === void 0 ? void 0 : _clonedPostman$body$f2.assimilate(params, false);
+@@ -212,6 +217,13 @@ function buildPostmanRequest(postman, {
+         url = url.replace(`{${variable}}`, variables[variable].default);
+       });
+     }
++    if (pathParams && pathParams?.length > 0) {
++      pathParams.forEach(pathParam => {
++        if (pathParam?.value !== undefined && pathParam?.value !== null) {
++          url = url.replace(`{${pathParam.name}}`, String(pathParam.value));
++        }
++      })
++    }
+     clonedPostman.url.host = [url];
+   }
+   setQueryParams(clonedPostman, queryParams);
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js
 index 929b946..b43f4c7 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/index.js
@@ -393,7 +504,7 @@ index 36bf4f0..7283bcc 100644
            style={customStyles}
            contentLabel="Terms of Use"
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
-index ed991be..c2357e4 100644
+index ed991be..50830bc 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
 +++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
 @@ -55,7 +55,10 @@ async function makeRequest(
@@ -429,7 +540,20 @@ index ed991be..c2357e4 100644
              }
            }
          }
-@@ -186,7 +199,7 @@ async function makeRequest(
+@@ -177,16 +190,20 @@ async function makeRequest(
+     method: request.method,
+     headers: myHeaders,
+     body: myBody,
++    // mode: "no-cors"
+   };
+ 
+   let finalUrl = request.url.toString();
++
++  console.log('requestOptions', requestOptions)
++
+   if (proxy) {
+     // Ensure the proxy ends with a slash.
+     let normalizedProxy = proxy.replace(/\/$/, "") + "/";
      finalUrl = normalizedProxy + request.url.toString();
    }
  
@@ -463,8 +587,34 @@ index fb14cc2..42f72f5 100644
        </span>
      </pre>
    );
+diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Server/index.tsx b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Server/index.tsx
+index 2ada878..b6407b8 100644
+--- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Server/index.tsx
++++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Server/index.tsx
+@@ -20,6 +20,7 @@ function Server() {
+   const [isEditing, setIsEditing] = useState(false);
+   const value = useTypedSelector((state: any) => state.server.value);
+   const options = useTypedSelector((state: any) => state.server.options);
++  const pathParams = useTypedDispatch((state: any) => state.params.path)
+   const dispatch = useTypedDispatch();
+ 
+   if (options.length <= 0) {
+@@ -57,6 +58,13 @@ function Server() {
+         });
+       }
+     }
++    if (pathParams && pathParams?.length > 0) {
++      pathParams.forEach((pathParam: any) => {
++        if (pathParam?.value !== undefined && pathParam?.value !== null) {
++          url = url.replace(`{${pathParam.name}}`, String(pathParam.value));
++        }
++      })
++    }
+     return (
+       <FloatingButton onClick={() => setIsEditing(true)} label="Edit">
+         <FormItem label="Base URL">
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
-index 7fda844..f83f88f 100644
+index 7fda844..c78b86a 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 +++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/buildPostmanRequest.ts
 @@ -95,12 +95,19 @@ function setHeaders(
@@ -508,6 +658,20 @@ index 7fda844..f83f88f 100644
      case "urlencoded": {
        clonedPostman.body.urlencoded?.clear();
        if (body.type !== "form") {
+@@ -228,6 +237,13 @@ function buildPostmanRequest(
+         url = url.replace(`{${variable}}`, variables[variable].default);
+       });
+     }
++    if (pathParams && pathParams?.length > 0) {
++      pathParams.forEach(pathParam => {
++        if (pathParam?.value !== undefined && pathParam?.value !== null) {
++          url = url.replace(`{${pathParam.name}}`, String(pathParam.value));
++        }
++      })
++    }
+     clonedPostman.url.host = [url];
+   }
+ 
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx
 index aa45da3..f15835c 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/index.tsx

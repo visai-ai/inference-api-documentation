@@ -1,0 +1,42 @@
+.longRunCardContainer {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+  color: #320F85;
+}
+
+[data-theme='dark'] .longRunCardContainer {
+  background-color: #262d3c;
+  color: #ffffff;
+}
+
+.longRunCardContainer:hover {
+  background-color: #F9FAFB;
+  color: #320F85;
+  text-decoration-line: none !important;
+}
+
+[data-theme='dark'] .longRunCardContainer:hover {
+  background-color: #242a38;
+  color: #ffffff;
+}
+
+.longRunTitle {
+  font-weight: 500;
+  color: #320F85;
+}
+
+[data-theme='dark'] .longRunTitle {
+  color: #ffffff;
+}
+
+.longRunTitle:hover {
+  color: #320F85 !important;
+}
+
+[data-theme='dark'] .longRunTitle:hover {
+  color: #ffffff !important;
+}
