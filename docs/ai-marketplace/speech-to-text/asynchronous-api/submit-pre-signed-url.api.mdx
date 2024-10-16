@@ -81,10 +81,12 @@ api:
       {
         "pre_signed_url":
           [{ "file_name": "visai", "url": "https://<pre-signed-url>" }],
-        "word_timestamps": "false",
-        "speaking_rate": "false",
+        "word_timestamps": false,
+        "speaking_rate": false,
         "decoder_type": "LMBeamSearch",
-        "num_speakers": "1",
+        "num_speakers": 1,
+        "word_list": ["hello"],
+        "webhook_url": "https://<your-webhook-url>",
       },
     "method": "post",
     "path": "/predict",
