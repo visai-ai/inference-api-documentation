@@ -11,7 +11,7 @@ index 6732aa9..f81ba56 100644
          language.language,
          language.variant,
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
-index 1693eaa..ceafc66 100644
+index 1693eaa..ae04b50 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib-next/theme/ApiDemoPanel/Execute/makeRequest.js
 @@ -38,7 +38,10 @@ async function makeRequest(request, proxy, _body) {
@@ -55,7 +55,7 @@ index 1693eaa..ceafc66 100644
              }
            }
          }
-@@ -158,14 +172,18 @@ async function makeRequest(request, proxy, _body) {
+@@ -158,14 +172,20 @@ async function makeRequest(request, proxy, _body) {
      method: request.method,
      headers: myHeaders,
      body: myBody,
@@ -64,11 +64,13 @@ index 1693eaa..ceafc66 100644
    let finalUrl = request.url.toString();
 +
 +  console.log('requestOptions', requestOptions)
-+
++  console.log('proxy', proxy)
    if (proxy) {
      // Ensure the proxy ends with a slash.
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
++    console.log('normalizedProxy', normalizedProxy)
      finalUrl = normalizedProxy + request.url.toString();
++    console.log('finalUrl', finalUrl)
    }
 -  return await fetchWithtimeout(finalUrl, requestOptions).then((response) => {
 +  return await fetch(finalUrl, requestOptions).then((response) => {
@@ -252,7 +254,7 @@ index 5bfb317..2da8049 100644
          if (error) {
            return;
 diff --git a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
-index d0ea10a..a382e64 100644
+index d0ea10a..4fa5ee0 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
 +++ b/node_modules/docusaurus-theme-openapi-docs/lib/theme/ApiDemoPanel/Execute/makeRequest.js
 @@ -40,7 +40,10 @@ async function makeRequest(request, proxy, _body) {
@@ -299,7 +301,7 @@ index d0ea10a..a382e64 100644
            break;
          }
        case "file":
-@@ -165,15 +180,19 @@ async function makeRequest(request, proxy, _body) {
+@@ -165,15 +180,21 @@ async function makeRequest(request, proxy, _body) {
    const requestOptions = {
      method: request.method,
      headers: myHeaders,
@@ -310,11 +312,13 @@ index d0ea10a..a382e64 100644
    let finalUrl = request.url.toString();
 +
 +  console.log('requestOptions', requestOptions)
-+
++  console.log('proxy', proxy)
    if (proxy) {
      // Ensure the proxy ends with a slash.
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
++    console.log('normalizedProxy', normalizedProxy)
      finalUrl = normalizedProxy + request.url.toString();
++    console.log('finalUrl', finalUrl)
    }
 -  return await fetchWithtimeout(finalUrl, requestOptions).then(response => {
 +  return await fetch(finalUrl, requestOptions).then(response => {
@@ -504,7 +508,7 @@ index 36bf4f0..7283bcc 100644
            style={customStyles}
            contentLabel="Terms of Use"
 diff --git a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
-index ed991be..50830bc 100644
+index ed991be..a26d8ce 100644
 --- a/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
 +++ b/node_modules/docusaurus-theme-openapi-docs/src/theme/ApiDemoPanel/Execute/makeRequest.ts
 @@ -55,7 +55,10 @@ async function makeRequest(
@@ -540,7 +544,7 @@ index ed991be..50830bc 100644
              }
            }
          }
-@@ -177,16 +190,20 @@ async function makeRequest(
+@@ -177,16 +190,22 @@ async function makeRequest(
      method: request.method,
      headers: myHeaders,
      body: myBody,
@@ -550,11 +554,13 @@ index ed991be..50830bc 100644
    let finalUrl = request.url.toString();
 +
 +  console.log('requestOptions', requestOptions)
-+
++  console.log('proxy', proxy)
    if (proxy) {
      // Ensure the proxy ends with a slash.
      let normalizedProxy = proxy.replace(/\/$/, "") + "/";
++    console.log('normalizedProxy', normalizedProxy)
      finalUrl = normalizedProxy + request.url.toString();
++    console.log('finalUrl', finalUrl)
    }
  
 -  return await fetchWithtimeout(finalUrl, requestOptions).then(
