@@ -32,16 +32,69 @@ module.exports = [
   },
   {
     type: "doc",
-    id: "ai-marketplace/speech-to-text",
-    label: "Speech to Text",
-    className: "api-method post",
-  },
-
-  {
-    type: "doc",
     id: "ai-marketplace/ocr-documentation",
     label: "OCR Documentation",
     className: "api-method post",
+  },
+  {
+    type: "category",
+    label: "Speech to Text",
+    link: {
+      type: "generated-index",
+      title: "Speech to Text",
+      description: "Speech to Text Inference API",
+      slug: "/ai-marketplace/speech-to-text",
+    },
+    items: [
+      {
+        type: "doc",
+        id: "ai-marketplace/speech-to-text/synchronous-api",
+        label: "Synchronous API",
+        className: "api-method post",
+      },
+      {
+        type: "category",
+        label: "Asynchronous API",
+        link: {
+          type: "generated-index",
+          title: "Asynchronous API",
+          description: "Asynchronous - Speech to Text Inference API",
+          slug: "/ai-marketplace/speech-to-text/asynchronous",
+        },
+        items: [
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/uploading-file",
+            label: "Uploading files",
+            className: "api-method post",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/pre-singed-url",
+            label: "Submit Pre-signed URLs",
+            className: "api-method post",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/get-job-status",
+            label: "Get job status by ID",
+            className: "api-method get",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/list-jobs",
+            label: "List all jobs",
+            className: "api-method get",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/cancel-job",
+            label: "Cancel job",
+            className: "api-method get",
+          },
+        ],
+      },
+    ],
   },
   {
     type: "doc",

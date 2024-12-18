@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #3F13A6;
+  --ifm-color-primary: #101828;
   --ifm-color-primary-dark: #330e8a;
   --ifm-color-primary-darker: #320F85;
   --ifm-color-primary-darkest: #190842;
@@ -18,6 +18,8 @@
   --openapi-code-green: #320F85 !important;
   --ifm-color-success: #320F85 !important;
   --ifm-background-color: #ffffff;
+
+  --get-success: #12B76A
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -29,10 +31,24 @@
   --ifm-color-primary-light: #F9F5FF;
   --ifm-color-primary-lighter: #F4EBFF;
   --ifm-color-primary-lightest: #B2A1DB;
+  --openapi-code-green: #190842 !important;
+  --ifm-color-success: #190842 !important;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-background-color: #101828 !important;
+  --ifm-background-color: #141619 !important;
+
+  --get-success: #05603A
 }
 
+
+.get > .menu__link::before {
+  background-color: var(--get-success) !important;
+}
+
+span.badge.badge--primary {
+  /* Your styles here */
+  background-color: var(--get-success) !important;
+  border-color: var(--get-success) !important;
+}
 
 [data-theme='dark'] .navbar {
   background-color: #161933 !important;
@@ -53,6 +69,10 @@
 
 [data-theme='dark'] .navbar__link--active {
   color: #ffffff
+}
+
+.navbar__link--active {
+  font-weight: 700;
 }
 
 [data-theme='light'] .footer {
@@ -86,6 +106,7 @@
   border-color: transparent;
   color: white;
 }
+
 
 .get>.menu__link::before {
   content: "get";

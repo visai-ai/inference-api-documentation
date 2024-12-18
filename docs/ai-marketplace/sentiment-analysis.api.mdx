@@ -140,9 +140,9 @@ import TabItem from "@theme/TabItem";
 
 ## Sentiment Analysis: Product Review API
 
-<div class="custom-url-container">
-  <span class="custom-method">POST</span>
-  <span class="custom-url">https://sentiment.infer.visai.ai/predict</span>
+<div className="custom-url-container">
+  <span className="custom-method">POST</span>
+  <span className="custom-url">https://sentiment.infer.visai.ai/predict</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -183,13 +183,12 @@ import TabItem from "@theme/TabItem";
         <SchemaItem collapsible={true} className={"schemaItem"}>
           <details style={{}} data-collapsed={false} open={true}>
             <summary style={{}}>
-              <strong>inputs</strong>
               <span style={{ opacity: "0.6" }}> object</span>
             </summary>
             <div style={{ marginLeft: "1rem" }}>
               <SchemaItem
                 collapsible={false}
-                name={""}
+                name={"inputs"}
                 required={false}
                 schemaName={"string[]"}
                 qualifierMessage={undefined}
@@ -203,6 +202,7 @@ import TabItem from "@theme/TabItem";
         </SchemaItem>
       </ul>
     </details>
+
   </TabItem>
 </MimeTabs>
 <div>

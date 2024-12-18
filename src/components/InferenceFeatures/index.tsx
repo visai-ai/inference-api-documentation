@@ -21,6 +21,7 @@ import {
   useDocRouteMetadata,
 } from "@docusaurus/theme-common/internal";
 import DocPageLayout from "./Layout";
+import { matchPath } from "@docusaurus/router";
 
 import NotFound from "@theme/NotFound";
 // @ts-ignore
@@ -56,16 +57,38 @@ function DocPageMetadata(props: Props): JSX.Element {
 export default function DocPage(props: Props): JSX.Element {
   const pathName = props.location.pathname;
   const { versionMetadata } = props;
+
   const currentDocRouteMetadata = useDocRouteMetadata(props);
   if (!currentDocRouteMetadata) {
     return <NotFound />;
   }
   const { docElement, sidebarName, sidebarItems } = currentDocRouteMetadata;
+
+  let customSidebarName = sidebarName;
+  let customSidebarItems = sidebarItems;
   const product =
     pathName === "/docs/customized-ai" ||
     pathName === "/inference-api-documentation/docs/customized-ai"
       ? "Customized AI"
       : "AI Marketplace";
+
+  const docRoutes = props.route.routes;
+  if (docRoutes) {
+    const filteredCurrentDocRoute = docRoutes.filter((docRoute) =>
+      matchPath(pathName, docRoute)
+    );
+    const currentDocRoute = filteredCurrentDocRoute.find(
+      (docRoute) => docRoute.sidebar
+    );
+
+    if (currentDocRoute) {
+      // For now, the sidebarName is added as route config: not ideal!
+      customSidebarName = currentDocRoute.sidebar || customSidebarName;
+      customSidebarItems = customSidebarName
+        ? versionMetadata.docsSidebars[customSidebarName]
+        : customSidebarItems;
+    }
+  }
 
   return (
     <>
@@ -78,7 +101,10 @@ export default function DocPage(props: Props): JSX.Element {
         )}
       >
         <DocsVersionProvider version={versionMetadata}>
-          <DocsSidebarProvider name={sidebarName} items={sidebarItems}>
+          <DocsSidebarProvider
+            name={customSidebarName}
+            items={customSidebarItems}
+          >
             <DocPageLayout>
               {pathName === "/docs/ai-marketplace" ||
               pathName === "/docs/customized-ai" ||

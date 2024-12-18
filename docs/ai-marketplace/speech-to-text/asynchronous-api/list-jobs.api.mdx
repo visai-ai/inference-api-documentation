@@ -1,15 +1,15 @@
 ---
-id: speech-segmentation
-title: "Speech Segmentation - AI Marketplace"
+id: list-jobs
+title: "List All Job of Asynchronous - Speech to Text"
 description: ""
-sidebar_label: "Speech Segmentation"
+sidebar_label: "List All Job"
 hide_title: true
 hide_table_of_contents: true
 api:
   {
-    "tags": ["ai-marketplace"],
+    "tags": ["asynchronous"],
     "description": "",
-    "operationId": "speechSegmentaionInfer",
+    "operationId": "asynSTTListJobsInfer",
     "parameters":
       [
         {
@@ -34,12 +34,27 @@ api:
                         "type": "object",
                         "properties":
                           {
+                            "id":
+                              {
+                                "type": "string",
+                                "description": "Job ID of the inference",
+                              },
                             "status":
                               {
                                 "type": "string",
                                 "description": "Status of request",
                               },
-                            "data":
+                            "error":
+                              {
+                                "type": "string",
+                                "description": "Cause of error",
+                              },
+                            "webhook_url":
+                              {
+                                "type": "string",
+                                "description": "The webhook URL provided by the user in the request.",
+                              },
+                            "result":
                               {
                                 "type": "array",
                                 "items":
@@ -47,35 +62,25 @@ api:
                                     "type": "object",
                                     "properties":
                                       {
-                                        "filename":
-                                          {
-                                            "type": "string",
-                                            "description": "File name",
-                                          },
-                                        "interval":
+                                        "filename": { "type": "string" },
+                                        "duration": { "type": "string" },
+                                        "status": { "type": "string" },
+                                        "result":
                                           {
                                             "type": "array",
-                                            "description": "List of interval time of speech and non-speech segments",
-                                            "items":
+                                            "itmes":
                                               {
                                                 "type": "object",
                                                 "properties":
                                                   {
-                                                    "start":
-                                                      {
-                                                        "type": "string",
-                                                        "description": "Start time in HH:mm:ss.sss format",
-                                                      },
-                                                    "end":
-                                                      {
-                                                        "type": "string",
-                                                        "description": "End time in HH:mm:ss.sss format",
-                                                      },
-                                                    "label":
-                                                      {
-                                                        "type": "string",
-                                                        "description": "speech | non-speech",
-                                                      },
+                                                    "speaker":
+                                                      { "type": "string" },
+                                                    "transcript":
+                                                      { "type": "string" },
+                                                    "start_time":
+                                                      { "type": "string" },
+                                                    "end_time":
+                                                      { "type": "string" },
                                                   },
                                               },
                                           },
@@ -89,35 +94,13 @@ api:
               },
           },
       },
-    "requestBody":
-      {
-        "content":
-          {
-            "multipart/form-data":
-              {
-                "schema":
-                  {
-                    "type": "object",
-                    "properties":
-                      {
-                        "files":
-                          {
-                            "type": "string",
-                            "format": "binary",
-                            "description": "Audio file ('.wav', '.mp3', '.ogg', and etc.)",
-                          },
-                      },
-                    "required": ["files"],
-                  },
-              },
-          },
-      },
-    "method": "post",
-    "path": "/predict",
+    "method": "get",
+    "mode": "no-cors",
+
     "servers":
       [
         {
-          "url": "https://speechsegmentation.infer.visai.ai/predict",
+          "url": "https://longrun-api.visai.ai/v1/job",
           "description": "Default server",
         },
       ],
@@ -125,16 +108,18 @@ api:
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
       },
-    "fullURL": "https://speechsegmentation.infer.visai.ai/predict",
+    "fullURL": "https://longrun-api.visai.ai/v1/job",
     "postman": {
-        "name": "Speech to Text Inference",
-        # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
-        "method": "POST",
-        "body":
-          {
-            "mode": "formdata",
-            "formdata": [{ "key": "files", "value": "file", "type": "file" }],
-          },
+        "name": "Get Job Status - Asynchronous: Speech to Text API",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "method": "GET",
+        "mode": "no-cors",
+        # "body":
+        #   {
+        #     "mode": "raw",
+        #     "raw": '""',
+        #     "options": { "raw": { "language": "json" } },
+        #   },
       },
   }
 sidebar_class_name: "post api-method"
@@ -151,11 +136,37 @@ import SchemaTabs from "@theme/SchemaTabs";
 import DiscriminatorTabs from "@theme/DiscriminatorTabs";
 import TabItem from "@theme/TabItem";
 
-## Speech Segmentation API
+## Asynchronous - Speech to Text API
+
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    marginBottom: "1rem",
+  }}
+>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22 11.0857V12.0057C21.9988 14.1621 21.3005 16.2604 20.0093 17.9875C18.7182 19.7147 16.9033 20.9782 14.8354 21.5896C12.7674 22.201 10.5573 22.1276 8.53447 21.3803C6.51168 20.633 4.78465 19.2518 3.61096 17.4428C2.43727 15.6338 1.87979 13.4938 2.02168 11.342C2.16356 9.19029 2.99721 7.14205 4.39828 5.5028C5.79935 3.86354 7.69279 2.72111 9.79619 2.24587C11.8996 1.77063 14.1003 1.98806 16.07 2.86572M22 4L12 14.01L9 11.01"
+      stroke="#475467"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+  <h2 style={{ marginBottom: "0" }}>Get list of all inference jobs</h2>
+</div>
 
 <div className="custom-url-container">
   <span className="custom-method">POST</span>
-  <span className="custom-url">https://speechsegmentation.infer.visai.ai/predict</span>
+  <span className="custom-url">https://longrun-api.visai.ai/v1/job</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -176,37 +187,6 @@ import TabItem from "@theme/TabItem";
     </ul>
   </div>
 </details>
-<MimeTabs>
-  <TabItem label={"multipart/form-data"} value={"multipart/form-data-schema"}>
-    <p style={{ marginLeft: "1rem", marginBottom: "0px", fontWeight: 500, fontSize: "12px" }}>form-data body</p>
-    <details style={{}} data-collapsed={false} open={true}>
-      <summary style={{ textAlign: "left" }}>
-        <strong>Request Body</strong><br/>
-      </summary>
-      <div style={{ textAlign: "left", marginLeft: "1rem" }}></div>
-      <ul style={{ marginLeft: "1rem" }}>
-        <li>
-          <div>
-            <div>
-              <strong>files</strong>
-              <span style={{ opacity: "0.6" }}> File</span>
-              <span
-                style={{
-                  color: "#FA383E",
-                  marginLeft: "0.25rem",
-                  fontWeight: "700",
-                }}
-              >
-                required
-              </span>
-            </div>
-            <p>Audio raw files in a form of multi-part form data using the key name <b>files</b>.</p>
-          </div>
-        </li>
-      </ul>
-    </details>
-  </TabItem>
-</MimeTabs>
 <div>
   <ApiTabs>
     <TabItem label={"200"} value={"200"}>
@@ -223,75 +203,78 @@ import TabItem from "@theme/TabItem";
                   <div style={{ marginLeft: "1rem" }}>
                     <SchemaItem
                       collapsible={false}
-                      name={"status"}
-                      required={false}
-                      schemaName={"string"}
-                      qualifierMessage={
-                        "`success` | `failed`"
-                      }
-                      schema={{
-                        description: "Status of request",
-                        title: "status",
-                      }}
-                    ></SchemaItem>
-                    <SchemaItem
-                      collapsible={false}
                       className={"schemaItem"}
                     >
                       <details style={{}} data-collapsed={false} open={true}>
                         <summary style={{}}>
-                          <strong>data</strong>
+                          <strong>jobs</strong>
                           <span style={{ opacity: "0.6" }}> Array [</span>
                         </summary>
                         <div style={{ marginLeft: "1rem" }}>
+                          <div>List of inference jobs</div>
                           <SchemaItem
-                            collapsible={false}
-                            name={"filename"}
-                            required={false}
-                            schemaName={"string"}
-                            schema={{
-                              description: "File name",
-                              title: "filename",
-                            }}
-                          ></SchemaItem>
-                           <SchemaItem
                             collapsible={false}
                             className={"schemaItem"}
                           >
                             <details style={{}} data-collapsed={false} open={true}>
                               <summary style={{}}>
-                                <strong>interval</strong>
                                 <span style={{ opacity: "0.6" }}> object</span>
                               </summary>
                               <div style={{ marginLeft: "1rem" }}>
                                 <SchemaItem
                                   collapsible={false}
-                                  name={"start"}
+                                  name={"id"}
                                   required={false}
                                   schemaName={"string"}
                                   schema={{
-                                    description: "Start time in `HH:mm:ss.sss` format",
-                                    title: "start",
+                                    description: "ID of the inference job",
+                                    title: "id",
                                   }}
                                 ></SchemaItem>
                                 <SchemaItem
                                   collapsible={false}
-                                  name={"end"}
+                                  name={"status"}
                                   required={false}
                                   schemaName={"string"}
+                                  qualifierMessage={
+                                    "`COMPLETED` | `FAILED` | `QUEUE` | `PROCESS`"
+                                  }
                                   schema={{
-                                    description: "End time in `HH:mm:ss.sss` format",
-                                    title: "end",
+                                    description: "Status of request",
+                                    title: "status",
                                   }}
                                 ></SchemaItem>
                                 <SchemaItem
                                   collapsible={false}
-                                  name={"label"}
+                                  name={"error"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  qualifierMessage={
+                                    "`null` | `Timeout` | `Bad Inference`"
+                                  }
+                                  schema={{
+                                    description: "Reason of error",
+                                    title: "error",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"webhook_url"}
                                   required={false}
                                   schemaName={"string"}
                                   schema={{
-                                    description: "`non-speech` | `speech`",
-                                    title: "label",
+                                    description: "The webhook URL provided by the user in the request.",
+                                    title: "webhook_url",
+                                  }}
+                                ></SchemaItem>
+                                 <SchemaItem
+                                  collapsible={false}
+                                  name={"created_at"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "The timestamp indicating when the job was created, in ISO 8601 format with timezone information (e.g. `2024-12-18 08:03:26.405352 +0000 +0000`).",
+                                    title: "webhook_url",
                                   }}
                                 ></SchemaItem>
                               </div>
@@ -319,37 +302,27 @@ import TabItem from "@theme/TabItem";
                 <ResponseSamples
                   responseExample={
                     `{
-  "status": "success",
-  "data": [
+  "jobs": [
     {
-      "filename": "record.wav",
-      "interval": [
-        {
-          "start": "00:00:00.000",
-          "end": "00:00:06.599",
-          "label": "speech"
-        },
-        {
-          "start": "00:00:06.600",
-          "end": "00:00:09.874",
-          "label": "non-speech"
-        },
-        {
-          "start": "00:00:09.875",
-          "end": "00:00:12.424",
-          "label": "speech"
-        },
-        {
-          "start": "00:00:12.425",
-          "end": "00:00:14.349",
-          "label": "non-speech"
-        },
-        {
-          "start": "00:00:14.349",
-          "end": "00:00:16.896",
-          "label": "speech"
-        }
-      ]
+      "id": "<job-id>",
+      "status": "PROCESS",
+      "error": null,
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    },
+   {
+      "id": "<job-id>",
+      "status": "COMPLETED",
+      "error": null,
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    },
+    {
+      "id": "<job-id>",
+      "status": "FAILED",
+      "error": "Timeout", // Bad Inference
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
     }
   ]
 }`

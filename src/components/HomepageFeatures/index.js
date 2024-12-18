@@ -48,17 +48,17 @@ const apiList = [
       </>
     ),
   },
-  {
-    title: "Customized AI",
-    Svg: require("@site/static/img/tool.svg").default,
-    href: "/docs/customized-ai",
-    description: (
-      <>
-        Your own AI model by uploading data, measuring its performance accuracy,
-        and using it when satisfied.
-      </>
-    ),
-  },
+  // {
+  //   title: "Customized AI",
+  //   Svg: require("@site/static/img/tool.svg").default,
+  //   href: "/docs/customized-ai",
+  //   description: (
+  //     <>
+  //       Your own AI model by uploading data, measuring its performance accuracy,
+  //       and using it when satisfied.
+  //     </>
+  //   ),
+  // },
 ];
 
 function Feature({ Svg, title, href, description }) {
