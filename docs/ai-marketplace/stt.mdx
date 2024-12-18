@@ -10,9 +10,9 @@ The API is highly scalable and supports a range of audio formats. Developers can
 
 ## Synchronous API
 
-Synchronous API returns the recognized text for short audio **(less than 5 minutes)**.
+Synchronous API returns the recognized text for short audio **(less than 1 minutes)**.
 
-To process a speech recognition request for audio longer than 5 minutes, use Asynchronous API.
+To process a speech recognition request for audio longer than 1 minutes, use Asynchronous API.
 
 ```mdx-code-block
 import LinkCard from '../../src/components/LinkCard';
@@ -24,7 +24,7 @@ import LinkCard from '../../src/components/LinkCard';
 
 ## Asynchronous API
 
-Asynchronous API starts a long running audio processing operation. Use asynchronous API to transcribe audio that is **longer than 5 minutes**. The upper limit for asynchronous API is **300 minutes**.
+Asynchronous API starts a long running audio processing operation. Use asynchronous API to transcribe audio that is **longer than 1 minutes**. The upper limit for asynchronous API is **300 minutes**.
 
 For shorter audio, synchronous API is faster and simpler. The upper limit for asynchronous API is 300 minutes.
 
