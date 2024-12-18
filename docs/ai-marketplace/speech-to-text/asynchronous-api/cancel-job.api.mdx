@@ -1,15 +1,15 @@
 ---
-id: uploading-file
+id: cancel-job
 title: "Asynchronous API - Speech to Text"
 description: ""
-sidebar_label: "Uploading Files"
+sidebar_label: "Cancel Job"
 hide_title: true
 hide_table_of_contents: true
 api:
   {
     "tags": ["asynchronous"],
     "description": "",
-    "operationId": "asynSTTUploadingFileInfer",
+    "operationId": "asynSTTCancelJobInfer",
     "parameters":
       [
         {
@@ -50,37 +50,27 @@ api:
       {
         "content":
           {
-            "multipart/form-data":
+            "application/json":
               {
                 "schema":
                   {
                     "type": "object",
                     "properties":
                       {
-                        "files":
-                          {
-                            "type": "string",
-                            "format": "binary",
-                            "description": "Audio file ('.wav', '.mp3', '.ogg', and etc.)",
-                          },
-                        "files_speakers":
-                          {
-                            "type": "string",
-                            "format": "binary",
-                            "description": "(Optional) Speaker file ('.wav', '.mp3', '.ogg', and etc.)\n- Maximum 5 files, Limit file size 20 MB.",
-                          },
+                        "job_id": { "type": "string", "description": "Job ID" },
                       },
-                    "required": ["files"],
                   },
               },
           },
+        "required": true,
       },
+    "jsonRequestBodyExample": { "job_id": "<job_id>" },
     "method": "post",
     "path": "/predict",
     "servers":
       [
         {
-          "url": "https://longrun-api.dev.visai.ai/v1/job/stt/predict/files",
+          "url": "https://longrun-api.visai.ai/v1/job/cancel",
           "description": "Default server",
         },
       ],
@@ -88,15 +78,17 @@ api:
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
       },
-    "fullURL": "https://longrun-api.dev.visai.ai/v1/job/stt/predict/files",
-    "postman": {
+    "fullURL": "https://longrun-api.visai.ai/v1/job/cancel",
+    "postman":
+      {
         "name": "Speech to Text Inference",
-        # "headers": [{ "key": "Accept", "value": "multipart/form-data" }],
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
         "method": "POST",
         "body":
           {
-            "mode": "formdata",
-            "formdata": [{ "key": "files", "value": "file", "type": "file" }],
+            "mode": "raw",
+            "raw": '""',
+            "options": { "raw": { "language": "json" } },
           },
       },
   }
@@ -132,19 +124,19 @@ import TabItem from "@theme/TabItem";
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M21 3H3M18 13L12 7M12 7L6 13M12 7V21"
-      stroke="#475467"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M15 9L9 15M9 9L15 15M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+      stroke="black"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
   </svg>
-  <h2 style={{ marginBottom: "0" }}>Create inference by uploading file</h2>
+  <h2 style={{ marginBottom: "0" }}>Cancel inference job</h2>
 </div>
 
 <div className="custom-url-container">
   <span className="custom-method">POST</span>
-  <span className="custom-url">https://longrun-api.dev.visai.ai/v1/job/stt/predict/files</span>
+  <span className="custom-url">https://longrun-api.visai.ai/v1/job/cancel</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -166,62 +158,52 @@ import TabItem from "@theme/TabItem";
   </div>
 </details>
 <MimeTabs>
-  <TabItem label={"multipart/form-data"} value={"multipart/form-data-schema"}>
-    <p style={{ marginLeft: "1rem", marginBottom: "0px", fontWeight: 500, fontSize: "12px" }}>form-data body</p>
+  <TabItem label={"application/json"} value={"application/json"}>
+    <p style={{ marginLeft: "1rem", marginBottom: "0px", fontWeight: 500, fontSize: "12px" }}>Raw JSON body</p>
     <details style={{}} data-collapsed={false} open={true}>
       <summary style={{ textAlign: "left" }}>
-        <strong>Request Body</strong><br/>
+        <strong>Request Body</strong>
+        <strong
+          style={{
+            fontSize: "var(--ifm-code-font-size)",
+            color: "var(--openapi-required)",
+          }}
+        >
+          {" "}
+          required
+        </strong>
       </summary>
-      <div style={{ textAlign: "left", marginLeft: "1rem" }}></div>
       <ul style={{ marginLeft: "1rem" }}>
-        <li>
-          <div>
-            <div>
-              <strong>files</strong>
-              <span style={{ opacity: "0.6" }}> File</span>
-              <span
-                style={{
-                  color: "#FA383E",
-                  marginLeft: "0.25rem",
-                  fontWeight: "700",
-                }}
+        <SchemaItem collapsible={true} className={"schemaItem"}>
+          <details style={{}} data-collapsed={false} open={true}>
+            <summary style={{}}>
+              <span style={{ opacity: "0.6" }}> object</span>
+            </summary>
+            <div style={{ marginLeft: "1rem" }}>
+              <details
+                style={{}}
+                data-collapsed={false}
+                open={true}
               >
-                required
-              </span>
+                <summary style={{}}>
+                  <SchemaItem
+                    collapsible={false}
+                    name={"job_id"}
+                    required={false}
+                    schemaName={"string"}
+                    qualifierMessage={undefined}
+                    schema={{
+                      type: "string",
+                      description:
+                        "ID of the job to be canceled.",
+                    }}
+                  ></SchemaItem>
+                </summary>
+              </details>
             </div>
-            <p>Audio raw files in a form of multi-part form data using the key name <b>files</b>.</p>
-            <p>Each file size must not exceed <b>1 GB</b>.</p>
-          </div>
-        </li>
+          </details>
+        </SchemaItem>
       </ul>
-    </details>
-    <details
-      style={{ marginBottom: "1rem" }}
-      data-collapsed={false}
-      open={true}
-    >
-      <summary style={{}}>
-         <span style={{ opacity: "0.6" }}>optional</span>
-         <p style={{ fontSize: "14px", opacity: "0.6" }}>Send with the form of multi-part form data</p>
-      </summary>
-      <div>
-        <ul>
-           <ParamsItem
-            className={"paramsItem"}
-            param={{
-              name: "files_speakers",
-              in: "query",
-              description: `Speaker file\n Maximum 5 files can be provided.\nEach file size must not exceed 20 MB.`,
-              required: false,
-              style: "form",
-              schema: {
-                type: "file",
-              },
-            }}
-          >
-          </ParamsItem>
-        </ul>
-      </div>
     </details>
   </TabItem>
 </MimeTabs>
@@ -241,12 +223,22 @@ import TabItem from "@theme/TabItem";
                   <div style={{ marginLeft: "1rem" }}>
                    <SchemaItem
                       collapsible={false}
-                      name={"job_id"}
+                      name={"code"}
                       required={false}
                       schemaName={"string"}
                       schema={{
-                        description: "ID of the inference job",
-                        title: "job_id",
+                        description: "A unique error code identifying the specific issue.",
+                        title: "code",
+                      }}
+                    ></SchemaItem>
+                    <SchemaItem
+                      collapsible={false}
+                      name={"message"}
+                      required={false}
+                      schemaName={"string"}
+                      schema={{
+                        description: "A descriptive message explaining the cancel process.",
+                        title: "message",
                       }}
                     ></SchemaItem>
                   </div>
@@ -259,7 +251,8 @@ import TabItem from "@theme/TabItem";
                 <ResponseSamples
                   responseExample={
                     `{
-    "job_id": "<job-id>"
+  "code": "EACP-01-000",
+  "message": "job is already cancelled"
 }`
                   }
                   language={"json"}

@@ -1,28 +1,21 @@
 ---
-id: get-job-status
-title: "Get Job Status of Asynchronous - Speech to Text"
+id: list-jobs
+title: "List All Job of Asynchronous - Speech to Text"
 description: ""
-sidebar_label: "Get job status by ID"
+sidebar_label: "List All Job"
 hide_title: true
 hide_table_of_contents: true
 api:
   {
     "tags": ["asynchronous"],
     "description": "",
-    "operationId": "asynSTTJobStatusInfer",
+    "operationId": "asynSTTListJobsInfer",
     "parameters":
       [
         {
           "name": "X-API-Key",
           "in": "header",
           "description": "Your API key",
-          "required": true,
-          "schema": { "type": "string" },
-        },
-        {
-          "name": "job_id",
-          "in": "path",
-          "description": "Job ID of the inference",
           "required": true,
           "schema": { "type": "string" },
         },
@@ -103,11 +96,11 @@ api:
       },
     "method": "get",
     "mode": "no-cors",
-    "path": "/{job_id}",
+
     "servers":
       [
         {
-          "url": "https://longrun-api.visai.ai/v1/job/{job_id}",
+          "url": "https://longrun-api.visai.ai/v1/job",
           "description": "Default server",
         },
       ],
@@ -115,7 +108,7 @@ api:
       {
         "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
       },
-    "fullURL": "https://longrun-api.visai.ai/v1/job/{job_id}",
+    "fullURL": "https://longrun-api.visai.ai/v1/job",
     "postman": {
         "name": "Get Job Status - Asynchronous: Speech to Text API",
         "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -168,12 +161,12 @@ import TabItem from "@theme/TabItem";
       strokeLinejoin="round"
     />
   </svg>
-  <h2 style={{ marginBottom: "0" }}>Get job status by ID</h2>
+  <h2 style={{ marginBottom: "0" }}>Get list of all inference jobs</h2>
 </div>
 
 <div className="custom-url-container">
   <span className="custom-method">POST</span>
-  <span className="custom-url">https://longrun-api.visai.ai/v1/job/&#123;job-id&#125;</span>
+  <span className="custom-url">https://longrun-api.visai.ai/v1/job</span>
 </div>
 <details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
   <summary style={{}}>
@@ -187,25 +180,6 @@ import TabItem from "@theme/TabItem";
           name: "X-API-Key",
           in: "header",
           description: "Your API key",
-          required: true,
-          schema: { type: "string" },
-        }}
-      ></ParamsItem>
-    </ul>
-  </div>
-</details>
-<details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
-  <summary style={{}}>
-    <strong>Parameter</strong>
-  </summary>
-  <div>
-    <ul>
-      <ParamsItem
-        className={"paramsItem"}
-        param={{
-          name: "job_id",
-          in: "path",
-          description: "Your job ID",
           required: true,
           schema: { type: "string" },
         }}
@@ -227,64 +201,18 @@ import TabItem from "@theme/TabItem";
                     <span style={{ opacity: "0.6" }}> object</span>
                   </summary>
                   <div style={{ marginLeft: "1rem" }}>
-                   <SchemaItem
-                      collapsible={false}
-                      name={"id"}
-                      required={false}
-                      schemaName={"string"}
-                      schema={{
-                        description: "ID of the inference job",
-                        title: "id",
-                      }}
-                    ></SchemaItem>
-                    <SchemaItem
-                      collapsible={false}
-                      name={"status"}
-                      required={false}
-                      schemaName={"string"}
-                      qualifierMessage={
-                        "`COMPLETED` | `FAILED` | `QUEUE` | `PROCESS`"
-                      }
-                      schema={{
-                        description: "Status of request",
-                        title: "status",
-                      }}
-                    ></SchemaItem>
-                    <SchemaItem
-                      collapsible={false}
-                      name={"error"}
-                      required={false}
-                      schemaName={"string"}
-                      qualifierMessage={
-                        "`null` | `Timeout` | `Bad Inference`"
-                      }
-                      schema={{
-                        description: "Reason of error",
-                        title: "error",
-                      }}
-                    ></SchemaItem>
-                    <SchemaItem
-                      collapsible={false}
-                      name={"webhook_url"}
-                      required={false}
-                      schemaName={"string"}
-                      schema={{
-                        description: "The webhook URL provided by the user in the request.",
-                        title: "webhook_url",
-                      }}
-                    ></SchemaItem>
                     <SchemaItem
                       collapsible={false}
                       className={"schemaItem"}
                     >
                       <details style={{}} data-collapsed={false} open={true}>
                         <summary style={{}}>
-                          <strong>results</strong>
+                          <strong>jobs</strong>
                           <span style={{ opacity: "0.6" }}> Array [</span>
                         </summary>
                         <div style={{ marginLeft: "1rem" }}>
-                          <div>List of file results</div>
-                           <SchemaItem
+                          <div>List of inference jobs</div>
+                          <SchemaItem
                             collapsible={false}
                             className={"schemaItem"}
                           >
@@ -295,24 +223,12 @@ import TabItem from "@theme/TabItem";
                               <div style={{ marginLeft: "1rem" }}>
                                 <SchemaItem
                                   collapsible={false}
-                                  name={"duration"}
+                                  name={"id"}
                                   required={false}
                                   schemaName={"string"}
-                                  qualifierMessage={undefined}
                                   schema={{
-                                    type: "string",
-                                    description: "Duration of the file",
-                                  }}
-                                ></SchemaItem>
-                                <SchemaItem
-                                  collapsible={false}
-                                  name={"filename"}
-                                  required={false}
-                                  schemaName={"string"}
-                                  qualifierMessage={undefined}
-                                  schema={{
-                                    type: "string",
-                                    description: "Name of the file",
+                                    description: "ID of the inference job",
+                                    title: "id",
                                   }}
                                 ></SchemaItem>
                                 <SchemaItem
@@ -321,92 +237,46 @@ import TabItem from "@theme/TabItem";
                                   required={false}
                                   schemaName={"string"}
                                   qualifierMessage={
-                                    "`success` | `failed`"
+                                    "`COMPLETED` | `FAILED` | `QUEUE` | `PROCESS`"
                                   }
                                   schema={{
-                                    description: "Inference status of the file",
+                                    description: "Status of request",
                                     title: "status",
                                   }}
                                 ></SchemaItem>
                                 <SchemaItem
                                   collapsible={false}
-                                  className={"schemaItem"}
-                                >
-                                  <details style={{}} data-collapsed={false} open={true}>
-                                    <summary style={{}}>
-                                      <strong>results</strong>
-                                      <span style={{ opacity: "0.6" }}> Array [</span>
-                                    </summary>
-                                    <div style={{ marginLeft: "1rem" }}>
-                                      <div>List of file result</div>
-                                      <SchemaItem
-                                        collapsible={false}
-                                        className={"schemaItem"}
-                                      >
-                                        <details style={{}} data-collapsed={false} open={true}>
-                                          <summary style={{}}>
-                                            <span style={{ opacity: "0.6" }}> object</span>
-                                          </summary>
-                                          <div style={{ marginLeft: "1rem" }}>
-                                            <SchemaItem
-                                              collapsible={false}
-                                              name={"start_time"}
-                                              required={false}
-                                              schemaName={"string"}
-                                              qualifierMessage={undefined}
-                                              schema={{
-                                                type: "string",
-                                                description: "Start time in `HH:mm:ss.sss` format",
-                                              }}
-                                            ></SchemaItem>
-                                            <SchemaItem
-                                              collapsible={false}
-                                              name={"end_time"}
-                                              required={false}
-                                              schemaName={"string"}
-                                              qualifierMessage={undefined}
-                                              schema={{
-                                                type: "string",
-                                                description: "Start time in `HH:mm:ss.sss` format",
-                                              }}
-                                            ></SchemaItem>
-                                            <SchemaItem
-                                              collapsible={false}
-                                              name={"speaker"}
-                                              required={false}
-                                              schemaName={"string"}
-                                              qualifierMessage={undefined}
-                                              schema={{
-                                                type: "string",
-                                                description: "Speaker in `SPEAKER_{number}` format",
-                                              }}
-                                            ></SchemaItem>
-                                            <SchemaItem
-                                              collapsible={false}
-                                              name={"transcript"}
-                                              required={false}
-                                              schemaName={"string"}
-                                              qualifierMessage={undefined}
-                                              schema={{
-                                                type: "string",
-                                                description: "The transcribed text",
-                                              }}
-                                            ></SchemaItem>
-                                          </div>
-                                        </details>
-                                      </SchemaItem>
-                                    </div>
-                                    <div
-                                      style={{
-                                        fontSize: "var(--ifm-code-font-size)",
-                                        opacity: "0.6",
-                                        marginLeft: "-.5rem",
-                                      }}
-                                    >
-                                      ]
-                                    </div>
-                                  </details>
-                                </SchemaItem>
+                                  name={"error"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  qualifierMessage={
+                                    "`null` | `Timeout` | `Bad Inference`"
+                                  }
+                                  schema={{
+                                    description: "Reason of error",
+                                    title: "error",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"webhook_url"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "The webhook URL provided by the user in the request.",
+                                    title: "webhook_url",
+                                  }}
+                                ></SchemaItem>
+                                 <SchemaItem
+                                  collapsible={false}
+                                  name={"created_at"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "The timestamp indicating when the job was created, in ISO 8601 format with timezone information (e.g. `2024-12-18 08:03:26.405352 +0000 +0000`).",
+                                    title: "webhook_url",
+                                  }}
+                                ></SchemaItem>
                               </div>
                             </details>
                           </SchemaItem>
@@ -432,37 +302,29 @@ import TabItem from "@theme/TabItem";
                 <ResponseSamples
                   responseExample={
                     `{
-    "id": "<job-id>",
-    "status": "COMPLETED",
-    "result": [
-        {
-            "duration": 10.856,
-            "filename": "record.wav",
-            "result": [
-                {
-                    "end_time": 3.9122188091278076,
-                    "speaker": "SPEAKER_00",
-                    "start_time": 1.9040937423706055,
-                    "transcript": "วิสัย"
-                },
-                {
-                    "end_time": 7.860968589782715,
-                    "speaker": "SPEAKER_00",
-                    "start_time": 4.772843837738037,
-                    "transcript": "บริษัท"
-                },
-                {
-                    "end_time": 9.480968475341797,
-                    "speaker": "SPEAKER_00",
-                    "start_time": 8.485343933105469,
-                    "transcript": "ผู้พัฒนาแพลตฟอร์ม"
-                },
-            ],
-            "status": "success"
-        }
-    ],
-    "error": null,
-    "webhook_url": "https://<your-webhook-url>"
+  "jobs": [
+    {
+      "id": "<job-id>",
+      "status": "PROCESS",
+      "error": null,
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    },
+   {
+      "id": "<job-id>",
+      "status": "COMPLETED",
+      "error": null,
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    },
+    {
+      "id": "<job-id>",
+      "status": "FAILED",
+      "error": "Timeout", // Bad Inference
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    }
+  ]
 }`
                   }
                   language={"json"}

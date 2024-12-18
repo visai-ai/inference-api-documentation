@@ -77,7 +77,19 @@ module.exports = [
           {
             type: "doc",
             id: "ai-marketplace/speech-to-text/asynchronous-api/get-job-status",
-            label: "Get job status",
+            label: "Get job status by ID",
+            className: "api-method get",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/list-jobs",
+            label: "List all jobs",
+            className: "api-method get",
+          },
+          {
+            type: "doc",
+            id: "ai-marketplace/speech-to-text/asynchronous-api/cancel-job",
+            label: "Cancel job",
             className: "api-method get",
           },
         ],

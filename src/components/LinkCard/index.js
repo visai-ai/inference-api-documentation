@@ -6,7 +6,7 @@ import styles from "./style.module.css";
 export default function LongRunCard({ title, href }) {
   return (
     <Link to={href} className={clsx("", styles.longRunCardContainer)}>
-      <span className={clsx("", styles.longRunTitle)}>Go to {title}</span>
+      <span className={clsx("", styles.longRunTitle)}>{title}</span>
       <svg
         width="20"
         height="20"

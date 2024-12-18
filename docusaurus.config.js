@@ -57,11 +57,11 @@ const config = {
             position: "left",
             to: "/docs/ai-marketplace",
           },
-          {
-            label: "Customized AI",
-            position: "left",
-            to: "/docs/customized-ai",
-          },
+          // {
+          //   label: "Customized AI",
+          //   position: "left",
+          //   to: "/docs/customized-ai",
+          // },
           {
             href: "https://console.visai.ai/",
             label: "Console",
@@ -79,10 +79,10 @@ const config = {
                 label: "AI Marketplace API",
                 to: "/docs/ai-marketplace",
               },
-              {
-                label: "Customized AI API",
-                to: "/docs/customized-ai",
-              },
+              // {
+              //   label: "Customized AI API",
+              //   to: "/docs/customized-ai",
+              // },
             ],
           },
           {
@@ -109,10 +109,10 @@ const config = {
                 label: "AI Marketplace",
                 href: "https://console.visai.ai/ai-marketplace",
               },
-              {
-                label: "Customized AI",
-                href: "https://console.visai.ai/customized-ai",
-              },
+              // {
+              //   label: "Customized AI",
+              //   href: "https://console.visai.ai/customized-ai",
+              // },
             ],
           },
         ],

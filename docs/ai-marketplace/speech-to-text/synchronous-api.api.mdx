@@ -110,30 +110,11 @@ api:
                             "format": "binary",
                             "description": "Audio file ('.wav', '.mp3', '.ogg', and etc.)",
                           },
-                        "num_speakers":
-                          {
-                            "type": "number",
-                            "description": "Number of speakers diarization in 1-4 speakers. (default: 1)",
-                          },
-                        "speaking_rate":
+                        "files_speakers":
                           {
                             "type": "string",
-                            "description": "Get the speaking rate of each transcription by settings true (default: false)",
-                          },
-                        "word_timestamps":
-                          {
-                            "type": "string",
-                            "description": "Get time offsets of each word by settings true (default: false)",
-                          },
-                        "word_list":
-                          {
-                            "type": "string",
-                            "description": "List of terminology in ['word_1', 'word_2', ...] format",
-                          },
-                        "decoder_type":
-                          {
-                            "type": "string",
-                            "description": "Decoding methods including Greedy, BeamSearch, and LMBeamSearch (default: LMBeamSearch)",
+                            "format": "binary",
+                            "description": "(Optional) Speaker file ('.wav', '.mp3', '.ogg', and etc.)\n- Maximum 5 files, Limit file size 20 MB.",
                           },
                       },
                     "required": ["files"],
@@ -230,6 +211,7 @@ import TabItem from "@theme/TabItem";
               </span>
             </div>
             <p>Audio raw files in a form of multi-part form data using the key name <b>files</b>.</p>
+            <p>Each file size must not exceed <b>50 MB</b>.</p>
           </div>
         </li>
       </ul>
@@ -248,73 +230,17 @@ import TabItem from "@theme/TabItem";
           <ParamsItem
             className={"paramsItem"}
             param={{
-              name: "num_speakers",
+              name: "files_speakers",
               in: "query",
-              description: "Number of speakers diarization in 1-4 speakers.",
+              description: `Speaker file\n Maximum 5 files can be provided.\nEach file size must not exceed 20 MB.`,
               required: false,
               style: "form",
               schema: {
-                type: "number",
-                default: `1`,
+                type: "file",
               },
             }}
-          ></ParamsItem>
-          <ParamsItem
-            className={"paramsItem"}
-            param={{
-              name: "speaking_rate",
-              in: "query",
-              description: "Get the speaking rate of each transcription for speech fluency analysis in the audio.",
-              required: false,
-              style: "form",
-              schema: {
-                type: "boolean",
-                default: `false`,
-              },
-            }}
-          ></ParamsItem>
-          <ParamsItem
-            className={"paramsItem"}
-            param={{
-              name: "word_timestamps",
-              in: "query",
-              description: "Get time offsets of each word that is recognized in the audio.",
-              required: false,
-              style: "form",
-              schema: {
-                type: "boolean",
-                default: `false`,
-              },
-            }}
-          ></ParamsItem>
-          <ParamsItem
-            className={"paramsItem"}
-            param={{
-              name: "word_list",
-              in: "query",
-              description: "List of terminology ['word_1', 'word_2', ...]",
-              required: false,
-              style: "form",
-              schema: {
-                type: "string[]",
-                default: `[]`,
-              },
-            }}
-          ></ParamsItem>
-          <ParamsItem
-            className={"paramsItem"}
-            param={{
-              name: "decoder_type",
-              in: "query",
-              description: "Decoding methods including `Greedy`, `BeamSearch`, and `LMBeamSearch`",
-              required: false,
-              style: "form",
-              schema: {
-                type: "string",
-                default: `LMBeamSearch`,
-              },
-            }}
-          ></ParamsItem>
+          >
+          </ParamsItem>
         </ul>
       </div>
     </details>
@@ -329,243 +255,151 @@ import TabItem from "@theme/TabItem";
           <TabItem label={"application/json"} value={"application/json"}>
             <SchemaTabs>
               <TabItem label={"Schema"} value={"Schema"}>
-                 <details style={{}} data-collapsed={false} open={true}>
-                  <summary style={{}}>
-                    <span style={{ opacity: "0.6" }}> object</span>
-                  </summary>
-                  <div style={{ marginLeft: "1rem" }}>
-                   <SchemaItem
-                      collapsible={false}
-                      name={"status"}
-                      required={false}
-                      schemaName={"string"}
-                      qualifierMessage={
-                        "`success` | `failed`"
-                      }
-                      schema={{
-                        description: "Status of request",
-                        title: "status",
-                      }}
-                    ></SchemaItem>
-                    <SchemaItem
-                      collapsible={false}
-                      className={"schemaItem"}
-                    >
-                      <details style={{}} data-collapsed={false} open={true}>
-                        <summary style={{}}>
-                          <strong>data</strong>
-                          <span style={{ opacity: "0.6" }}> object</span>
-                        </summary>
-                        <div style={{ marginLeft: "1rem" }}>
-                          <SchemaItem
-                            collapsible={false}
-                            className={"schemaItem"}
-                          >
-                            <details style={{}} data-collapsed={false} open={true}>
-                              <summary style={{}}>
-                                <strong>results</strong>
-                                <span style={{ opacity: "0.6" }}> Array [</span>
-                              </summary>
-                              <div style={{ marginLeft: "1rem" }}>
-                                <div>List of file result</div>
-                                <SchemaItem
-                                  collapsible={false}
-                                  className={"schemaItem"}
+                <SchemaItem
+                  collapsible={false}
+                  className={"schemaItem"}
+                >
+                  <details style={{}} data-collapsed={false} open={true}>
+                    <summary style={{}}>
+                      <span style={{ opacity: "0.6" }}> Array [</span>
+                    </summary>
+                    <div style={{ marginLeft: "1rem" }}>
+                      <div>An array of the transcription proces.</div>
+                      <SchemaItem
+                        collapsible={false}
+                        className={"schemaItem"}
+                      >
+                        <details style={{}} data-collapsed={false} open={true}>
+                          <summary style={{}}>
+                            <span style={{ opacity: "0.6" }}> object</span>
+                          </summary>
+                          <div style={{ marginLeft: "1rem" }}>
+                            <SchemaItem
+                              collapsible={false}
+                              name={"status"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={
+                                "`success` | `failed`"
+                              }
+                              schema={{
+                                description: "The status of the transcription process."
+                              }}
+                            ></SchemaItem>
+                            <SchemaItem
+                              collapsible={false}
+                              name={"duration"}
+                              required={false}
+                              schemaName={"string"}
+                              schema={{
+                                description: "The total duration of the audio file in seconds `(e.g., 20.856)`."
+                              }}
+                            ></SchemaItem>
+                            <SchemaItem
+                              collapsible={false}
+                              name={"filename"}
+                              required={false}
+                              schemaName={"string"}
+                              qualifierMessage={undefined}
+                              schema={{
+                                type: "string",
+                                description: "File name",
+                              }}
+                            ></SchemaItem>
+                            <SchemaItem
+                              collapsible={false}
+                              className={"schemaItem"}
+                            >
+                              <details style={{}} data-collapsed={false} open={true}>
+                                <summary style={{}}>
+                                  <strong>result</strong>
+                                  <span style={{ opacity: "0.6" }}> Array [</span>
+                                </summary>
+                                <div style={{ marginLeft: "1rem" }}>
+                                  <div>An array containing the individual transcript segments. Each object in this array represents a segment of the transcription.</div>
+                                  <SchemaItem
+                                    collapsible={false}
+                                    className={"schemaItem"}
+                                  >
+                                    <details style={{}} data-collapsed={false} open={true}>
+                                      <summary style={{}}>
+                                        <span style={{ opacity: "0.6" }}> object</span>
+                                      </summary>
+                                      <div style={{ marginLeft: "1rem" }}>
+                                        <SchemaItem
+                                          collapsible={false}
+                                          name={"start_time"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{
+                                            type: "string",
+                                            description: "The start time of the segment in the audio file, in seconds `(e.g., 1.6382252559726962)`.",
+                                          }}
+                                        ></SchemaItem>
+                                        <SchemaItem
+                                          collapsible={false}
+                                          name={"end_time"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{
+                                            type: "string",
+                                            description: "The end time of the segment in the audio file, in seconds `(e.g., 1.6382252559726962)`.",
+                                          }}
+                                        ></SchemaItem>
+                                        <SchemaItem
+                                          collapsible={false}
+                                          name={"speaker"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{
+                                            type: "string",
+                                            description: "The identifier of the speaker in `SPEAKER_{number}` format",
+                                          }}
+                                        ></SchemaItem>
+                                        <SchemaItem
+                                          collapsible={false}
+                                          name={"transcript"}
+                                          required={false}
+                                          schemaName={"string"}
+                                          qualifierMessage={undefined}
+                                          schema={{
+                                            type: "string",
+                                            description: "The transcribed text",
+                                          }}
+                                        ></SchemaItem>
+                                      </div>
+                                    </details>
+                                  </SchemaItem>
+                                </div>
+                                <div
+                                  style={{
+                                    fontSize: "var(--ifm-code-font-size)",
+                                    opacity: "0.6",
+                                    marginLeft: "-.5rem",
+                                  }}
                                 >
-                                  <details style={{}} data-collapsed={false} open={true}>
-                                    <summary style={{}}>
-                                      <span style={{ opacity: "0.6" }}> object</span>
-                                    </summary>
-                                    <div style={{ marginLeft: "1rem" }}>
-                                      <SchemaItem
-                                        collapsible={false}
-                                        name={"filename"}
-                                        required={false}
-                                        schemaName={"string"}
-                                        qualifierMessage={undefined}
-                                        schema={{
-                                          type: "string",
-                                          description: "File name",
-                                        }}
-                                      ></SchemaItem>
-                                      <SchemaItem
-                                        collapsible={false}
-                                        className={"schemaItem"}
-                                      >
-                                        <details style={{}} data-collapsed={false} open={true}>
-                                          <summary style={{}}>
-                                            <strong>predictions</strong>
-                                            <span style={{ opacity: "0.6" }}> Array [</span>
-                                          </summary>
-                                          <div style={{ marginLeft: "1rem" }}>
-                                            <div>List of outputs corresponds to speech detected in audio file.</div>
-                                            <SchemaItem
-                                              collapsible={false}
-                                              className={"schemaItem"}
-                                            >
-                                              <details style={{}} data-collapsed={false} open={true}>
-                                                <summary style={{}}>
-                                                  <span style={{ opacity: "0.6" }}> object</span>
-                                                </summary>
-                                                <div style={{ marginLeft: "1rem" }}>
-                                                  <SchemaItem
-                                                    collapsible={false}
-                                                    name={"start_time"}
-                                                    required={false}
-                                                    schemaName={"string"}
-                                                    qualifierMessage={undefined}
-                                                    schema={{
-                                                      type: "string",
-                                                      description: "Start time in `HH:mm:ss.sss` format",
-                                                    }}
-                                                  ></SchemaItem>
-                                                  <SchemaItem
-                                                    collapsible={false}
-                                                    name={"end_time"}
-                                                    required={false}
-                                                    schemaName={"string"}
-                                                    qualifierMessage={undefined}
-                                                    schema={{
-                                                      type: "string",
-                                                      description: "Start time in `HH:mm:ss.sss` format",
-                                                    }}
-                                                  ></SchemaItem>
-                                                  <SchemaItem
-                                                    collapsible={false}
-                                                    name={"speaker"}
-                                                    required={false}
-                                                    schemaName={"string"}
-                                                    qualifierMessage={undefined}
-                                                    schema={{
-                                                      type: "string",
-                                                      description: "Speaker in `SPEAKER_{number}` format",
-                                                    }}
-                                                  ></SchemaItem>
-                                                  <SchemaItem
-                                                    collapsible={false}
-                                                    name={"transcript"}
-                                                    required={false}
-                                                    schemaName={"string"}
-                                                    qualifierMessage={undefined}
-                                                    schema={{
-                                                      type: "string",
-                                                      description: "The transcribed text",
-                                                    }}
-                                                  ></SchemaItem>
-                                                  <SchemaItem
-                                                    collapsible={false}
-                                                    name={"speaker_rate"}
-                                                    required={false}
-                                                    schemaName={"(optional) float"}
-                                                    qualifierMessage={undefined}
-                                                    schema={{
-                                                      type: "string",
-                                                      description: "Speaking rate of each transcription",
-                                                    }}
-                                                  ></SchemaItem>
-                                                  <SchemaItem
-                                                    collapsible={false}
-                                                    className={"schemaItem"}
-                                                  >
-                                                    <details style={{}} data-collapsed={false} open={true}>
-                                                      <summary style={{}}>
-                                                        <strong>word_timestamps</strong>
-                                                        <span style={{ opacity: "0.6" }}> (optional) Array [</span>
-                                                      </summary>
-                                                      <div style={{ marginLeft: "1rem" }}>
-                                                        <div>List of the beginning and end of each word in seconds that has elapsed from the beginning of the audio.</div>
-                                                        <SchemaItem
-                                                          collapsible={false}
-                                                          className={"schemaItem"}
-                                                        >
-                                                          <details style={{}} data-collapsed={false} open={false}>
-                                                            <summary style={{}}>
-                                                              <span style={{ opacity: "0.6" }}> object</span>
-                                                            </summary>
-                                                            <div style={{ marginLeft: "1rem" }}>
-                                                              <SchemaItem
-                                                                collapsible={false}
-                                                                name={"start_time"}
-                                                                required={false}
-                                                                schemaName={"string"}
-                                                                qualifierMessage={undefined}
-                                                                schema={{
-                                                                  type: "string",
-                                                                  description: "Start time in HH:MM:SS.sss format",
-                                                                }}
-                                                              ></SchemaItem>
-                                                              <SchemaItem
-                                                                collapsible={false}
-                                                                name={"end_time"}
-                                                                required={false}
-                                                                schemaName={"string"}
-                                                                qualifierMessage={undefined}
-                                                                schema={{
-                                                                  type: "string",
-                                                                  description: "Start time in `HH:MM:SS.sss` format",
-                                                                }}
-                                                              ></SchemaItem>
-                                                              <SchemaItem
-                                                                collapsible={false}
-                                                                name={"word"}
-                                                                required={false}
-                                                                schemaName={"string"}
-                                                                qualifierMessage={undefined}
-                                                                schema={{
-                                                                  type: "string",
-                                                                  description: "Word in audio file",
-                                                                }}
-                                                              ></SchemaItem>
-                                                            </div>
-                                                          </details>
-                                                        </SchemaItem>
-                                                      </div>
-                                                      <div
-                                                        style={{
-                                                          fontSize: "var(--ifm-code-font-size)",
-                                                          opacity: "0.6",
-                                                          marginLeft: "-.5rem",
-                                                        }}
-                                                      >
-                                                        ]
-                                                      </div>
-                                                    </details>
-                                                  </SchemaItem>
-                                                </div>
-                                              </details>
-                                            </SchemaItem>
-                                          </div>
-                                          <div
-                                            style={{
-                                              fontSize: "var(--ifm-code-font-size)",
-                                              opacity: "0.6",
-                                              marginLeft: "-.5rem",
-                                            }}
-                                          >
-                                            ]
-                                          </div>
-                                        </details>
-                                      </SchemaItem>
-                                    </div>
-                                  </details>
-                                </SchemaItem>
-                              </div>
-                              <div
-                                style={{
-                                  fontSize: "var(--ifm-code-font-size)",
-                                  opacity: "0.6",
-                                  marginLeft: "-.5rem",
-                                }}
-                              >
-                                ]
-                              </div>
-                            </details>
-                          </SchemaItem>
-                        </div>
-                      </details>
-                    </SchemaItem>
-                  </div>
-                </details>
+                                  ]
+                                </div>
+                              </details>
+                            </SchemaItem>
+                          </div>
+                        </details>
+                      </SchemaItem>
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "var(--ifm-code-font-size)",
+                        opacity: "0.6",
+                        marginLeft: "-.5rem",
+                      }}
+                    >
+                      ]
+                    </div>
+                  </details>
+                </SchemaItem>
               </TabItem>
               <TabItem
                 label={"Example (from schema)"}
@@ -573,48 +407,27 @@ import TabItem from "@theme/TabItem";
               >
                 <ResponseSamples
                   responseExample={
-                    `{
-  "status": "success",
-  "data": {
-    "results": [
+                    `[
+  {
+    "filename": "Record.wav",
+    "status": "success",
+    "result": [
       {
-        "filename": "record.wav",
-        "predictions": [
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "วิสัย",
-            "start_time": "00:00:01.322",
-            "end_time": "00:00:02.158"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "บริษัทผู้พัฒนาแพลตฟอร์ม",
-            "start_time": "00:00:02.721",
-            "end_time": "00:00:05.145"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "มีเป้าหมายหลักในการเป็นศูนย์กลางการให้บริการ",
-            "start_time": "00:00:05.930",
-            "end_time": "00:00:09.274"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "การทดลองวิจัย",
-            "start_time": "00:00:09.803",
-            "end_time": "00:00:11.203"
-          },
-          {
-            "speaker": "SPEAKER_00",
-            "transcript": "และแลกเปลี่ยนความรู้ด้านปัญญาประดิษฐ์",
-            "start_time": "00:00:12.056",
-            "end_time": "00:00:14.360"
-          }
-        ]
+        "speaker": "SPEAKER_00",
+        "transcript": "วิสัย",
+        "start_time": 1.6382252559726962,
+        "end_time": 3.9761092150170647
+      },
+      {
+        "speaker": "SPEAKER_00",
+        "transcript": "บริษัทผู้พัฒนาแพลตฟอร์ม มีเป้าหมายหลักในการเป็นศูนย์กลางการให้บริการปัญญาประดิษฐ์",
+        "start_time": 4.658703071672355,
+        "end_time": 20.870307167235495
       }
-    ]
+    ],
+    "duration": 20.856
   }
-}`
+]`
                   }
                   language={"json"}
                 ></ResponseSamples>

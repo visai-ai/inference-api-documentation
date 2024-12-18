@@ -81,12 +81,6 @@ api:
       {
         "pre_signed_url":
           [{ "file_name": "visai", "url": "https://<pre-signed-url>" }],
-        "word_timestamps": false,
-        "speaking_rate": false,
-        "decoder_type": "LMBeamSearch",
-        "num_speakers": 1,
-        "word_list": ["hello"],
-        "webhook_url": "https://<your-webhook-url>",
       },
     "method": "post",
     "path": "/predict",
@@ -236,7 +230,7 @@ import TabItem from "@theme/TabItem";
                           schemaName={"string"}
                           qualifierMessage={undefined}
                           schema={{
-                            type: "number",
+                            type: "string",
                             description:
                               "File name",
                           }}
@@ -248,7 +242,7 @@ import TabItem from "@theme/TabItem";
                           schemaName={"string"}
                           qualifierMessage={undefined}
                           schema={{
-                            type: "number",
+                            type: "string",
                             description:
                               "Pre-signed URL",
                           }}
@@ -271,79 +265,9 @@ import TabItem from "@theme/TabItem";
                     <ParamsItem
                       className={"paramsItem"}
                       param={{
-                        name: "num_speakers",
-                        in: "query",
-                        description: "Number of speakers diarization in 1-4 speakers.",
-                        required: false,
-                        style: "form",
-                        schema: {
-                          type: "number",
-                          default: `1`,
-                        },
-                      }}
-                    ></ParamsItem>
-                    <ParamsItem
-                      className={"paramsItem"}
-                      param={{
-                        name: "speaking_rate",
-                        in: "query",
-                        description: "Get the speaking rate of each transcription for speech fluency analysis in the audio.",
-                        required: false,
-                        style: "form",
-                        schema: {
-                          type: "boolean",
-                          default: `false`,
-                        },
-                      }}
-                    ></ParamsItem>
-                    <ParamsItem
-                      className={"paramsItem"}
-                      param={{
-                        name: "word_timestamps",
-                        in: "query",
-                        description: "Get time offsets of each word that is recognized in the audio.",
-                        required: false,
-                        style: "form",
-                        schema: {
-                          type: "boolean",
-                          default: `false`,
-                        },
-                      }}
-                    ></ParamsItem>
-                    <ParamsItem
-                      className={"paramsItem"}
-                      param={{
-                        name: "word_list",
-                        in: "query",
-                        description: "List of terminology ['word_1', 'word_2', ...]",
-                        required: false,
-                        style: "form",
-                        schema: {
-                          type: "string[]",
-                          default: `[]`,
-                        },
-                      }}
-                    ></ParamsItem>
-                    <ParamsItem
-                      className={"paramsItem"}
-                      param={{
-                        name: "decoder_type",
-                        in: "query",
-                        description: "Decoding methods including `Greedy`, `BeamSearch`, and `LMBeamSearch`",
-                        required: false,
-                        style: "form",
-                        schema: {
-                          type: "string",
-                          default: `LMBeamSearch`,
-                        },
-                      }}
-                    ></ParamsItem>
-                    <ParamsItem
-                      className={"paramsItem"}
-                      param={{
                         name: "webhook_url",
                         in: "query",
-                        description: "Webhook endpoint for calling once job status is completed",
+                        description: "Webhook endpoint for calling once job status is completed.",
                         required: false,
                         style: "form",
                         schema: {
@@ -381,7 +305,7 @@ import TabItem from "@theme/TabItem";
                       required={false}
                       schemaName={"string"}
                       schema={{
-                        description: "Job ID of the inference",
+                        description: "ID of the inference job",
                         title: "job_id",
                       }}
                     ></SchemaItem>
