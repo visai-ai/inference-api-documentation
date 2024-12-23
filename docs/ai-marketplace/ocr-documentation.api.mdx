@@ -359,6 +359,18 @@ import TabItem from "@theme/TabItem";
                                     ></SchemaItem>
                                     <SchemaItem
                                       collapsible={false}
+                                      name={"image_size"}
+                                      required={false}
+                                      schemaName={"number[]"}
+                                      qualifierMessage={undefined}
+                                      schema={{
+                                        type: "number",
+                                        description:
+                                          "The size of the original file or the image of the specified page in pixels. The first value specifies the height, and the second value specifies the width (e.g. `[1980, 1530]`).",
+                                      }}
+                                    ></SchemaItem>
+                                    <SchemaItem
+                                      collapsible={false}
                                       className={"schemaItem"}
                                     >
                                       <details
@@ -512,7 +524,8 @@ import TabItem from "@theme/TabItem";
                   "text": "หน้าที่ 1"
                }
             ],
-            "full_text": "เอกสาร\\nหน้าที่ 1"
+            "full_text": "เอกสาร\\nหน้าที่ 1",
+            "image_size": [1980, 1530]
          },
          {
             "page": 2,
@@ -539,7 +552,8 @@ import TabItem from "@theme/TabItem";
                   "text": "นกกำลังบินออก"
                }
             ],
-            "full_text": "นกกำลังบินออก"
+            "full_text": "นกกำลังบินออก",
+            "image_size": [1980, 1530]
          }
       ]
    }
