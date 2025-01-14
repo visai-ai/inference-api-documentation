@@ -69,6 +69,11 @@ api:
                             "format": "binary",
                             "description": "(Optional) Speaker file ('.wav', '.mp3', '.ogg', and etc.)\n- Maximum 5 files, Limit file size 20 MB.",
                           },
+                        "boosting_words":
+                          {
+                            "type": "string",
+                            "description": "Boosting word (e.g., สวัสดี)",
+                          },
                       },
                     "required": ["files"],
                   },
@@ -217,6 +222,20 @@ import TabItem from "@theme/TabItem";
               style: "form",
               schema: {
                 type: "file",
+              },
+            }}
+          >
+          </ParamsItem>
+          <ParamsItem
+            className={"paramsItem"}
+            param={{
+              name: "boosting_words",
+              in: "query",
+              description: `Enhances recognition accuracy for specific words.\n Maximum 10 words can be provided.\ne.g., สวัสดี, วันจันทร์.`,
+              required: false,
+              style: "form",
+              schema: {
+                type: "string",
               },
             }}
           >

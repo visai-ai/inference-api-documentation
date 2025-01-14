@@ -79,8 +79,10 @@ api:
       },
     "jsonRequestBodyExample":
       {
-        "pre_signed_url":
-          [{ "file_name": "visai", "url": "https://<pre-signed-url>" }],
+        pre_signed_url:
+          [{ file_name: "visai", url: "https://<pre-signed-url>" }],
+        webhook_url: "https://your-webhook-url",
+        boosting_words: ["สวัสดี", "วันจันทร์"],
       },
     "method": "post",
     "path": "/predict",
@@ -275,6 +277,20 @@ import TabItem from "@theme/TabItem";
                         },
                       }}
                     ></ParamsItem>
+                    <ParamsItem
+                      className={"paramsItem"}
+                      param={{
+                        name: "boosting_words",
+                        in: "query",
+                        description: `An array of specific words to enhance recognition accuracy.\n Maximum 10 words can be provided.\ne.g., ["สวัสดี", "วันจันทร์"].`,
+                        required: false,
+                        style: "form",
+                        schema: {
+                          type: "string[]",
+                        },
+                      }}
+                    >
+                    </ParamsItem>
                   </ul>
                 </div>
               </details>

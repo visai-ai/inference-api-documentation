@@ -56,6 +56,11 @@ api:
                                         "properties":
                                           {
                                             "full_text": { "type": "string" },
+                                            "image_size":
+                                              {
+                                                "type": "array",
+                                                "description": "The size of the original file or the image of the specified page in pixels. [height, width]",
+                                              },
                                             "page": { "type": "number" },
                                             "data":
                                               {
