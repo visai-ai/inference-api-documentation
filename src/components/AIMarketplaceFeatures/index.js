@@ -5,39 +5,6 @@ import Link from "@docusaurus/Link";
 
 const textFeatureList = [
   {
-    title: "Sentiment Analysis",
-    src: require("/img/products/sentiment-analysis.webp").default,
-    href: "/docs/ai-marketplace/sentiment-analysis",
-    description: (
-      <>
-        AI can classify emotions from text into 3 categories: positive, neutral,
-        or negative.
-      </>
-    ),
-  },
-  {
-    title: "Text Classification",
-    src: require("/img/products/text-classification.webp").default,
-    href: "/docs/ai-marketplace/text-classification",
-    description: (
-      <>
-        AI categorizes text content by classifying topics or identifying
-        responsible staff mentioned in the text.
-      </>
-    ),
-  },
-  {
-    title: "Word Tokenization",
-    src: require("/img/products/word-tokenization.webp").default,
-    href: "/docs/ai-marketplace/word-tokenization",
-    description: (
-      <>
-        AI can split sentences into words for use in text search, keyword
-        extraction, and data retrieval.
-      </>
-    ),
-  },
-  {
     title: "Machine Translation",
     src: require("/img/products/machine-translation.webp").default,
     href: "/docs/ai-marketplace/machine-translation",
@@ -48,17 +15,6 @@ const textFeatureList = [
 ];
 
 const speechFeatureList = [
-  {
-    title: "Speech Segmentation",
-    src: require("/img/products/speech-segmentation.webp").default,
-    href: "/docs/ai-marketplace/speech-segmentation",
-    description: (
-      <>
-        AI can detect human speech from other sounds and is widely used in
-        voice-activated apps.
-      </>
-    ),
-  },
   {
     title: "Speech to Text",
     src: require("/img/products/speech-to-text.webp").default,

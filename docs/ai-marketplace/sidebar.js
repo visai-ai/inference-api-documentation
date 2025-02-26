@@ -2,32 +2,8 @@ module.exports = [
   // { type: "doc", id: "petstore/swagger-petstore-yaml" },
   {
     type: "doc",
-    id: "ai-marketplace/sentiment-analysis",
-    label: "Sentiment Analysis",
-    className: "api-method post",
-  },
-  {
-    type: "doc",
-    id: "ai-marketplace/text-classification",
-    label: "Text Classification",
-    className: "api-method post",
-  },
-  {
-    type: "doc",
-    id: "ai-marketplace/word-tokenization",
-    label: "Word Tokenization",
-    className: "api-method post",
-  },
-  {
-    type: "doc",
     id: "ai-marketplace/machine-translation",
     label: "Machine Translation",
-    className: "api-method post",
-  },
-  {
-    type: "doc",
-    id: "ai-marketplace/speech-segmentation",
-    label: "Speech Segmentation",
     className: "api-method post",
   },
   {
