@@ -86,6 +86,12 @@ module.exports = [
   },
   {
     type: "doc",
+    id: "ai-marketplace/ocr-receipt",
+    label: "OCR Receipt",
+    className: "api-method post",
+  },
+  {
+    type: "doc",
     id: "ai-marketplace/ocr-license-plate",
     label: "OCR License Plate",
     className: "api-method post",

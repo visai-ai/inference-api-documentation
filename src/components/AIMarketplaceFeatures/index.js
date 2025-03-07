@@ -60,6 +60,12 @@ const docFeatureList = [
     ),
   },
   {
+    title: "OCR Receipt",
+    src: require("/img/products/ocr-receipt.webp").default,
+    href: "/docs/ai-marketplace/ocr-receipt",
+    description: <>AI reads images of receipts and converts them into text.</>,
+  },
+  {
     title: "OCR License Plate",
     src: require("/img/products/ocr-license-plate.webp").default,
     href: "/docs/ai-marketplace/ocr-license-plate",
