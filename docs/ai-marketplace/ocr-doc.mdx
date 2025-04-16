@@ -1,0 +1,33 @@
+---
+id: ocr-documentation
+title: OCR Documentation
+custom_edit_url: null
+---
+
+# OCR Documentation
+
+The API is highly scalable and supports a range of document formats. Users can choose between two primary API options based on the length of the document and the use case:
+
+## Synchronous API
+
+The Synchronous API processes and extracts text from documents up to **10 pages** in length, supporting formats such as PDF, DOCX, PPTX, PNG, and JPEG.
+
+To process documents longer than 10 pages, use the Asynchronous API.
+
+```mdx-code-block
+import LinkCard from '../../src/components/LinkCard';
+
+<LinkCard title={"Synchronous API"}  href={"/docs/ai-marketplace/ocr-documentation/synchronous-api"} />
+```
+
+<hr />
+
+## Asynchronous API
+
+The Asynchronous API starts a long-running processing operation for documents **exceeding 10 pages**. Use this API for larger files, as it **supports documents up to 300 pages**.
+
+For shorter documents (10 pages or less), the Synchronous API is faster and simpler.
+
+```mdx-code-block
+<LinkCard title={"Asynchronous API"}  href={"/docs/ai-marketplace/ocr-documentation/asynchronous"} />
+```

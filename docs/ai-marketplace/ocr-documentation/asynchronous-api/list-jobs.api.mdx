@@ -1,0 +1,340 @@
+---
+id: list-jobs
+title: "List All Job of Asynchronous - Speech to Text"
+description: ""
+sidebar_label: "List All Job"
+hide_title: true
+hide_table_of_contents: true
+api:
+  {
+    "tags": ["asynchronous"],
+    "description": "",
+    "operationId": "asynSTTListJobsInfer",
+    "parameters":
+      [
+        {
+          "name": "X-API-Key",
+          "in": "header",
+          "description": "Your API key",
+          "required": true,
+          "schema": { "type": "string" },
+        },
+      ],
+    "responses":
+      {
+        "200":
+          {
+            "description": "successful operation",
+            "content":
+              {
+                "application/json":
+                  {
+                    "schema":
+                      {
+                        "type": "object",
+                        "properties":
+                          {
+                            "id":
+                              {
+                                "type": "string",
+                                "description": "Job ID of the inference",
+                              },
+                            "status":
+                              {
+                                "type": "string",
+                                "description": "Status of request",
+                              },
+                            "error":
+                              {
+                                "type": "string",
+                                "description": "Cause of error",
+                              },
+                            "webhook_url":
+                              {
+                                "type": "string",
+                                "description": "The webhook URL provided by the user in the request.",
+                              },
+                            "result":
+                              {
+                                "type": "array",
+                                "items":
+                                  {
+                                    "type": "object",
+                                    "properties":
+                                      {
+                                        "filename": { "type": "string" },
+                                        "duration": { "type": "string" },
+                                        "status": { "type": "string" },
+                                        "result":
+                                          {
+                                            "type": "array",
+                                            "itmes":
+                                              {
+                                                "type": "object",
+                                                "properties":
+                                                  {
+                                                    "speaker":
+                                                      { "type": "string" },
+                                                    "transcript":
+                                                      { "type": "string" },
+                                                    "start_time":
+                                                      { "type": "string" },
+                                                    "end_time":
+                                                      { "type": "string" },
+                                                  },
+                                              },
+                                          },
+                                      },
+                                  },
+                              },
+                          },
+                        "title": "ApiResponse",
+                      },
+                  },
+              },
+          },
+      },
+    "method": "get",
+    "mode": "no-cors",
+
+    "servers":
+      [
+        {
+          "url": "https://longrun-api.visai.ai/v1/job",
+          "description": "Default server",
+        },
+      ],
+    "securitySchemes":
+      {
+        "X-API-Key": { "type": "apiKey", "in": "header", "name": "X-API-Key" },
+      },
+    "fullURL": "https://longrun-api.visai.ai/v1/job",
+    "postman": {
+        "name": "Get Job Status - Asynchronous: Speech to Text API",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "method": "GET",
+        "mode": "no-cors",
+        # "body":
+        #   {
+        #     "mode": "raw",
+        #     "raw": '""',
+        #     "options": { "raw": { "language": "json" } },
+        #   },
+      },
+  }
+sidebar_class_name: "post api-method"
+# info_path: docs/petstore/swagger-petstore-yaml
+custom_edit_url: null
+---
+
+import ApiTabs from "@theme/ApiTabs";
+import MimeTabs from "@theme/MimeTabs";
+import ParamsItem from "@theme/ParamsItem";
+import ResponseSamples from "@theme/ResponseSamples";
+import SchemaItem from "@theme/SchemaItem";
+import SchemaTabs from "@theme/SchemaTabs";
+import DiscriminatorTabs from "@theme/DiscriminatorTabs";
+import TabItem from "@theme/TabItem";
+
+## Asynchronous - Speech to Text API
+
+<div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    marginBottom: "1rem",
+  }}
+>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22 11.0857V12.0057C21.9988 14.1621 21.3005 16.2604 20.0093 17.9875C18.7182 19.7147 16.9033 20.9782 14.8354 21.5896C12.7674 22.201 10.5573 22.1276 8.53447 21.3803C6.51168 20.633 4.78465 19.2518 3.61096 17.4428C2.43727 15.6338 1.87979 13.4938 2.02168 11.342C2.16356 9.19029 2.99721 7.14205 4.39828 5.5028C5.79935 3.86354 7.69279 2.72111 9.79619 2.24587C11.8996 1.77063 14.1003 1.98806 16.07 2.86572M22 4L12 14.01L9 11.01"
+      stroke="#475467"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+  <h2 style={{ marginBottom: "0" }}>Get list of all inference jobs</h2>
+</div>
+
+<div className="custom-url-container">
+  <span className="custom-method">POST</span>
+  <span className="custom-url">https://longrun-api.visai.ai/v1/job</span>
+</div>
+<details style={{ marginBottom: "1rem" }} data-collapsed={false} open={true}>
+  <summary style={{}}>
+    <strong>Header</strong>
+  </summary>
+  <div>
+    <ul>
+      <ParamsItem
+        className={"paramsItem"}
+        param={{
+          name: "X-API-Key",
+          in: "header",
+          description: "Your API key",
+          required: true,
+          schema: { type: "string" },
+        }}
+      ></ParamsItem>
+    </ul>
+  </div>
+</details>
+<div>
+  <ApiTabs>
+    <TabItem label={"200"} value={"200"}>
+      {/* <div>successful operation</div> */}
+      <div>
+        <MimeTabs schemaType={"response"}>
+          <TabItem label={"application/json"} value={"application/json"}>
+            <SchemaTabs>
+              <TabItem label={"Schema"} value={"Schema"}>
+                 <details style={{}} data-collapsed={false} open={true}>
+                  <summary style={{}}>
+                    <span style={{ opacity: "0.6" }}> object</span>
+                  </summary>
+                  <div style={{ marginLeft: "1rem" }}>
+                    <SchemaItem
+                      collapsible={false}
+                      className={"schemaItem"}
+                    >
+                      <details style={{}} data-collapsed={false} open={true}>
+                        <summary style={{}}>
+                          <strong>jobs</strong>
+                          <span style={{ opacity: "0.6" }}> Array [</span>
+                        </summary>
+                        <div style={{ marginLeft: "1rem" }}>
+                          <div>List of inference jobs</div>
+                          <SchemaItem
+                            collapsible={false}
+                            className={"schemaItem"}
+                          >
+                            <details style={{}} data-collapsed={false} open={true}>
+                              <summary style={{}}>
+                                <span style={{ opacity: "0.6" }}> object</span>
+                              </summary>
+                              <div style={{ marginLeft: "1rem" }}>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"id"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "ID of the inference job",
+                                    title: "id",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"status"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  qualifierMessage={
+                                    "`COMPLETED` | `FAILED` | `QUEUE` | `PROCESS`"
+                                  }
+                                  schema={{
+                                    description: "Status of request",
+                                    title: "status",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"error"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  qualifierMessage={
+                                    "`null` | `Timeout` | `Bad Inference`"
+                                  }
+                                  schema={{
+                                    description: "Reason of error",
+                                    title: "error",
+                                  }}
+                                ></SchemaItem>
+                                <SchemaItem
+                                  collapsible={false}
+                                  name={"webhook_url"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "The webhook URL provided by the user in the request.",
+                                    title: "webhook_url",
+                                  }}
+                                ></SchemaItem>
+                                 <SchemaItem
+                                  collapsible={false}
+                                  name={"created_at"}
+                                  required={false}
+                                  schemaName={"string"}
+                                  schema={{
+                                    description: "The timestamp indicating when the job was created, in ISO 8601 format with timezone information (e.g. `2024-12-18 08:03:26.405352 +0000 +0000`).",
+                                    title: "webhook_url",
+                                  }}
+                                ></SchemaItem>
+                              </div>
+                            </details>
+                          </SchemaItem>
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "var(--ifm-code-font-size)",
+                            opacity: "0.6",
+                            marginLeft: "-.5rem",
+                          }}
+                        >
+                          ]
+                        </div>
+                      </details>
+                    </SchemaItem>
+                  </div>
+                </details>
+              </TabItem>
+              <TabItem
+                label={"Example (from schema)"}
+                value={"Example (from schema)"}
+              >
+                <ResponseSamples
+                  responseExample={
+                    `{
+  "jobs": [
+    {
+      "id": "<job-id>",
+      "status": "PROCESS",
+      "error": null,
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    },
+   {
+      "id": "<job-id>",
+      "status": "COMPLETED",
+      "error": null,
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    },
+    {
+      "id": "<job-id>",
+      "status": "FAILED",
+      "error": "Timeout", // Bad Inference
+      "webhook_url": "<https://your-webhook-url>",
+      "created_at": "2024-11-12 04:19:24.95042 +0000 UTC"
+    }
+  ]
+}`
+                  }
+                  language={"json"}
+                ></ResponseSamples>
+              </TabItem>
+            </SchemaTabs>
+          </TabItem>
+        </MimeTabs>
+      </div>
+    </TabItem>
+
+  </ApiTabs>
+</div>
